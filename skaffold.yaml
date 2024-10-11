@@ -9,6 +9,20 @@ profiles:
       - coder-manifests/coder.yaml
       - coder-manifests/localstack.yaml
     deploy:
+      helm:
+        flags:
+          upgrade:
+          - --install
+        releases:
+          - name: zoo-project-dru
+            remoteChart: zoo-project/zoo-project-dru
+            namespace: zoo-project
+            createNamespace: true
+            version: 0.3.0
+            valuesFiles: []
+            setValues:
+              iam.enabled: false
+
       kubectl: 
         flags:
           global: # additional flags passed on every command.
@@ -18,19 +32,7 @@ profiles:
           - host:
               command: ["sh", "-c", "./wait-for-it.sh"]
               os: [darwin, linux]
-      helm:
-        flags:
-          upgrade:
-          - --install
-        releases:
-          - name: zoo-project-dru
-            remoteChart: zoo-project/zoo-project-dru
-            namespace: zoo-project
-            version: 0.3.0
-            valuesFiles: []
-            #  - values.yaml
-            setValues:
-              iam.enabled: false
+      
 
     portForward:
       - resourceType: service
