@@ -1,0 +1,25 @@
+apiVersion: skaffold/v4beta9
+kind: Config
+metadata:
+  name: ogc-api-processes-training
+profiles:
+  - name: coder
+    manifests:
+      rawYaml:
+      - coder-manifests/coder.yaml
+    deploy:
+      kubectl: 
+        flags:
+          global: # additional flags passed on every command.
+          - --namespace=ns2
+        hooks:
+          after:
+          - host:
+              command: ["sh", "-c", "./wait-for-it.sh"]
+              os: [darwin, linux]
+    portForward:
+      - resourceType: service
+        resourceName: code-server-service
+        namespace: ns2  # Change if using a different namespace
+        port: 8080
+        localPort: 8080  # Port on your local machine
