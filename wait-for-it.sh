@@ -2,7 +2,7 @@
 
 # Label to identify the deployment and pod
 LABEL="app=code-server"
-NAMESPACE="ns2"
+NAMESPACE="zoo-project"
 
 # Function to get the status of the deployment
 get_deployment_status() {

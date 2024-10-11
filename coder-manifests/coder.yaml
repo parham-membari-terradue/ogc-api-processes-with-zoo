@@ -41,7 +41,7 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - >
-              code-server --auth none --bind-addr 0.0.0.0:8080 --user-data-dir /workspace /workspace
+              code-server --auth none --bind-addr 0.0.0.0:8080 --user-data-dir /workspace /workspace/ogc-api-processes-with-zoo
           ports:
             - containerPort: 8080
               name: web
@@ -100,7 +100,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 20Gi
 ---
 apiVersion: v1
 kind: Service
@@ -126,6 +126,8 @@ data:
     set -x 
 
     cd /workspace
+
+    git clone https://github.com/eoap/ogc-api-processes-with-zoo.git
    
     code-server --install-extension ms-python.python 
 
@@ -143,9 +145,9 @@ data:
 
     source /workspace/.venv/bin/activate
     
-    /workspace/.venv/bin/python -m pip install --no-cache-dir stactools ipykernel
+    /workspace/.venv/bin/python -m pip install --no-cache-dir stactools ipykernel requests
 
-    /workspace/.venv/bin/python -m ipykernel install --user --name stac_env --display-name "Python (STAC)"
+    /workspace/.venv/bin/python -m ipykernel install --user --name zoo_env --display-name "Python (ZOO-Project)"
 
     export AWS_DEFAULT_REGION="us-east-1"
 
@@ -165,6 +167,8 @@ data:
     alias ll="ls -l"
 
     alias aws="aws --endpoint-url=http://localstack:4566"
+
+    source /workspace/.venv/bin/activate    
 ---
 apiVersion: v1
 kind: ConfigMap

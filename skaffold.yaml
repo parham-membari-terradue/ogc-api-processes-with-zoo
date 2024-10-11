@@ -12,15 +12,34 @@ profiles:
       kubectl: 
         flags:
           global: # additional flags passed on every command.
-          - --namespace=ns2
+          - --namespace=zoo-project
         hooks:
           after:
           - host:
               command: ["sh", "-c", "./wait-for-it.sh"]
               os: [darwin, linux]
+      helm:
+        flags:
+          upgrade:
+          - --install
+        releases:
+          - name: zoo-project-dru
+            remoteChart: zoo-project/zoo-project-dru
+            namespace: zoo-project
+            version: 0.3.0
+            valuesFiles: []
+            #  - values.yaml
+            setValues:
+              iam.enabled: false
+
     portForward:
       - resourceType: service
         resourceName: code-server-service
-        namespace: ns2  # Change if using a different namespace
+        namespace: zoo-project  # Change if using a different namespace
         port: 8080
+        localPort: 8000  # Port on your local machine
+      - resourceType: service
+        resourceName: zoo-project-dru-service
+        namespace: zoo-project  # Change if using a different namespace
+        port: 80
         localPort: 8080  # Port on your local machine
