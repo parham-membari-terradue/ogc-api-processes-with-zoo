@@ -7,6 +7,7 @@ profiles:
     manifests:
       rawYaml:
       - coder-manifests/coder.yaml
+      - coder-manifests/localstack.yaml
     deploy:
       kubectl: 
         flags:
