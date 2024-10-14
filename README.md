@@ -9,12 +9,17 @@ The webpage of the documentation is https://eoap.github.io/ogc-api-processes-wit
 
 ## Bootstrap the module on minikube
 
-Get skaffold.
-
-Deploy the training module with:
+Clone the repository: https://github.com/eoap/dev-platform-eoap with:
 
 ```
-skaffold dev -p coder
+git clone https://github.com/eoap/dev-platform-eoap.git
+```
+
+Bootstrap with `skaffold`:
+
+```
+cd dev-platform-eoap/ogc-api-processes-with-zoo/
+skaffold dev
 ```
 
 Wait for the deployments to stabilize (2 to 3 minutes).
