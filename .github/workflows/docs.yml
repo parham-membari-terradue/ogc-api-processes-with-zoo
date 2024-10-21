@@ -23,5 +23,5 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      - run: pip install mkdocs-material mkdocs-mermaid2-plugin
+      - run: pip install mkdocs-material mkdocs-mermaid2-plugin mkdocs-swagger-ui-tag
       - run: mkdocs gh-deploy --force

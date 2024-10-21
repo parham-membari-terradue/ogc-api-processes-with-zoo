@@ -17,6 +17,7 @@ theme:
         name: Switch to light mode
 plugins:
   - search
+  - swagger-ui-tag
   - mermaid2:
       version: 10.6.0
 
