@@ -45,6 +45,7 @@ markdown_extensions:
       base_path: './'
   - pymdownx.highlight:
       line_spans: __span
+
 extra_css:
   - styles/css/app.css
   
