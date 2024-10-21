@@ -35,11 +35,6 @@ markdown_extensions:
       generic: true
   - pymdownx.superfences
   - pymdownx.tabbed
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_div_format
   - attr_list
   - pymdownx.snippets:
       base_path: './'
