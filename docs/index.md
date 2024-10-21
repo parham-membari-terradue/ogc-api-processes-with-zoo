@@ -68,6 +68,14 @@ The OGC API - Processes standard modernizes and extends the capabilities offered
 
 This series of tutorials provides a step-by-step guide to using the OGC API - Processes standard, covering the core functionalities from listing available processes to accessing the results of executed jobs. Each tutorial is designed to help you understand and implement the standard's capabilities in a practical way.
 
+### OGC API Processes ZOO Project implmentation
+
+ZOO-Project is an open-source processing platform introduced in 2009, licensed under the MIT/X11 license. It facilitates integration and communication between existing software components using standards defined by the Open Geospatial Consortium (OGC).
+
+The platform aims to ensure that processing tasks follow the FAIR principles: Findable, Accessible, Interoperable, and Reproducible.
+
+The ZOO-Project supports the OGC API - Processes - Part 1: Core and Part 2 DRU standards.
+
 ### List Available Processes
 
 Learn how to retrieve the list of processes offered by the server. This step provides an overview of the available computational tasks, including process identifiers, titles, and descriptions.
