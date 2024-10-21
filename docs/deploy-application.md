@@ -1,6 +1,6 @@
 # Deploy the Application Package
 
-Deployin an Application Package using the OGC API Processes API uses the API resource highlighted in the table below:
+Deploying an Application Package using the OGC API Processes API uses the API resource highlighted in the table below:
 
 
 | **Resource**                   | **Path**                                  | **Purpose**                                                                     | **Part**   |
@@ -35,7 +35,7 @@ Provide the reference to an Application Package.
     -H 'Content-Type: application/ogcapppkg+json' \
     -d '{
     "executionUnit": {
-        "href": "https://github.com/Terradue/ogc-eo-application-package-hands-on/releases/download/1.5.0/app-water-bodies-cloud-native.1.5.0.cwl",
+        "href": "https://github.com/eoap/mastering-app-package/releases/download/1.0.0/app-water-bodies-cloud-native.1.0.0.cwl",
         "type": "application/cwl"
     }
     }'
@@ -53,7 +53,7 @@ Provide the reference to an Application Package.
     }
     data = {
         "executionUnit": {
-            "href": "https://github.com/Terradue/ogc-eo-application-package-hands-on/releases/download/1.5.0/app-water-bodies-cloud-native.1.5.0.cwl",
+            "href": "https://github.com/eoap/mastering-app-package/releases/download/1.0.0/app-water-bodies-cloud-native.1.0.0.cwl",
             "type": "application/cwl"
         }
     }
