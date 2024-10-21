@@ -20,7 +20,11 @@ Deployin an Application Package using the OGC API Processes API uses the API res
 | Job deletion                   | `/jobs/{jobID}`                           | Cancels and deletes a job.                                                      | Part 1     |
 
 
-This resource permits the deployment of the an Application Package and provide two options for the `Content-Type`:
+This resource permits the deployment of the an Application Package and provide two options for the `Content-Type`.
+
+## Content-Type: application/ogcapppkg+json
+
+Provide the reference to an Application Package.
 
 === "curl"
 
@@ -65,17 +69,99 @@ This resource permits the deployment of the an Application Package and provide t
         print(response.text)
     ```
 
-This time, we can add a request body and set its content type. There are two encodings presented which rely on the same CWL conformance class. They both use the same water_bodies.cwl, but using the OGC Application Package encoding (application/ogcapppkg+json), we can pass the CWL file by reference rather than the file content, when we pick the CWL encoding (application/cwl+yaml).
 
-When we select a content type, the request body text area should get updated and contain a relevant payload for this encoding.
+## Content-Type: application/cwl+yaml
 
-Warning
-This is a warning
+=== "curl"
+ 
 
-Warning
+    ```bash
+    curl -L https://github.com/eoap/mastering-app-package/releases/download/1.0.0/app-water-bodies-cloud-native.1.0.0.cwl > app-water-bodies-cloud-native.1.0.0.cwl
 
-If we edit the payload, the text area may not update when selecting a different encoding. In such a case, we can use the Reset button to get it corrected.
+    curl -X 'POST' \
+        'http://localhost:8080/ogc-api/processes?w=water_bodies' \
+        -H 'accept: application/json' \
+        -H 'Content-Type: application/cwl+yaml' \
+        -d @app-water-bodies-cloud-native.1.0.0.cwl
+    ```
 
-After executing the deployment request, the server sends back a process summary similar to the one we received from the previous endpoint. The server response includes a Location header that contains the URL for accessing the detailed process description.
+=== "Python"
 
-We have two options: go back to the first step and list the available processes (it should contain the deployed process), or move on to the next step and review the process description.
+    ```python
+    import requests
+
+    url = "http://localhost:8080/ogc-api/processes?w=water_bodies"
+    headers = {
+        "accept": "application/json",
+        "Content-Type": "application/cwl+yaml"
+    }
+
+    # Read the content of the file
+    with open("/path/to/your/file.yaml", "r") as file:
+        file_data = file.read()
+
+    # Send the POST request with the file content as the data
+    response = requests.post(url, headers=headers, data=file_data)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        print("Request successful!")
+        print(response.json())  # Print response content as JSON
+    else:
+        print(f"Request failed with status code {response.status_code}")
+        print(response.text)
+    ```
+
+## Response 
+
+After executing the deployment request, the server sends back a process summary. The server response includes a Location header that contains the URL for accessing the detailed process description.
+
+Response content example:
+
+```json
+{
+  "id": "water-bodies",
+  "title": "Water bodies detection based on NDWI and otsu threshold",
+  "description": "Water bodies detection based on NDWI and otsu threshold",
+  "mutable": true,
+  "version": "1.4.1",
+  "metadata": [
+    {
+      "role": "https://schema.org/softwareVersion",
+      "value": "1.4.1"
+    }
+  ],
+  "outputTransmission": [
+    "value",
+    "reference"
+  ],
+  "jobControlOptions": [
+    "async-execute",
+    "dismiss"
+  ],
+  "links": [
+    {
+      "rel": "http://www.opengis.net/def/rel/ogc/1.0/execute",
+      "type": "application/json",
+      "title": "Execute End Point",
+      "href": "http://localhost:8080/ogc-api/processes/water-bodies/execution"
+    }
+  ]
+}
+```
+
+Response headers example:
+
+```
+connection: Keep-Alive 
+ content-type: application/json;charset=UTF-8 
+ date: Mon,21 Oct 2024 12:20:48 GMT 
+ keep-alive: timeout=5,max=100 
+ location: http://localhost:8080/ogc-api/processes/water-bodies 
+ server: Apache/2.4.41 (Ubuntu) 
+ transfer-encoding: chunked 
+ x-also-also-also-powered-by: dru.securityOut 
+ x-also-also-powered-by: dru.securityIn 
+ x-also-powered-by: jwt.securityIn 
+ x-powered-by: ZOO-Project-DRU 
+```
