@@ -1,4 +1,13 @@
-## Water bodies detection 
+# Water bodies detection 
+
+
+This learning module re-uses an Application Package asset that is described in the [Mastering Earth Observation Application Packaging with CWL](https://eoap.github.io/mastering-app-package/) module.
+
+In the context of the module, the Application Package is built and released by a Continuous Integration process running in GitHub and producing the releases found under https://github.com/eoap/mastering-app-package/releases/.
+
+The paragraphs below provide an overview of the application packaged as a OGC Earth Observation Application Package.  
+
+##  Application overview
 
 This application takes as input Copernicus Sentinel-2 or USSG Landsat-9 data and detects water bodies by applying the Otsu thresholding technique on the Normalized Difference Water Index (NDWI).
 
@@ -27,7 +36,7 @@ In the simplest form, the Otsu algorithm returns a single intensity threshold th
 
 ![image](https://upload.wikimedia.org/wikipedia/commons/3/34/Otsu%27s_Method_Visualization.gif)
 
-### Application 
+## Application details
 
 The application is a Python command line tool that takes a Sentinel-2 STAC item reference applies the crop over the area of interest for the radiometric bands green and NIR, the normalized difference, the Ostu threshold and finally creates a STAC catalog and items for the generated results.
 
@@ -51,13 +60,13 @@ end
   F -- "catalog.json/item.json/asset otsu.tif" --> G[(storage)]
 ```
 
-### Application Package
+## Application Package
 
 Alice packages the application as an Application Package to include a workflow that reads a Sentinel-2 STAC item references launches Python command line tool to detect the water bodies:
 
 ![image](water_bodies.png "water-bodies")
 
-### Dataset
+## Dataset
 
 The development and test dataset is made of two Sentinel-2 acquisitions:
 
@@ -69,3 +78,4 @@ The development and test dataset is made of two Sentinel-2 acquisitions:
 | Quicklook    	| ![image](https://roda.sentinel-hub.com/sentinel-s2-l1c/tiles/10/T/FK/2021/7/13/0/preview.jpg)          	| ![image](https://roda.sentinel-hub.com/sentinel-s2-l1c/tiles/10/T/FK/2021/7/13/0/preview.jpg)                                         	| ![image](https://planetarycomputer.microsoft.com/api/data/v1/item/preview.png?collection=landsat-c2-l2&item=LC09_L2SP_042033_20231015_02_T1&assets=red&assets=green&assets=blue&color_formula=gamma+RGB+2.7%2C+saturation+1.5%2C+sigmoidal+RGB+15+0.55&format=png) |
 
 
+The execution scenario using the OGC API Processes processes several acquisitions, including the two above. 
