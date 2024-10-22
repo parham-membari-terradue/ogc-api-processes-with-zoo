@@ -1,0 +1,746 @@
+{
+    "components": {
+        "parameters": {
+            "processID": {
+                "x-internal-summary": "The id of a process",
+                "description": "The id of a process",
+                "example": "water-bodies",
+                "required": true,
+                "in": "path",
+                "name": "processID",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "jobID": {
+                "x-internal-summary": "The id of a job",
+                "description": "The id of a job",
+                "required": true,
+                "in": "path",
+                "name": "jobID",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "resultID": {
+                "x-internal-summary": "The id of an output",
+                "description": "The id of an output",
+                "required": true,
+                "in": "path",
+                "name": "resultID",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "oas-header1": {
+                "required": true,
+                "in": "header",
+                "name": "Prefer",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "return=representation",
+                        "return=minimal",
+                        "respond-async;return=representation"
+                    ]
+                }
+            },
+            "oas-header2": {
+                "required": false,
+                "in": "header",
+                "name": "Prefer",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "return=representation",
+                        "return=minimal"
+                    ]
+                }
+            },
+            "oas-header3": {
+                "required": true,
+                "in": "header",
+                "name": "Prefer",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "respond-async;return=representation"
+                    ]
+                }
+            },
+            "oas-header4": {
+                "required": true,
+                "in": "header",
+                "name": "Prefer",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "return=minimal"
+                    ]
+                }
+            },
+            "oas-header5": {
+                "required": true,
+                "in": "header",
+                "name": "Prefer",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "return=representation"
+                    ]
+                }
+            },
+            "limitParam": {
+                "x-internal-summary": "The limit parameter",
+                "description": "The limit parameter indicates the number of elements to return in an array",
+                "required": false,
+                "in": "query",
+                "name": "limit",
+                "schema": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000,
+                    "default": 1000
+                }
+            },
+            "skipParam": {
+                "x-internal-summary": "The skip parameter",
+                "description": "The skip parameter indicates the number of elements to skip before starting returning values in an array",
+                "required": false,
+                "in": "query",
+                "name": "skip",
+                "schema": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            },
+            "processIdParam": {
+                "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/parameters/processIdQueryParam.yaml"
+            },
+            "statusParam": {
+                "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/parameters/status.yaml"
+            },
+            "minDurationParam": {
+                "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/parameters/minDuration.yaml"
+            },
+            "maxDurationParam": {
+                "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/parameters/maxDuration.yaml"
+            },
+            "typeParam": {
+                "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/parameters/type.yaml"
+            },
+            "datetimeParam": {
+                "$ref": "https://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/parameters/datetime.yaml"
+            },
+            "wParam": {
+                "x-internal-summary": "The workflow id parameter",
+                "description": "The workflow parameter indicates the name of an existing entry point within the CWL workflow definition associated with",
+                "required": false,
+                "in": "query",
+                "name": "w",
+                "schema": {
+                    "type": "string",
+                    "default": "water-bodies"
+                }
+            }
+        },
+        "responses": {
+            "404": {
+                "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/openapi/responses/common-core/rNotFound.yaml"
+            },
+            "500": {
+                "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/openapi/responses/common-core/rServerError.yaml"
+            },
+            "400": {
+                "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/openapi/responses/common-core/rInvalidParameter.yaml"
+            },
+            "405": {
+                "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/core/openapi/responses/NotAllowed.yaml"
+            },
+            "406": {
+                "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/core/openapi/responses/NotSupported.yaml"
+            },
+            "401": {
+                "$ref": "https://raw.githubusercontent.com/ZOO-Project/ZOO-Project/master/thirds/openapi/responses/Unauthorized.yaml"
+            },
+            "403": {
+                "$ref": "https://raw.githubusercontent.com/ZOO-Project/ZOO-Project/master/thirds/openapi/responses/Forbidden.yaml"
+            },
+            "409": {
+                "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/refs/heads/master/openapi/responses/processes-dru/rDuplicateProcess.yaml"
+            }
+        }
+    },
+    "info": {
+        "contact": {
+            "name": "ZOO-Project",
+            "email": "gerald.fenoy@geolabs.fr",
+            "url": "http://www.zoo-project.org"
+        },
+        "title": "ZOO-Project with Deploy, Replace, Undeploy and CWL support",
+        "version": "2.0.0",
+        "x-keywords": [
+            "WPS",
+            "GIS",
+            "buffer"
+        ],
+        "x-ows-servicecontact": {
+            "providerName": "ZOO-Project",
+            "providerSite": "http://www.zoo-project.org",
+            "individualName": "Gerald FENOY",
+            "positionName": "Developer",
+            "role": "Dev",
+            "addressDeliveryPoint": "1280, avenue des Platanes",
+            "addressCity": "Lattes",
+            "addressAdministrativeArea": "False",
+            "addressPostalCode": "34970",
+            "addressCountry": "fr",
+            "addressElectronicMailAddress": "gerald.fenoy@geolabs.fr",
+            "phoneVoice": "False",
+            "phoneFacsimile": "False"
+        },
+        "license": {
+            "name": "OGC license",
+            "url": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/LICENSE"
+        }
+    },
+    "openapi": "3.0.3",
+    "tags": [
+        {
+            "name": "Browse the API",
+            "description": "From the landing page we can list links exposed by the API, it should contains a link to `/conformance` to use to know what are the server capabilities."
+        },
+        {
+            "name": "List - deploy",
+            "description": "From this section, we can list available processes, deploy new processes then get detailled description of the created process"
+        },
+        {
+            "name": "Execute process - monitor job - access the result",
+            "description": "From this section, we can execute processes to create jobs, monitor these jobs during their execution then access the resulting data"
+        },
+        {
+            "name": "Jobs management",
+            "description": "From this section, we can list or dismiss jobs"
+        },
+        {
+            "name": "Processes management",
+            "description": "From this section, we can modify or remove deployed processes"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "landing page of this API",
+                "description": "The landing page provides links to the API definition, the Conformance statements and the metadata about the processes offered by this service.",
+                "tags": [
+                    "Browse the API"
+                ],
+                "operationId": "Browse the APIget_root",
+                "responses": {
+                    "200": {
+                        "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/responses/LandingPage.yaml"
+                    }
+                }
+            }
+        },
+        "/conformance": {
+            "get": {
+                "summary": "information about standards that this API conforms to",
+                "description": "List all conformance classes specified in the OGC API - Processes - Part 1: Core standard that the server conforms to",
+                "tags": [
+                    "Browse the API"
+                ],
+                "operationId": "Browse the APIget_conformance",
+                "responses": {
+                    "200": {
+                        "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/responses/ConformanceDeclaration.yaml"
+                    }
+                }
+            }
+        },
+        "/api": {
+            "get": {
+                "summary": "This document",
+                "description": "This document",
+                "tags": [
+                    "Browse the API"
+                ],
+                "operationId": "Browse the APIget_api",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/vnd.oai.openapi+json;version=3.0": {}
+                        },
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/processes": {
+            "get": {
+                "summary": "retrieve available processes",
+                "description": "Information about the available processes",
+                "tags": [
+                    "List - deploy"
+                ],
+                "operationId": "get_processes",
+                "responses": {
+                    "200": {
+                        "$ref": "https://raw.githubusercontent.com/GeoLabs/ogcapi-processes/rel-1.0/core/openapi/responses/ProcessList.yaml"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/limitParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/skipParam"
+                    }
+                ]
+            },
+            "post": {
+                "summary": "deploy a new processes",
+                "description": "Deploy a new processes",
+                "tags": [
+                    "List - deploy"
+                ],
+                "operationId": "post_processes",
+                "responses": {
+                    "201": {
+                        "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/openapi/responses/processes-dru/rDeployProcess.yaml"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/409"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/wParam"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/cwl+yaml": {
+                            "schema": {
+                                "$ref": "https://raw.githubusercontent.com/common-workflow-language/schema_salad/main/schema_salad/metaschema/metaschema.yml"
+                            },
+                            "examples": {
+                                "0": {
+                                    "summary": "Example 0: Deploy water-bodies process using the CWL Application Package encoding",
+                                    "value": "cwlVersion: v1.0\n$namespaces:\n  s: https://schema.org/\ns:softwareVersion: 1.4.1\nschemas:\n  - http://schema.org/version/9.0/schemaorg-current-http.rdf\n$graph:\n  - class: Workflow\n    id: water-bodies\n    label: Water bodies detection based on NDWI and otsu threshold\n    doc: Water bodies detection based on NDWI and otsu threshold\n    requirements:\n      - class: ScatterFeatureRequirement\n      - class: SubworkflowFeatureRequirement\n    inputs:\n      aoi:\n        label: area of interest\n        doc: area of interest as a bounding box\n        type: string\n      epsg:\n        label: EPSG code\n        doc: EPSG code\n        type: string\n        default: \"EPSG:4326\"\n      stac_items:\n        label: Sentinel-2 STAC items\n        doc: list of Sentinel-2 COG STAC items\n        type: string[]\n      bands:\n        label: bands used for the NDWI\n        doc: bands used for the NDWI\n        type: string[]\n        default: [\"green\", \"nir\"]\n    outputs:\n      - id: stac\n        outputSource:\n          - node_stac/stac_catalog\n        type: Directory\n    steps:\n      node_water_bodies:\n        run: \"#detect_water_body\"\n        in:\n          item: stac_items\n          aoi: aoi\n          epsg: epsg\n          bands: bands\n        out:\n          - detected_water_body\n        scatter: item\n        scatterMethod: dotproduct\n      node_stac:\n        run: \"#stac\"\n        in:\n          item: stac_items\n          rasters:\n            source: node_water_bodies/detected_water_body\n        out:\n          - stac_catalog\n  - class: Workflow\n    id: detect_water_body\n    label: Water body detection based on NDWI and otsu threshold\n    doc: Water body detection based on NDWI and otsu threshold\n    requirements:\n      - class: ScatterFeatureRequirement\n    inputs:\n      aoi:\n        doc: area of interest as a bounding box\n        type: string\n      epsg:\n        doc: EPSG code\n        type: string\n        default: \"EPSG:4326\"\n      bands:\n        doc: bands used for the NDWI\n        type: string[]\n      item:\n        doc: STAC item\n        type: string\n    outputs:\n      - id: detected_water_body\n        outputSource:\n          - node_otsu/binary_mask_item\n        type: File\n    steps:\n      node_crop:\n        run: \"#crop\"\n        in:\n          item: item\n          aoi: aoi\n          epsg: epsg\n          band: bands\n        out:\n          - cropped\n        scatter: band\n        scatterMethod: dotproduct\n      node_normalized_difference:\n        run: \"#norm_diff\"\n        in:\n          rasters:\n            source: node_crop/cropped\n        out:\n          - ndwi\n      node_otsu:\n        run: \"#otsu\"\n        in:\n          raster:\n            source: node_normalized_difference/ndwi\n        out:\n          - binary_mask_item\n  - class: CommandLineTool\n    id: crop\n    requirements:\n      InlineJavascriptRequirement: {}\n      EnvVarRequirement:\n        envDef:\n          PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n          PYTHONPATH: /app\n      ResourceRequirement:\n        coresMax: 1\n        ramMax: 512\n    hints:\n      DockerRequirement:\n        dockerPull: ghcr.io/terradue/ogc-eo-application-package-hands-on/crop:1.5.0\n    baseCommand: [\"python\", \"-m\", \"app\"]\n    arguments: []\n    inputs:\n      item:\n        type: string\n        inputBinding:\n          prefix: --input-item\n      aoi:\n        type: string\n        inputBinding:\n          prefix: --aoi\n      epsg:\n        type: string\n        inputBinding:\n          prefix: --epsg\n      band:\n        type: string\n        inputBinding:\n          prefix: --band\n    outputs:\n      cropped:\n        outputBinding:\n          glob: '*.tif'\n        type: File\n  - class: CommandLineTool\n    id: norm_diff\n    requirements:\n      InlineJavascriptRequirement: {}\n      EnvVarRequirement:\n        envDef:\n          PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n          PYTHONPATH: /app\n      ResourceRequirement:\n        coresMax: 1\n        ramMax: 512\n    hints:\n      DockerRequirement:\n        dockerPull: ghcr.io/terradue/ogc-eo-application-package-hands-on/norm_diff:1.5.0\n    baseCommand: [\"python\", \"-m\", \"app\"]\n    arguments: []\n    inputs:\n      rasters:\n        type: File[]\n        inputBinding:\n          position: 1\n    outputs:\n      ndwi:\n        outputBinding:\n          glob: '*.tif'\n        type: File\n  - class: CommandLineTool\n    id: otsu\n    requirements:\n      InlineJavascriptRequirement: {}\n      EnvVarRequirement:\n        envDef:\n          PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n          PYTHONPATH: /app\n      ResourceRequirement:\n        coresMax: 1\n        ramMax: 512\n    hints:\n      DockerRequirement:\n        dockerPull: ghcr.io/terradue/ogc-eo-application-package-hands-on/otsu:1.5.0\n    baseCommand: [\"python\", \"-m\", \"app\"]\n    arguments: []\n    inputs:\n      raster:\n        type: File\n        inputBinding:\n          position: 1\n    outputs:\n      binary_mask_item:\n        outputBinding:\n          glob: '*.tif'\n        type: File\n  - class: CommandLineTool\n    id: stac\n    requirements:\n      InlineJavascriptRequirement: {}\n      EnvVarRequirement:\n        envDef:\n          PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n          PYTHONPATH: /app\n      ResourceRequirement:\n        coresMax: 1\n        ramMax: 512\n    hints:\n      DockerRequirement:\n        dockerPull: ghcr.io/terradue/ogc-eo-application-package-hands-on/stac:1.5.0\n    baseCommand: [\"python\", \"-m\", \"app\"]\n    arguments: []\n    inputs:\n      item:\n        type:\n          type: array\n          items: string\n          inputBinding:\n            prefix: --input-item\n      rasters:\n        type:\n          type: array\n          items: File\n          inputBinding:\n            prefix: --water-body\n    outputs:\n      stac_catalog:\n        outputBinding:\n          glob: .\n        type: Directory\n"
+                                }
+                            }
+                        },
+                        "application/ogcapppkg+json": {
+                            "schema": {
+                                "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/openapi/schemas/processes-dru/ogcapppkg.yaml"
+                            },
+                            "examples": {
+                                "1": {
+                                    "summary": "Example 1: Deploy water-bodies process using OGC Application Package encoding",
+                                    "value": {
+                                        "executionUnit": {
+                                            "href": "https://github.com/Terradue/ogc-eo-application-package-hands-on/releases/download/1.5.0/app-water-bodies-cloud-native.1.5.0.cwl",
+                                            "type": "application/cwl"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "description": "Mandatory OGC Application Package in JSON format",
+                    "required": true
+                }
+            }
+        },
+        "/processes/{processID}": {
+            "get": {
+                "summary": "retrieve a process description",
+                "description": "A process description.",
+                "tags": [
+                    "List - deploy"
+                ],
+                "operationId": "get_processes__processID_",
+                "responses": {
+                    "200": {
+                        "$ref": "https://raw.githubusercontent.com/GeoLabs/ogcapi-processes/rel-1.0/core/openapi/responses/swagger/ProcessDescription.yaml"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/processID"
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "undeploy a mutable process",
+                "description": "Undeploy a mutable process.",
+                "tags": [
+                    "Processes management"
+                ],
+                "operationId": "delete_processes__processID_",
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/processID"
+                    }
+                ]
+            },
+            "put": {
+                "summary": "Update a mutable process",
+                "description": "Update a mutable process.",
+                "tags": [
+                    "Processes management"
+                ],
+                "operationId": "put_processes__processID_",
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/processID"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/ogcapppkg+json": {
+                            "schema": {
+                                "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/openapi/schemas/processes-dru/ogcapppkg.yaml"
+                            },
+                            "examples": {
+                                "0": {
+                                    "summary": "Example 0: Update water-bodies process",
+                                    "value": {
+                                        "executionUnit": {
+                                            "href": "https://github.com/Terradue/ogc-eo-application-package-hands-on/releases/download/1.5.0/app-water-bodies-cloud-native.1.5.0.cwl",
+                                            "type": "application/cwl"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "application/cwl+yaml": {
+                            "schema": {
+                                "$ref": "https://raw.githubusercontent.com/common-workflow-language/schema_salad/main/schema_salad/metaschema/metaschema.yml"
+                            },
+                            "examples": {
+                                "1": {
+                                    "summary": "Example 1: Update test water-bodies process",
+                                    "value": "cwlVersion: v1.0\n$namespaces:\n  s: https://schema.org/\ns:softwareVersion: 1.4.1\nschemas:\n  - http://schema.org/version/9.0/schemaorg-current-http.rdf\n$graph:\n  - class: Workflow\n    id: water-bodies\n    label: Water bodies detection based on NDWI and otsu threshold\n    doc: Water bodies detection based on NDWI and otsu threshold\n    requirements:\n      - class: ScatterFeatureRequirement\n      - class: SubworkflowFeatureRequirement\n    inputs:\n      aoi:\n        label: area of interest\n        doc: area of interest as a bounding box\n        type: string\n      epsg:\n        label: EPSG code\n        doc: EPSG code\n        type: string\n        default: \"EPSG:4326\"\n      stac_items:\n        label: Sentinel-2 STAC items\n        doc: list of Sentinel-2 COG STAC items\n        type: string[]\n      bands:\n        label: bands used for the NDWI\n        doc: bands used for the NDWI\n        type: string[]\n        default: [\"green\", \"nir\"]\n    outputs:\n      - id: stac\n        outputSource:\n          - node_stac/stac_catalog\n        type: Directory\n    steps:\n      node_water_bodies:\n        run: \"#detect_water_body\"\n        in:\n          item: stac_items\n          aoi: aoi\n          epsg: epsg\n          bands: bands\n        out:\n          - detected_water_body\n        scatter: item\n        scatterMethod: dotproduct\n      node_stac:\n        run: \"#stac\"\n        in:\n          item: stac_items\n          rasters:\n            source: node_water_bodies/detected_water_body\n        out:\n          - stac_catalog\n  - class: Workflow\n    id: detect_water_body\n    label: Water body detection based on NDWI and otsu threshold\n    doc: Water body detection based on NDWI and otsu threshold\n    requirements:\n      - class: ScatterFeatureRequirement\n    inputs:\n      aoi:\n        doc: area of interest as a bounding box\n        type: string\n      epsg:\n        doc: EPSG code\n        type: string\n        default: \"EPSG:4326\"\n      bands:\n        doc: bands used for the NDWI\n        type: string[]\n      item:\n        doc: STAC item\n        type: string\n    outputs:\n      - id: detected_water_body\n        outputSource:\n          - node_otsu/binary_mask_item\n        type: File\n    steps:\n      node_crop:\n        run: \"#crop\"\n        in:\n          item: item\n          aoi: aoi\n          epsg: epsg\n          band: bands\n        out:\n          - cropped\n        scatter: band\n        scatterMethod: dotproduct\n      node_normalized_difference:\n        run: \"#norm_diff\"\n        in:\n          rasters:\n            source: node_crop/cropped\n        out:\n          - ndwi\n      node_otsu:\n        run: \"#otsu\"\n        in:\n          raster:\n            source: node_normalized_difference/ndwi\n        out:\n          - binary_mask_item\n  - class: CommandLineTool\n    id: crop\n    requirements:\n      InlineJavascriptRequirement: {}\n      EnvVarRequirement:\n        envDef:\n          PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n          PYTHONPATH: /app\n      ResourceRequirement:\n        coresMax: 1\n        ramMax: 512\n    hints:\n      DockerRequirement:\n        dockerPull: ghcr.io/terradue/ogc-eo-application-package-hands-on/crop:1.5.0\n    baseCommand: [\"python\", \"-m\", \"app\"]\n    arguments: []\n    inputs:\n      item:\n        type: string\n        inputBinding:\n          prefix: --input-item\n      aoi:\n        type: string\n        inputBinding:\n          prefix: --aoi\n      epsg:\n        type: string\n        inputBinding:\n          prefix: --epsg\n      band:\n        type: string\n        inputBinding:\n          prefix: --band\n    outputs:\n      cropped:\n        outputBinding:\n          glob: '*.tif'\n        type: File\n  - class: CommandLineTool\n    id: norm_diff\n    requirements:\n      InlineJavascriptRequirement: {}\n      EnvVarRequirement:\n        envDef:\n          PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n          PYTHONPATH: /app\n      ResourceRequirement:\n        coresMax: 1\n        ramMax: 512\n    hints:\n      DockerRequirement:\n        dockerPull: ghcr.io/terradue/ogc-eo-application-package-hands-on/norm_diff:1.5.0\n    baseCommand: [\"python\", \"-m\", \"app\"]\n    arguments: []\n    inputs:\n      rasters:\n        type: File[]\n        inputBinding:\n          position: 1\n    outputs:\n      ndwi:\n        outputBinding:\n          glob: '*.tif'\n        type: File\n  - class: CommandLineTool\n    id: otsu\n    requirements:\n      InlineJavascriptRequirement: {}\n      EnvVarRequirement:\n        envDef:\n          PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n          PYTHONPATH: /app\n      ResourceRequirement:\n        coresMax: 1\n        ramMax: 512\n    hints:\n      DockerRequirement:\n        dockerPull: ghcr.io/terradue/ogc-eo-application-package-hands-on/otsu:1.5.0\n    baseCommand: [\"python\", \"-m\", \"app\"]\n    arguments: []\n    inputs:\n      raster:\n        type: File\n        inputBinding:\n          position: 1\n    outputs:\n      binary_mask_item:\n        outputBinding:\n          glob: '*.tif'\n        type: File\n  - class: CommandLineTool\n    id: stac\n    requirements:\n      InlineJavascriptRequirement: {}\n      EnvVarRequirement:\n        envDef:\n          PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n          PYTHONPATH: /app\n      ResourceRequirement:\n        coresMax: 1\n        ramMax: 512\n    hints:\n      DockerRequirement:\n        dockerPull: ghcr.io/terradue/ogc-eo-application-package-hands-on/stac:1.5.0\n    baseCommand: [\"python\", \"-m\", \"app\"]\n    arguments: []\n    inputs:\n      item:\n        type:\n          type: array\n          items: string\n          inputBinding:\n            prefix: --input-item\n      rasters:\n        type:\n          type: array\n          items: File\n          inputBinding:\n            prefix: --water-body\n    outputs:\n      stac_catalog:\n        outputBinding:\n          glob: .\n        type: Directory\n"
+                                }
+                            }
+                        }
+                    },
+                    "description": "Mandatory OGC Application Package in CWL format",
+                    "required": true
+                }
+            }
+        },
+        "/processes/{processID}/package": {
+            "get": {
+                "summary": "fetch formal description",
+                "description": "Fetch the formal description",
+                "tags": [
+                    "Processes management"
+                ],
+                "operationId": "Processes managementprocesses__processID__package",
+                "responses": {
+                    "200": {
+                        "$ref": "https://raw.githubusercontent.com/GeoLabs/ogcapi-processes/feature/add-rPackage/openapi/responses/processes-dru/rPackage.yaml"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/processID"
+                    }
+                ]
+            }
+        },
+        "/processes/{processID}/execution": {
+            "post": {
+                "summary": "execute a job",
+                "description": "An execute endpoint.",
+                "tags": [
+                    "Execute process - monitor job - access the result"
+                ],
+                "operationId": "Execute process - monitor job - access the resultprocesses__processID__execution",
+                "responses": {
+                    "200": {
+                        "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/responses/ExecuteSync.yaml"
+                    },
+                    "201": {
+                        "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/responses/ExecuteAsync.yaml"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/processID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/oas-header1"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "https://raw.githubusercontent.com/GeoLabs/ogcapi-processes/rel-1.0/core/openapi/schemas/execute.yaml"
+                            },
+                            "examples": {
+                                "0": {
+                                    "summary": "Example 0: Execute water-bodies with the presented stac item",
+                                    "value": {
+                                        "inputs": {
+                                            "stac_items": [
+                                                "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_10TFK_20210713_0_L2A",
+                                                "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2A_10TFK_20220524_0_L2A"
+                                            ],
+                                            "aoi": "-121.399,39.834,-120.74,40.472",
+                                            "epsg": "EPSG:4326",
+                                            "bands": [
+                                                "green",
+                                                "nir"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "description": "Mandatory execute request in JSON format",
+                    "required": true
+                },
+                "callbacks": {
+                    "jobSuccess": {
+                        "{$request.body#/subscriber/successUri}": {
+                            "post": {
+                                "summary": "Results received successfully",
+                                "requestBody": {
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/results.yaml"
+                                            }
+                                        }
+                                    }
+                                },
+                                "responses": {
+                                    "200": {
+                                        "description": "Results received successfully"
+                                    }
+                                },
+                                "operationId": "jobSuccessprocesses__processID__execution"
+                            }
+                        }
+                    },
+                    "jobInProgress": {
+                        "{$request.body#/subscriber/inProgressUri}": {
+                            "post": {
+                                "summary": "Status received successfully",
+                                "requestBody": {
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/statusInfo.yaml"
+                                            }
+                                        }
+                                    }
+                                },
+                                "responses": {
+                                    "200": {
+                                        "description": "Status received successfully"
+                                    }
+                                },
+                                "operationId": "jobInProgressprocesses__processID__execution"
+                            }
+                        }
+                    },
+                    "jobFailed": {
+                        "{$request.body#/subscriber/failedUri}": {
+                            "post": {
+                                "summary": "Exception received successfully",
+                                "requestBody": {
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/exception.yaml"
+                                            }
+                                        }
+                                    }
+                                },
+                                "responses": {
+                                    "200": {
+                                        "description": "Exception received successfully"
+                                    }
+                                },
+                                "operationId": "jobFailedprocesses__processID__execution"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/jobs": {
+            "get": {
+                "summary": "retrieve a list of jobs run",
+                "description": "A list of jobs run.",
+                "tags": [
+                    "Jobs management"
+                ],
+                "operationId": "Jobs managementget_jobs",
+                "responses": {
+                    "200": {
+                        "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/responses/JobList.yaml"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/limitParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/skipParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/processIdParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/statusParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/minDurationParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/maxDurationParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/typeParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/datetimeParam"
+                    }
+                ]
+            }
+        },
+        "/jobs/{jobID}": {
+            "get": {
+                "summary": "The status of a job.",
+                "description": "The status of a job.",
+                "tags": [
+                    "Execute process - monitor job - access the result"
+                ],
+                "operationId": "Execute process - monitor job - access the resultget_jobs__jobID_",
+                "responses": {
+                    "200": {
+                        "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/responses/Status.yaml"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/jobID"
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete a job",
+                "description": "Cancel the job execution.",
+                "tags": [
+                    "Jobs management"
+                ],
+                "operationId": "Jobs managementget_jobs__jobID_",
+                "responses": {
+                    "200": {
+                        "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/responses/Status.yaml"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/jobID"
+                    }
+                ]
+            }
+        },
+        "/jobs/{jobID}/results": {
+            "get": {
+                "summary": "The result of a job execution.",
+                "description": "The result of a job execution.",
+                "tags": [
+                    "Execute process - monitor job - access the result"
+                ],
+                "operationId": "Execute process - monitor job - access the resultget_jobs__jobID__results",
+                "responses": {
+                    "200": {
+                        "$ref": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/responses/Results.yaml"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/jobID"
+                    }
+                ]
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/ogc-api",
+            "description": "ZOO-Project with Deploy, Replace, Undeploy and CWL support"
+        }
+    ]
+}
