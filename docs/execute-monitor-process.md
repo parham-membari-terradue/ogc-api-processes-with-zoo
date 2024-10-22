@@ -1,6 +1,6 @@
 # Execute the process and monitor the execution
 
-To submit an execution request of a deployed process and monitor it, the OGC API Processes API uses the resource highlighted in the table below:
+To submit an execution request of a deployed process and monitor it, the OGC API Processes API uses the resource highlighted in bold in the table below:
 
 | **Resource**                   | **Path**                                  | **Purpose**                                                                     | **Part**   |
 |--------------------------------|-------------------------------------------|---------------------------------------------------------------------------------|------------|
