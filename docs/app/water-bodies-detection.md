@@ -3,7 +3,7 @@
 
 This learning module re-uses an Application Package asset that is described in the [Mastering Earth Observation Application Packaging with CWL](https://eoap.github.io/mastering-app-package/) module.
 
-In the context of the module, the Application Package is built and released by a Continuous Integration process running in GitHub and producing the releases found under https://github.com/eoap/mastering-app-package/releases/.
+In the context of the module, the Application Package is built and released by a Continuous Integration process running in GitHub and producing the releases found under [https://github.com/eoap/mastering-app-package/releases/](https://github.com/eoap/mastering-app-package/releases/).
 
 The paragraphs below provide an overview of the application packaged as a OGC Earth Observation Application Package.  
 

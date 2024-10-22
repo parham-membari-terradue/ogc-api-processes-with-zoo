@@ -36,7 +36,7 @@ Alice, an EO application developer, packages her water-bodies detection software
 
 This workflow allows Alice to share her EO Application Package for others like Eric to deploy on OGC API - Processes servers.
 
-> Note: See https://eoap.github.io/mastering-app-package/ to learn about this scenario.
+> Note: See [https://eoap.github.io/mastering-app-package/](https://eoap.github.io/mastering-app-package/) to learn about this scenario.
 
 ### Eric's User Scenario
 
