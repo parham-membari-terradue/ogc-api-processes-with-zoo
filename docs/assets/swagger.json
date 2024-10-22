@@ -211,7 +211,7 @@
             "description": "From the landing page we can list links exposed by the API, it should contains a link to `/conformance` to use to know what are the server capabilities."
         },
         {
-            "name": "List - deploy - get detailed information about processes",
+            "name": "List - deploy",
             "description": "From this section, we can list available processes, deploy new processes then get detailled description of the created process"
         },
         {
@@ -281,7 +281,7 @@
                 "summary": "retrieve available processes",
                 "description": "Information about the available processes",
                 "tags": [
-                    "List - deploy - get detailed information about processes"
+                    "List - deploy"
                 ],
                 "operationId": "get_processes",
                 "responses": {
@@ -302,9 +302,9 @@
                 "summary": "deploy a new processes",
                 "description": "Deploy a new processes",
                 "tags": [
-                    "List - deploy - get detailed information about processes"
+                    "List - deploy"
                 ],
-                "operationId": "List - deploy - get detailed information about processespost_processes",
+                "operationId": "post_processes",
                 "responses": {
                     "201": {
                         "$ref": "https://raw.githubusercontent.com/opengeospatial/ogcapi-processes/master/openapi/responses/processes-dru/rDeployProcess.yaml"
@@ -361,7 +361,7 @@
                 "summary": "retrieve a process description",
                 "description": "A process description.",
                 "tags": [
-                    "List - deploy - get detailed information about processes"
+                    "List - deploy"
                 ],
                 "operationId": "get_processes__processID_",
                 "responses": {
