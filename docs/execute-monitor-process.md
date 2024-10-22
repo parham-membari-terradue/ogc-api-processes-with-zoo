@@ -88,7 +88,7 @@ The information received in the response body matches the process summary that c
     }
     ```
 
-=== Response headers
+=== "Response headers"
 
     Below an example of the response headers
 
