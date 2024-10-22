@@ -1,6 +1,6 @@
 # Describe the process
 
-To describe a process, the OGC API Processes API uses the resource highlighted in the table below:
+To describe a process, the OGC API Processes API uses the resource highlighted in bold in the table below:
 
 | **Resource**                   | **Path**                                  | **Purpose**                                                                     | **Part**   |
 |--------------------------------|-------------------------------------------|---------------------------------------------------------------------------------|------------|
@@ -22,7 +22,7 @@ The process description contains information about inputs and outputs and a link
 
 The _OGC API Processes - Core_ does not mandate the use of a specific process description to specify the interface of a process. That said, the _OGC API Processes - Core_ requirements class makes the following recommendation:
 
-| Implementations SHOULD consider supporting the OGC process description.
+> Implementations SHOULD consider supporting the OGC process description.
 
 For more information, see OGC 18-062r2 <a rel="noopener noreferrer" target="_blank" href="https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_process_list">Section 7.10</a>.
 

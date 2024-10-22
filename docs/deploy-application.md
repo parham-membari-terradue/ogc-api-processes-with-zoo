@@ -1,6 +1,6 @@
 # Deploy the Application Package
 
-Deploying an Application Package using the OGC API Processes API uses the API resource highlighted in the table below:
+Deploying an Application Package using the OGC API Processes uses the API resource highlighted in bold in the table below:
 
 
 | **Resource**                   | **Path**                                  | **Purpose**                                                                     | **Part**   |
