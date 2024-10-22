@@ -21,7 +21,7 @@ To list the available and deployed processes, OGC API Processes API uses the res
 
 The list of processes contains a summary of each process the OGC API - Processes offers, including the link to a more detailed description of the process.
 
-For more information, see OGC 18-062r2 <a rel="noopener noreferrer" target="_blank" href="https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_process_list">Section 7.9</a>..
+For more information, see OGC 18-062r2 <a rel="noopener noreferrer" target="_blank" href="https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_process_list">Section 7.9</a>.
 
 === "curl"
 
