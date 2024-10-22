@@ -1,6 +1,6 @@
 # List the available and deployed processes
 
-To list the available and deployed processes, OGC API Processes API uses the resource highlighted in the table below:
+To list the available and deployed processes, OGC API Processes API uses the resource highlighted in bold in the table below:
 
 | **Resource**                   | **Path**                                  | **Purpose**                                                                     | **Part**   |
 |--------------------------------|-------------------------------------------|---------------------------------------------------------------------------------|------------|

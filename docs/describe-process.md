@@ -1,6 +1,6 @@
 # Describe the process
 
-To describe a process, the OGC API Processes API uses the resource highlighted in the table below:
+To describe a process, the OGC API Processes API uses the resource highlighted in bold in the table below:
 
 | **Resource**                   | **Path**                                  | **Purpose**                                                                     | **Part**   |
 |--------------------------------|-------------------------------------------|---------------------------------------------------------------------------------|------------|
