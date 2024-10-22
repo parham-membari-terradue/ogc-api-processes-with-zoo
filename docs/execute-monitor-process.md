@@ -57,8 +57,31 @@ The information received in the response body matches the process summary that c
 === "Python"
 
     ```python
-    print("coming soon")
+    data = {
+        "inputs": {
+            "stac_items": [
+                "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_10TFK_20210713_0_L2A",
+                "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2A_10TFK_20220524_0_L2A"
+            ],
+            "aoi": "-121.399,39.834,-120.74,40.472",
+            "epsg": "EPSG:4326",
+            "bands": [
+                "green",
+                "nir"
+            ]
+        }
+    }
 
+    headers = {
+        "accept": "*/*",
+        "Prefer": "respond-async;return=representation",
+        "Content-Type": "application/json"
+    }
+
+    process_id = "water-bodies" 
+
+    # Submit the processing request
+    response = requests.post(f"{ogc_api_endpoint}/processes/{process_id}/execution", headers=headers, json=data)
     ```
 
 ### Response body and headers
@@ -137,7 +160,12 @@ In the ZOO-Project-DRU implementation, links to the log files of every step of t
 === "Python"
 
     ```python
-    print("coming soon")
+    job_url = "http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308"
+    
+    headers = {"accept": "application/json"}
+
+    status_response = requests.get(job_url, headers=headers)
+    
     ```
 
 ### Response body
@@ -273,7 +301,11 @@ Once the execution process is complete, the job `{jobID}` results are accessed u
 === "Python"
 
     ```python
-    print("coming soon")
+    results_url = "http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/results"
+    
+    headers = {"accept": "application/json"}
+
+    response = requests.get(results_url, headers=headers)
     ```
 
 ### Response body 
@@ -807,7 +839,18 @@ The endpoint `/jobs/{jobId}` can be used to terminate the job.
 === "Python"
 
     ```python
-    print("coming soon")
+    import requests
+
+    url = 'http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308'
+    headers = {'accept': 'application/json'}
+
+    response = requests.delete(url, headers=headers)
+
+    # Check the response status code
+    if response.status_code == 204:
+        print("Job deleted successfully.")
+    else:
+        print(f"Failed to delete job. Status code: {response.status_code}, Response: {response.text}")
     ```
 
 ### Response body
