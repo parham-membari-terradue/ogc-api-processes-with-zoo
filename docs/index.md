@@ -78,10 +78,10 @@ The **OGC API - Processes** standard modernizes and extends the capabilities off
 
 This series of tutorials provides a step-by-step guide to using the **OGC API - Processes** standard, covering the core functionalities from listing available processes to accessing the results of executed jobs. Each tutorial is designed to help you understand and implement the standard's capabilities in a practical way. The tutorials are provided with the following Jupyter Notebooks:
 
-1) *Deploy an application package.ipynb*
-2) *List the deployed processes.ipynb*
-3) *Describe the process.ipynb*
-4) *Execute the process and monitor the execution.ipynb*
+1. *Deploy an application package.ipynb*
+2. *List the deployed processes.ipynb*
+3. *Describe the process.ipynb*
+4. *Execute the process and monitor the execution.ipynb*
 
 Following these tutorials, the user will be able to cover all these key functionalities: 
 
