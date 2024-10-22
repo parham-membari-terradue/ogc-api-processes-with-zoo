@@ -62,7 +62,6 @@ nav:
     - List available processes: list-processes.md
     - Describe the process: describe-process.md
     - Execute and monitor the process: execute-monitor-process.md 
-    - Get the process results: get-process-results.md
   - Reference:
     - OGC API Processes: reference/ogc-api-processes.md
     - OGC API Processes OpenAPI: reference/ogc-api-processes-openapi.md
