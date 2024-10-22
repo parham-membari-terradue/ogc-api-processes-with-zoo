@@ -9,21 +9,21 @@ The platform aims to ensure that processing tasks follow the FAIR principles: Fi
 
 The ZOO-Project supports the "**OGC API - Processes**" - Part 1 (Core) and Part 2 (Deploy, Replace, Undeploy) Standards.
 
-### "**OGC API - Processes**"
+### **OGC API - Processes**
 
-#### Introduction to "**OGC API - Processes**"
+#### Introduction to **OGC API - Processes**
 
-The "**OGC API - Processes**" standard supports the wrapping of computational tasks into executable processes that can be offered by a server through a Web API and be invoked by a client application. It specifies a processing interface for communicating over a RESTful protocol using JavaScript Object Notation (JSON) encodings. The standard builds on concepts from the OGC Web Processing Service (WPS) 2.0 Interface Standard but provides a more modern approach, allowing for interaction with web resources using the OpenAPI specification. Importantly, it does not require implementation of a WPS interface.
+The **OGC API - Processes** standard supports the wrapping of computational tasks into executable processes that can be offered by a server through a Web API and be invoked by a client application. It specifies a processing interface for communicating over a RESTful protocol using JavaScript Object Notation (JSON) encodings. The standard builds on concepts from the OGC Web Processing Service (WPS) 2.0 Interface Standard but provides a more modern approach, allowing for interaction with web resources using the OpenAPI specification. Importantly, it does not require implementation of a WPS interface.
 
-#### Use Cases for "**OGC API - Processes**"
+#### Use Cases for **OGC API - Processes**
 
-Government agencies, private organizations, and academic institutions use the "**OGC API - Processes**" standard to provide access to geospatial algorithms for processing data, including data from sensors. This distributed approach to processing allows for more capacity to handle large datasets and perform complex computations. The standard facilitates integration into existing software packages and supports scalable workflows for processing geospatial data.
+Government agencies, private organizations, and academic institutions use the **OGC API - Processes** standard to provide access to geospatial algorithms for processing data, including data from sensors. This distributed approach to processing allows for more capacity to handle large datasets and perform complex computations. The standard facilitates integration into existing software packages and supports scalable workflows for processing geospatial data.
 
 #### Overview of "**OGC API - Processes - Part 1 - Core**"
 
-The "**OGC API - Processes**" - Part 1: Core enables the execution of computational tasks such as raster algebra, geometry buffering, routing, constructive area geometry, and imagery analysis. It supports execution in two modes: synchronous, where the client waits for the execution to complete, and asynchronous, where the server processes the task in the background and the client periodically checks the status.
+The **OGC API - Processes** - Part 1: Core enables the execution of computational tasks such as raster algebra, geometry buffering, routing, constructive area geometry, and imagery analysis. It supports execution in two modes: synchronous, where the client waits for the execution to complete, and asynchronous, where the server processes the task in the background and the client periodically checks the status.
 
-The table below outlines the main resources defined by the "**OGC API - Processes**" - Part 1: Core standard:
+The table below outlines the main resources defined by the **OGC API - Processes** - Part 1: Core standard:
 
 | **Resource**                   | **Path**                         | **Purpose**                                                                                   |
 |--------------------------------|----------------------------------|-----------------------------------------------------------------------------------------------|
@@ -41,7 +41,7 @@ The table below outlines the main resources defined by the "**OGC API - Processe
 
 #### Overview of "**OGC API - Processes - Part 2: Deploy, Replace, Undeploy (DRU)**"
 
-The "**OGC API - Processes**" - Part 2 specification extends the Core standard by defining additional capabilities for managing processes. It allows users to deploy, replace, and undeploy computational processes dynamically. This specification is useful for scenarios where processes need to be updated or removed, providing more flexibility and control over the server's computational tasks.
+The **OGC API - Processes** - Part 2 specification extends the Core standard by defining additional capabilities for managing processes. It allows users to deploy, replace, and undeploy computational processes dynamically. This specification is useful for scenarios where processes need to be updated or removed, providing more flexibility and control over the server's computational tasks.
 
 Here are the new resources introduced in Part 2:
 
@@ -72,16 +72,16 @@ Here are the new resources introduced in Part 2:
 
 #### Relation to Other OGC Standards
 
-The "**OGC API - Processes**" standard modernizes and extends the capabilities offered by the OGC WPS. While the WPS standard provided a standardized interface for accessing computational services, the "**OGC API - Processes**" standard adopts a resource-oriented approach leveraging the OpenAPI specification. This results in better integration with modern web technologies and programming practices, addressing all the use cases supported by WPS and enabling more flexible and robust processing capabilities.
+The **OGC API - Processes** standard modernizes and extends the capabilities offered by the OGC WPS. While the WPS standard provided a standardized interface for accessing computational services, the **OGC API - Processes** standard adopts a resource-oriented approach leveraging the OpenAPI specification. This results in better integration with modern web technologies and programming practices, addressing all the use cases supported by WPS and enabling more flexible and robust processing capabilities.
 
 ## Learning Module overview
 
-This series of tutorials provides a step-by-step guide to using the "**OGC API - Processes**" standard, covering the core functionalities from listing available processes to accessing the results of executed jobs. Each tutorial is designed to help you understand and implement the standard's capabilities in a practical way. The tutorials are provided with the following Jupyter Notebooks:
+This series of tutorials provides a step-by-step guide to using the **OGC API - Processes** standard, covering the core functionalities from listing available processes to accessing the results of executed jobs. Each tutorial is designed to help you understand and implement the standard's capabilities in a practical way. The tutorials are provided with the following Jupyter Notebooks:
 
-1) "Deploy an application package.ipynb"
-2) "List the deployed processes.ipynb"
-3) "Describe the process.ipynb"
-4) "Execute the process and monitor the execution.ipynb"
+1) *Deploy an application package.ipynb*
+2) *List the deployed processes.ipynb*
+4) *Describe the process.ipynb*
+5) *Execute the process and monitor the execution.ipynb*
 
 Following these tutorials, the user will be able to cover all these key functionalities: 
 
