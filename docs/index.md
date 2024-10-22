@@ -80,8 +80,8 @@ This series of tutorials provides a step-by-step guide to using the **OGC API - 
 
 1) *Deploy an application package.ipynb*
 2) *List the deployed processes.ipynb*
-4) *Describe the process.ipynb*
-5) *Execute the process and monitor the execution.ipynb*
+3) *Describe the process.ipynb*
+4) *Execute the process and monitor the execution.ipynb*
 
 Following these tutorials, the user will be able to cover all these key functionalities: 
 
