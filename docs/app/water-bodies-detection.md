@@ -62,7 +62,7 @@ end
 
 ## Application Package
 
-Alice packages the application as an Application Package to include a workflow that reads a Sentinel-2 STAC item references launches Python command line tool to detect the water bodies:
+The user packages the application as an Application Package to include a workflow that reads a Sentinel-2 STAC item references launches Python command line tool to detect the water bodies:
 
 ![image](water_bodies.png "water-bodies")
 
