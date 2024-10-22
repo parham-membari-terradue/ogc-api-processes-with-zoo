@@ -1,6 +1,6 @@
 # Deploy the Application Package
 
-Deploying an Application Package using the OGC API Processes API uses the API resource highlighted in the table below:
+Deploying an Application Package using the OGC API Processes uses the API resource highlighted in the table below:
 
 
 | **Resource**                   | **Path**                                  | **Purpose**                                                                     | **Part**   |
@@ -11,7 +11,7 @@ Deploying an Application Package using the OGC API Processes API uses the API re
 | Process list                   | `/processes`                              | Lists available processes with identifiers and links to descriptions.           | Part 1     |
 | Process description            | `/processes/{processID}`                  | Retrieves detailed information about a specific process.                        | Part 1     |
 | Process execution              | `/processes/{processID}/execution`        | Executes a process, creating a job.                                             | Part 1     |
-| **Deploy Process**             | **`/processes` (POST)**                   | **Deploys a new process on the server.**                                        | **Part 2** |
+| ==**Deploy Process**             | ==**`/processes` (POST)**==                   | **Deploys a new process on the server.**==                                        | **Part 2** |
 | Replace Process                | `/processes/{processID}` (PUT)            | Replaces an existing process with a new version.                                | Part 2     |
 | Undeploy Process               | `/processes/{processID}` (DELETE)         | Removes an existing process from the server.                                    | Part 2     |
 | Job status info                | `/jobs/{jobID}`                           | Retrieves the current status of a job.                                          | Part 1     |
