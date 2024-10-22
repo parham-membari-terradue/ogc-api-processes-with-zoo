@@ -165,3 +165,7 @@ connection: Keep-Alive
  x-also-powered-by: jwt.securityIn 
  x-powered-by: ZOO-Project-DRU 
 ```
+
+## Practice lab
+
+Run the notebook **01 - Deploy an application package**.
