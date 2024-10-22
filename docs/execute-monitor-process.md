@@ -126,7 +126,7 @@ Upon running the process, the server returns the current status as a single link
 In the ZOO-Project-DRU implementation, links to the log files of every step of the Application Package CWL workflow execution were added.
 
 
-=== curl 
+=== "curl"
 
     ```bash
     curl -X 'GET' \
@@ -134,7 +134,7 @@ In the ZOO-Project-DRU implementation, links to the log files of every step of t
         -H 'accept: application/json'
     ```
 
-=== Python
+=== "Python"
 
     ```python
     print("coming soon")
@@ -144,7 +144,7 @@ In the ZOO-Project-DRU implementation, links to the log files of every step of t
 
 Below an example of the response body.
 
-=== Status "running"
+=== "Status running"
 
     ```json
     {
@@ -168,7 +168,7 @@ Below an example of the response body.
     }
     ```
 
-=== Status "successful"
+=== "Status successful"
 
     ```json
     {
@@ -262,7 +262,7 @@ Below an example of the response body.
 
 Once the execution process is complete, the job `{jobID}` results are accessed using the endpoint `/jobs/{jobId}/results`. 
 
-=== curl
+=== "curl"
 
     ```bash
     curl -X 'GET' \
@@ -270,7 +270,7 @@ Once the execution process is complete, the job `{jobID}` results are accessed u
     -H 'accept: application/json'
     ```
 
-=== Python
+=== "Python"
 
     ```python
     print("coming soon")
@@ -796,7 +796,7 @@ Once the execution process is complete, the job `{jobID}` results are accessed u
 
 The endpoint `/jobs/{jobId}` can be used to terminate the job.
 
-=== curl
+=== "curl"
 
     ```bash
     curl -X 'DELETE' \
@@ -804,7 +804,7 @@ The endpoint `/jobs/{jobId}` can be used to terminate the job.
         -H 'accept: application/json'
     ```
 
-=== Python
+=== "Python"
 
     ```python
     print("coming soon")
