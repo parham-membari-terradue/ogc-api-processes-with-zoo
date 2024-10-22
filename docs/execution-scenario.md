@@ -2,9 +2,9 @@
 
 ## User personas
 
-The personas will help illustrate the workflow: Alice prepares and deploys the application, while Eric utilizes the deployed service to achieve his objectives.
+The personas will help illustrate the workflow: **Alice** prepares and deploys the application, while **Eric** utilizes the deployed service to achieve his objectives.
 
-###Alice – EO Application Developer
+### Alice – EO Application Developer
 
 Alice is a developer specializing in Earth Observation (EO) applications. 
 
@@ -42,7 +42,7 @@ This workflow allows Alice to share her EO Application Package for others like E
 
 Eric, a data scientist, wants to analyze satellite imagery to detect water bodies. He learns about Alice's published application package and follows these steps to achieve his goal:
 
-* *Discover Alice’s Application Package*: Eric finds Alice's water-bodies detection application package in a repository or marketplace where it is shared.
+* **Discover Alice’s Application Package**: Eric finds Alice's water-bodies detection application package in a repository or marketplace where it is shared.
 
 * **Deploy the Application**: He deploys Alice’s application package on an OGC API - Processes server, making the process available for execution.
 
