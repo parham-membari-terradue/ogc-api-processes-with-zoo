@@ -57,10 +57,10 @@ extra_javascript:
 
 nav:
   - Introduction: 'index.md'
+  - Execution Scenario: execution-scenario.md
   - Introducing the application:
     - Water bodies detection: app/water-bodies-detection.md
   - Deploy and run the EO application:
-    - Execution Scenario: execution-scenario.md
     - Deploy the application: deploy-application.md
     - List available processes: list-processes.md
     - Describe the process: describe-process.md
