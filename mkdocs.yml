@@ -55,7 +55,6 @@ nav:
   - Introduction: 'index.md'
   - Introducing the application:
     - Water bodies detection: app/water-bodies-detection.md
-
   - Deploy and run the EO application:
     - Execution Scenario: execution-scenario.md
     - Deploy the application: deploy-application.md
