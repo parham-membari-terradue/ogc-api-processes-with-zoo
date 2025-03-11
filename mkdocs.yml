@@ -1,4 +1,4 @@
-site_name: OGC API Processes with ZOO Project
+site_name: OGC API Processes with ZOO-Project
 
 theme:
     logo: assets/icon-eoap.png
@@ -57,6 +57,7 @@ extra_javascript:
 
 nav:
   - Introduction: 'index.md'
+  - Local installation: 'installation.md'
   - Execution Scenario: execution-scenario.md
   - Introducing the application:
     - Water bodies detection: app/water-bodies-detection.md
@@ -68,6 +69,6 @@ nav:
   - Reference:
     - OGC API Processes: reference/ogc-api-processes.md
     - OGC API Processes OpenAPI: reference/ogc-api-processes-openapi.md
-    - ZOO Project: reference/zoo-project.md
+    - ZOO-Project: reference/zoo-project.md
 
 copyright: <a href="https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg">License CC BY-SA 4.0</a>, by <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons</a>

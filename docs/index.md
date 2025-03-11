@@ -1,6 +1,6 @@
-# OGC API Processes with ZOO Project
+# OGC API Processes with ZOO-Project
 
-## Background on ZOO Project
+## Background on ZOO-Project
 The ZOO-Project is an open-source processing platform introduced in 2009, licensed under the MIT/X11 license. It facilitates integration and communication between existing software components using standards defined by the Open Geospatial Consortium (OGC).
 
 The platform aims to ensure that processing tasks follow the FAIR principles: Findable, Accessible, Interoperable, and Reproducible.
@@ -47,7 +47,7 @@ Here are the new resources introduced in Part 2:
 | **Deploy Process**                 | `/processes` (POST)                       | Deploys a new process on the server.                                             |
 | **Replace Process**                | `/processes/{processID}` (PUT)            | Replaces an existing process with a new version.                                 |
 | **Undeploy Process**               | `/processes/{processID}` (DELETE)         | Removes an existing process from the server.                                     |
-| **Deploy Process Package (OGC AppPkg)** | `/processes` (POST)                       | Supports deploying processes via OGC Application Packages.                       |
+| **Application Package (OGC AppPkg)** | `/processes/{processId}/package` (GET)                       | Support accessing the OGC Application Package.                       |
 
 ### OGC API - Process resources combining Part 1 and Part 2
 
@@ -62,6 +62,7 @@ Here are the new resources introduced in Part 2:
 | **Deploy Process**                 | `/processes` (POST)                       | Deploys a new process on the server.                                             | Part 2     |
 | **Replace Process**                | `/processes/{processID}` (PUT)            | Replaces an existing process with a new version.                                 | Part 2     |
 | **Undeploy Process**               | `/processes/{processID}` (DELETE)         | Removes an existing process from the server.                                     | Part 2     |
+| **Application Package (OGC AppPkg)** | `/processes/{processId}/package` (GET)                       | Support accessing the OGC Application Package.                       | Part 2     |
 | **Job status info**                | `/jobs/{jobID}`                           | Retrieves the current status of a job.                                           | Part 1     |
 | **Job results**                    | `/jobs/{jobID}/results`                   | Retrieves the results of a job.                                                  | Part 1     |
 | **Job list**                       | `/jobs`                                   | Retrieves a list of submitted jobs.                                              | Part 1     |
