@@ -880,4 +880,4 @@ The endpoint `/jobs/{jobId}` can be used to terminate the job.
 
 ## Practice lab
 
-Run the notebook **04 - Execute the process and monitor the execution.ipynb**.
+Run the notebook **04 - Execute the process and monitor its job execution.ipynb**.
