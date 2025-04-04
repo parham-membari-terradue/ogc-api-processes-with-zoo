@@ -10,15 +10,15 @@ Deploying an Application Package using the OGC API Processes uses the API resour
 | API Definition                 | `/api`                                    | Metadata about the API itself.                                                  | Part 1     |
 | Process list                   | `/processes`                              | Lists available processes with identifiers and links to descriptions.           | Part 1     |
 | Process description            | `/processes/{processID}`                  | Retrieves detailed information about a specific process.                        | Part 1     |
-| Process execution              | `/processes/{processID}/execution`        | Executes a process, creating a job.                                             | Part 1     |
+| Process execution              | `/processes/{processID}/execution` (POST) | Executes a process, creating a job.                                             | Part 1     |
 | **Deploy Process**             | **`/processes` (POST)**                   | **Deploys a new process on the server.**                                        | **Part 2** |
 | Replace Process                | `/processes/{processID}` (PUT)            | Replaces an existing process with a new version.                                | Part 2     |
 | Undeploy Process               | `/processes/{processID}` (DELETE)         | Removes an existing process from the server.                                    | Part 2     |
-| Application Package (OGC AppPkg) | `/processes/{processId}/package` (GET)                       | Support accessing the OGC Application Package.                       | Part 2     |
+| Application Package (OGC AppPkg) | `/processes/{processId}/package`        | Support accessing the OGC Application Package.                                  | Part 2     |
 | Job status info                | `/jobs/{jobID}`                           | Retrieves the current status of a job.                                          | Part 1     |
 | Job results                    | `/jobs/{jobID}/results`                   | Retrieves the results of a job.                                                 | Part 1     |
 | Job list                       | `/jobs`                                   | Retrieves a list of submitted jobs.                                             | Part 1     |
-| Job deletion                   | `/jobs/{jobID}`                           | Cancels and deletes a job.                                                      | Part 1     |
+| Job deletion                   | `/jobs/{jobID}` (DELETE)                  | Cancels and deletes a job.                                                      | Part 1     |
 
 
 This resource permits the deployment of the an Application Package and provide two options for the `Content-Type`.

@@ -2,22 +2,22 @@
 
 To submit an execution request of a deployed process and monitor it, the OGC API Processes API uses the resource highlighted in bold in the table below:
 
-| **Resource**                   | **Path**                                  | **Purpose**                                                                     | **Part**   |
-|--------------------------------|-------------------------------------------|---------------------------------------------------------------------------------|------------|
-| Landing page                   | `/`                                       | Top-level resource serving as an entry point.                                   | Part 1     |
-| Conformance declaration        | `/conformance`                            | Information about the functionality supported by the server.                    | Part 1     |
-| API Definition                 | `/api`                                    | Metadata about the API itself.                                                  | Part 1     |
-| Process list                   | `/processes`                              | Lists available processes with identifiers and links to descriptions.           | Part 1     |
-| Process description            | `/processes/{processID}`                  | Retrieves detailed information about a specific process.                        | Part 1     |
-| **Process execution**          | **`/processes/{processID}/execution`**    | **Executes a process, creating a job.**                                         | **Part 1** |
-| Deploy Process                 | `/processes` (POST)                       | Deploys a new process on the server.                                            | Part 2     |
-| Replace Process                | `/processes/{processID}` (PUT)            | Replaces an existing process with a new version.                                | Part 2     |
-| Undeploy Process               | `/processes/{processID}` (DELETE)         | Removes an existing process from the server.                                    | Part 2     |
-| Application Package (OGC AppPkg) | `/processes/{processId}/package` (GET)                       | Support accessing the OGC Application Package.                       | Part 2     |
-| **Job status info**            | **`/jobs/{jobID}`**                       | **Retrieves the current status of a job.**                                      | **Part 1** |
-| **Job results**                | **`/jobs/{jobID}/results`**               | **Retrieves the results of a job.**                                             | **Part 1** |
-| Job list                       | `/jobs`                                   | Retrieves a list of submitted jobs.                                             | Part 1     |
-| Job deletion                   | `/jobs/{jobID}`                           | Cancels and deletes a job.                                                      | Part 1     |
+| **Resource**                   | **Path**                                     | **Purpose**                                                                     | **Part**   |
+|--------------------------------|----------------------------------------------|---------------------------------------------------------------------------------|------------|
+| Landing page                   | `/`                                          | Top-level resource serving as an entry point.                                   | Part 1     |
+| Conformance declaration        | `/conformance`                               | Information about the functionality supported by the server.                    | Part 1     |
+| API Definition                 | `/api`                                       | Metadata about the API itself.                                                  | Part 1     |
+| Process list                   | `/processes`                                 | Lists available processes with identifiers and links to descriptions.           | Part 1     |
+| Process description            | `/processes/{processID}`                     | Retrieves detailed information about a specific process.                        | Part 1     |
+| **Process execution**          | **`/processes/{processID}/execution`**(POST) | **Executes a process, creating a job.**                                         | **Part 1** |
+| Deploy Process                 | `/processes` (POST)                          | Deploys a new process on the server.                                            | Part 2     |
+| Replace Process                | `/processes/{processID}` (PUT)               | Replaces an existing process with a new version.                                | Part 2     |
+| Undeploy Process               | `/processes/{processID}` (DELETE)            | Removes an existing process from the server.                                    | Part 2     |
+| Application Package (OGC AppPkg) | `/processes/{processId}/package`           | Support accessing the OGC Application Package.                                  | Part 2     |
+| **Job status info**            | **`/jobs/{jobID}`**                          | **Retrieves the current status of a job.**                                      | **Part 1** |
+| **Job results**                | **`/jobs/{jobID}/results`**                  | **Retrieves the results of a job.**                                             | **Part 1** |
+| Job list                       | `/jobs`                                      | Retrieves a list of submitted jobs.                                             | Part 1     |
+| Job deletion                   | `/jobs/{jobID}` (DELETE)                     | Cancels and deletes a job.                                                      | Part 1     |
 
 ## Execution
 
@@ -880,4 +880,4 @@ The endpoint `/jobs/{jobId}` can be used to terminate the job.
 
 ## Practice lab
 
-Run the notebook **04 - Execute the process and monitor the execution.ipynb**.
+Run the notebook **04 - Execute the process and monitor its job execution.ipynb**.

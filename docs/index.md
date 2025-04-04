@@ -23,18 +23,18 @@ The **OGC API - Processes** - Part 1: Core enables the execution of computationa
 
 The table below outlines the main resources defined by the **OGC API - Processes** - Part 1: Core standard:
 
-| **Resource**                   | **Path**                         | **Purpose**                                                                                   |
-|--------------------------------|----------------------------------|-----------------------------------------------------------------------------------------------|
-| **Landing page**               | `/`                              | Top-level resource serving as an entry point.                                                 |
-| **Conformance declaration**    | `/conformance`                   | Information about the functionality supported by the server.                                  |
-| **API Definition**             | `/api`                           | Metadata about the API itself.                                                                |
-| **Process list**               | `/processes`                     | Lists available processes with identifiers and links to descriptions.                         |
-| **Process description**        | `/processes/{processID}`         | Retrieves a process description.                                                              |
-| **Process execution**          | `/processes/{processID}/execution` | Creates and executes a job.                                                                   |
-| **Job status info**            | `/jobs/{jobID}`                  | Retrieves information about the status of a job.                                              |
-| **Job results**                | `/jobs/{jobID}/results`          | Retrieves the result(s) of a job.                                                             |
-| **Job list**                   | `/jobs`                          | Retrieves the list of jobs.                                                                   |
-| **Job Deletion**               | `/jobs/{jobID}`                  | Cancels and deletes a job.                                                                    |
+| **Resource**                   | **Path**                                  | **Purpose**                                                                                   |
+|--------------------------------|-------------------------------------------|-----------------------------------------------------------------------------------------------|
+| **Landing page**               | `/`                                       | Top-level resource serving as an entry point.                                                 |
+| **Conformance declaration**    | `/conformance`                            | Information about the functionality supported by the server.                                  |
+| **API Definition**             | `/api`                                    | Metadata about the API itself.                                                                |
+| **Process list**               | `/processes`                              | Lists available processes with identifiers and links to descriptions.                         |
+| **Process description**        | `/processes/{processID}`                  | Retrieves a process description.                                                              |
+| **Process execution**          | `/processes/{processID}/execution` (POST) | Creates and executes a job.                                                                   |
+| **Job status info**            | `/jobs/{jobID}`                           | Retrieves information about the status of a job.                                              |
+| **Job results**                | `/jobs/{jobID}/results`                   | Retrieves the result(s) of a job.                                                             |
+| **Job list**                   | `/jobs`                                   | Retrieves the list of jobs.                                                                   |
+| **Job Deletion**               | `/jobs/{jobID}` (DELETE)                  | Cancels and deletes a job.                                                                    |
 
 ### Overview of "**OGC API - Processes - Part 2: Deploy, Replace, Undeploy (DRU)**"
 
@@ -42,31 +42,31 @@ The **OGC API - Processes** - Part 2 specification extends the Core standard by 
 
 Here are the new resources introduced in Part 2:
 
-| **Resource**                        | **Path**                                  | **Purpose**                                                                     |
-|------------------------------------|-------------------------------------------|---------------------------------------------------------------------------------|
-| **Deploy Process**                 | `/processes` (POST)                       | Deploys a new process on the server.                                             |
-| **Replace Process**                | `/processes/{processID}` (PUT)            | Replaces an existing process with a new version.                                 |
-| **Undeploy Process**               | `/processes/{processID}` (DELETE)         | Removes an existing process from the server.                                     |
-| **Application Package (OGC AppPkg)** | `/processes/{processId}/package` (GET)                       | Support accessing the OGC Application Package.                       |
+| **Resource**                         | **Path**                                  | **Purpose**                                                                      |
+|--------------------------------------|-------------------------------------------|----------------------------------------------------------------------------------|
+| **Deploy Process**                   | `/processes` (POST)                       | Deploys a new process on the server.                                             |
+| **Replace Process**                  | `/processes/{processID}` (PUT)            | Replaces an existing process with a new version.                                 |
+| **Undeploy Process**                 | `/processes/{processID}` (DELETE)         | Removes an existing process from the server.                                     |
+| **Application Package (OGC AppPkg)** | `/processes/{processId}/package`          | Support accessing the OGC Application Package.                                   |
 
 ### OGC API - Process resources combining Part 1 and Part 2
 
 | **Resource**                        | **Path**                                  | **Purpose**                                                                     | **Part**   |
-|------------------------------------|-------------------------------------------|---------------------------------------------------------------------------------|------------|
+|------------------------------------|-------------------------------------------|--------------------------------------------------------------------------------- |------------|
 | **Landing page**                   | `/`                                       | Top-level resource serving as an entry point.                                    | Part 1     |
 | **Conformance declaration**        | `/conformance`                            | Information about the functionality supported by the server.                     | Part 1     |
 | **API Definition**                 | `/api`                                    | Metadata about the API itself.                                                   | Part 1     |
 | **Process list**                   | `/processes`                              | Lists available processes with identifiers and links to descriptions.            | Part 1     |
 | **Process description**            | `/processes/{processID}`                  | Retrieves detailed information about a specific process.                         | Part 1     |
-| **Process execution**              | `/processes/{processID}/execution`        | Executes a process, creating a job.                                              | Part 1     |
+| **Process execution**              | `/processes/{processID}/execution` (POST) | Executes a process, creating a job.                                              | Part 1     |
 | **Deploy Process**                 | `/processes` (POST)                       | Deploys a new process on the server.                                             | Part 2     |
 | **Replace Process**                | `/processes/{processID}` (PUT)            | Replaces an existing process with a new version.                                 | Part 2     |
 | **Undeploy Process**               | `/processes/{processID}` (DELETE)         | Removes an existing process from the server.                                     | Part 2     |
-| **Application Package (OGC AppPkg)** | `/processes/{processId}/package` (GET)                       | Support accessing the OGC Application Package.                       | Part 2     |
+| **Application Package (OGC AppPkg)** | `/processes/{processId}/package`        | Support accessing the OGC Application Package.                                   | Part 2     |
 | **Job status info**                | `/jobs/{jobID}`                           | Retrieves the current status of a job.                                           | Part 1     |
 | **Job results**                    | `/jobs/{jobID}/results`                   | Retrieves the results of a job.                                                  | Part 1     |
 | **Job list**                       | `/jobs`                                   | Retrieves a list of submitted jobs.                                              | Part 1     |
-| **Job deletion**                   | `/jobs/{jobID}`                           | Cancels and deletes a job.                                                       | Part 1     |
+| **Job deletion**                   | `/jobs/{jobID}` (DELETE)                  | Cancels and deletes a job.                                                       | Part 1     |
 
 ### Relation to Other OGC Standards
 
@@ -80,7 +80,7 @@ This series of tutorials provides a step-by-step guide to using the **OGC API - 
 1. *Deploy an application package.ipynb*
 2. *List the deployed processes.ipynb*
 3. *Describe the process.ipynb*
-4. *Execute the process and monitor the execution.ipynb*
+4. *Execute the process and monitor its job execution.ipynb*
 
 ### Key Functionalities
 Following these tutorials, the user will be able to cover all these key functionalities: 
