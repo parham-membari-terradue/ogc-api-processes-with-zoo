@@ -147,6 +147,20 @@ $graph:
       }
       return [];
     }
+  - ${
+      const ids = inputs.search_request?.ids;
+      if (ids && Array.isArray(ids) && ids.length > 0) {
+        return ['--ids', ids.join(",")];
+      }
+      return [];
+    }
+  - ${ 
+      const intersects = inputs.search_request?.intersects;
+      if (intersects) {
+        return ['--intersects', JSON.stringify(intersects)];
+      }
+      return [];
+    }
   - --save
   - discovery-output.json
 
