@@ -60,10 +60,10 @@ $graph:
       - process_output
   id: eoap-api
 - class: CommandLineTool
+  id: stac-client
   label: STAC Client Tool
   doc: |
     This tool uses the STAC Client to search for STAC items
-
   requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
@@ -76,91 +76,7 @@ $graph:
     - $import: https://raw.githubusercontent.com/eoap/schemas/main/geojson.yaml
     - $import: |-
         https://raw.githubusercontent.com/eoap/schemas/main/experimental/api-endpoint.yaml
-    - $import: https://raw.githubusercontent.com/eoap/schemas/main/experimental/discovery.yaml
-  - class: InitialWorkDirRequirement
-    listing:
-    - entryname: run.sh
-      entry: |2-
-        #!/bin/bash
-        set -x
-
-        echo $(inputs.search_request)
-
-        filter=${
-            const filter = inputs.search_request?.filter;
-            if (filter) {
-              // JSON.stringify with no pretty-print for safe CLI arg
-              return `'--filter ${JSON.stringify(filter)}'`;
-            }
-            return "''";
-        }
-
-        echo "$filter"
-
-        filter_lang="${ 
-          const filter_lang = inputs.search_request?.['filter-lang'];
-          return filter_lang ? '--filter-lang ' + filter_lang : '';
-        }"
-
-        collections="${ 
-          const collections = inputs.search_request.collections;
-          return (collections && Array.isArray(collections) && collections.length > 0) ? "--collections " + collections.join(",") : "";
-        }"
-
-        bbox="${ 
-          const bbox = inputs.search_request?.bbox;
-          return (bbox && Array.isArray(bbox) && bbox.length >= 4) ? "--bbox " + bbox.join(" ") : "";
-        }"
-
-        stac_api=$(inputs.api_endpoint.url.value)
-
-        
-
-        limit="${ 
-          const limit = inputs.search_request?.limit;
-          return limit ? '--limit ' + limit : '';
-        }"
-
-        datetime="${ 
-          const datetime = inputs.search_request?.datetime;
-          let datetime_interval = inputs.search_request?.datetime_interval;
-
-          if (datetime == null && datetime_interval == null) {
-            return '';
-          }
-
-          if (datetime == null) { 
-            // Ensure datetime_interval is at least an object
-            datetime_interval = datetime_interval || {};
-            if (datetime_interval.start == null) datetime_interval.start.value = '..';
-            if (datetime_interval.end == null) datetime_interval.end.value = '..';
-            return '--datetime ' + datetime_interval.start.value + '/' + datetime_interval.end.value;
-          } else {
-            return '--datetime ' + datetime;
-          }
-        }"
-
-        if [ -n "$filter" ] && [ ! -n "$filter_lang" ]; then
-          echo "Error: filter-lang must be specified when using filter"
-          exit 1
-        fi
-
-        if [ -n "$filter" ] && [ -n "$filter_lang" ]; then
-          echo "Using both filter and filter-lang"
-          stac-client search \
-            $stac_api \
-            $collections $bbox $datetime $limit $filter $filter_lang \
-            --max-items 2 \
-            --save discovery-output.json
-        else
-
-          stac-client search \
-            $stac_api \
-            $collections $bbox $datetime $limit \
-            --max-items 2 \
-            --save discovery-output.json
-        fi
-
+    - $import: https://raw.githubusercontent.com/eoap/schemas/main/experimental/discovery.yaml 
   inputs:
     api_endpoint:
       label: STAC API endpoint
@@ -179,11 +95,60 @@ $graph:
       outputBinding:
         glob: discovery-output.json
 
-  baseCommand: ["/bin/bash", "run.sh"]
-  arguments: []
-  id: stac-client
-
-
+  baseCommand: ["stac-client"]
+  arguments:
+  - "search"
+  - $(inputs.api_endpoint.url.value)
+  - ${
+      const args = [];
+      const collections = inputs.search_request.collections;
+      args.push('--collections', collections.join(","));
+      return args;
+    }
+  - ${
+      const args = [];
+      const bbox = inputs.search_request?.bbox;
+      if (Array.isArray(bbox) && bbox.length >= 4) {
+        args.push('--bbox', ...bbox.map(String));
+      }
+      return args;
+    }  
+  - ${
+      const args = [];
+      const limit = inputs.search_request?.limit;
+      args.push("--limit", (limit ?? 10).toString());
+      return args;
+    }
+  - ${ 
+      const maxItems = 5;
+      return ['--max-items', maxItems.toString()];
+    }
+  - ${
+      const args = [];
+      const filter = inputs.search_request?.filter;
+      const filterLang = inputs.search_request?.['filter-lang'];
+      if (filterLang) {
+        args.push('--filter-lang', filterLang);
+      }
+      if (filter) {
+        args.push('--filter', JSON.stringify(filter));
+      }
+      return args;
+    }
+  - ${
+      const datetime = inputs.search_request?.datetime;
+      const datetimeInterval = inputs.search_request?.datetime_interval;
+      if (datetime) {
+        return ['--datetime', datetime];
+      } else if (datetimeInterval) {
+        const start = datetimeInterval.start?.value || '..';
+        const end = datetimeInterval.end?.value || '..';
+        return ['--datetime', `${start}/${end}`];
+      }
+      return [];
+    }
+  - --save
+  - discovery-output.json
 
 - class: CommandLineTool
   label: geo API - Processes

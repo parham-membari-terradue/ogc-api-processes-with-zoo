@@ -4,22 +4,28 @@ stac_api_endpoint:
   headers: []
 
 search_request:
-  collections: 
-  - landsat-c2-l2
+  collections:
+    - landsat-c2-l2
   datetime_interval:
     start:
       value: "2023-10-15T18:00:00"
     end:
-      value: "2023-10-15T18:59:59"
-  bbox: 
-  - -118.985
-  - 38.432
-  - -118.183
-  - 38.938
-  filter-lang: cql2-text
+      value: null #"2023-10-15T18:59:59"
+  bbox:
+    - -118.985
+    - 38.432
+    - -118.183
+    - 38.938
+  filter-lang: cql2-json
   filter:
-  - "eo:cloud_cover<10"
-
+    {
+      "op": "and",
+      "args":
+        [
+          { "op": "<=", "args": [{ "property": "eo:cloud_cover" }, 60] },
+          { "op": ">=", "args": [{ "property": "eo:cloud_cover" }, 0] },
+        ],
+    }
 
 processes_api_endpoint:
   url:
@@ -32,6 +38,6 @@ execute_request:
     items: null
     aoi: "-118.985,38.432,-118.183,38.938"
     bands:
-    - "green"
-    - "nir08"
+      - "green"
+      - "nir08"
     epsg: "EPSG:4326"
