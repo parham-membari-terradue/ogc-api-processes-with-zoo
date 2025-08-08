@@ -7,3 +7,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip install --no-cache-dir git+https://github.com/EOEPCA/ogc-api-client@develop#subdirectory=src && \
     python -c "import ogc_api_client; print(ogc_api_client.__version__)"
 
+RUN cat > /usr/bin/ogc-api-processes-client <<'EOF'
+#!/usr/bin/env sh
+echo "$@"
+echo "$@" > feature-collection.json
+EOF
+RUN chmod +x /usr/bin/ogc-api-processes-client
+
+ENTRYPOINT []

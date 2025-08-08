@@ -169,6 +169,8 @@ $graph:
 
   requirements:
   - class: InlineJavascriptRequirement
+  - class: DockerRequirement
+    dockerPull:  docker.io/library/ogc-api-processes-client 
   - class: SchemaDefRequirement
     types:
     - $import: https://raw.githubusercontent.com/eoap/schemas/main/string_format.yaml
@@ -178,25 +180,9 @@ $graph:
     - $import: https://raw.githubusercontent.com/eoap/schemas/main/experimental/process.yaml
   - class: InitialWorkDirRequirement
     listing:
-    - entryname: run.sh
+    - entryname: execute_request.json
       entry: |-
-        #!/usr/bin/env bash
-        set -euo pipefail
-
-        process_id=$(inputs.execute_request.process_id)
-
-        jq '[.features[].links[] | select(.rel=="self") | .href]' "$(inputs.search_results.path)" > items.json
-
-        echo '${ return JSON.stringify(inputs.execute_request, null, 2); }' | jq . > temp_execute_request.json
-
-        jq --argjson items "`cat items.json`" \
-          'del(.process_id) | .inputs.items = $items' \
-          temp_execute_request.json > execute_request.json
-
-        cat execute_request.json | jq .
-
-        # invoke the OGC API Processes endpoint
-        # TODO
+        ${ return JSON.stringify(inputs.execute_request, null, 2); }
   inputs:
     api_endpoint:
       label: OGC API endpoint
@@ -213,14 +199,23 @@ $graph:
       doc: Search results from the discovery step
       type: File
   outputs:
-    process_output:
+    execute_request:
       type: File
       outputBinding:
         glob: execute_request.json
-
-
-  baseCommand: ["/bin/bash", "run.sh"]
-  arguments: []
-
+    process_output:
+      type: File
+      outputBinding:
+        glob: feature-collection.json
+  baseCommand: ["ogc-api-processes-client"]
+  arguments:
+  - --process-id
+  - $(inputs.execute_request.process_id)
+  - --feature-collection
+  - $(inputs.search_results.path)
+  - --execute-request 
+  - execute.json
+  - --key
+  - items
   id: ogc-api-processes-client
 cwlVersion: v1.2
