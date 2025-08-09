@@ -64,10 +64,11 @@ $graph:
   label: STAC Client Tool
   doc: |
     This tool uses the STAC Client to search for STAC items
-  requirements:
-  - class: InlineJavascriptRequirement
+  hints:
   - class: DockerRequirement
     dockerPull: docker.io/library/stac-client 
+  requirements:
+  - class: InlineJavascriptRequirement
   - class: NetworkAccess
     networkAccess: true
   - class: SchemaDefRequirement
@@ -149,10 +150,11 @@ $graph:
     }
   - ${
       const ids = inputs.search_request?.ids;
-      if (ids && Array.isArray(ids) && ids.length > 0) {
-        return ['--ids', ids.join(",")];
+      const args = [];
+      if (Array.isArray(ids) && ids.length > 0) {
+        args.push('--ids', ...ids.map(String));
       }
-      return [];
+      return args;
     }
   - ${ 
       const intersects = inputs.search_request?.intersects;
