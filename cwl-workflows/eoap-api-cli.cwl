@@ -77,6 +77,7 @@ $graph:
 - class: CommandLineTool
   id: prepare-execute-request
   label: Prepare Execute Request
+  doc: Prepare the execute request for OGC API Processes based on search results 
 
   baseCommand: ["/bin/bash", "run.sh"]
   arguments: []
