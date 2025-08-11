@@ -136,6 +136,7 @@ $graph:
       outputBinding:
         glob: process_id.json
         loadContents: true
+        outputEval: ${ return JSON.parse(self[0].contents); }
   
 
 
