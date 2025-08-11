@@ -16,9 +16,16 @@ search_request:
   - 38.432
   - -118.183
   - 38.938
-  filter-lang: cql2-text
+  filter-lang: cql2-json
   filter:
-  - "eo:cloud_cover<10"
+    {
+        "op": "and",
+        "args":
+          [
+            { "op": "<=", "args": [{ "property": "eo:cloud_cover" }, 60] },
+            { "op": ">=", "args": [{ "property": "eo:cloud_cover" }, 0] },
+          ],
+      }
 
 
 processes_api_endpoint:
