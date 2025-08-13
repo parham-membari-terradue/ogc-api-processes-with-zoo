@@ -30,11 +30,11 @@ search_request:
 
 processes_api_endpoint:
   url:
-    value: https://planetarycomputer.microsoft.com/api/ogc/processes/v1
+    value: http://localhost:8080/acme/ogc-api
   headers: []
 
 execute_request:
-  process_id: "water-body-detection"
+  process_id: "pattern-4"
   inputs:
     items: null
     aoi: "-118.985,38.432,-118.183,38.938"

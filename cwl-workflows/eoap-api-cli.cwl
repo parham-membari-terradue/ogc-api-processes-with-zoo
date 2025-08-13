@@ -147,7 +147,7 @@ $graph:
   requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull:  docker.io/library/ogc-api-processes-client 
+    dockerPull:  localhost/ogc 
   - class: SchemaDefRequirement
     types:
     - $import: https://raw.githubusercontent.com/eoap/schemas/main/string_format.yaml
@@ -177,12 +177,14 @@ $graph:
         glob: feature-collection.json
   baseCommand: ["ogc-api-processes-client"]
   arguments:
-  - --process-id
-  - $(inputs.process_id)
-  - --execute-request 
-  - $(inputs.execute_request.path)
-  - --output
-  - feature-collection.json
+    - --api-endpoint
+    - $(inputs.api_endpoint.url.value)
+    - --process-id
+    - $(inputs.process_id)
+    - --execute-request 
+    - $(inputs.execute_request.path)
+    - --output
+    - feature-collection.json
 
   
 cwlVersion: v1.2
