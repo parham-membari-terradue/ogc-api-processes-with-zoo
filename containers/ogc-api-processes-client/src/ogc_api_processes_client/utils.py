@@ -6,6 +6,9 @@ import time
 import json
 import yaml
 from typing import Dict, Union, TextIO, Optional
+from ogc_api_client.api.status_api import StatusApi
+from ogc_api_client.api.result_api import ResultApi
+from ogc_api_client.models.status_info import StatusCode
 
 
 def get_headers():
@@ -25,7 +28,6 @@ def get_response_types_map() -> Dict[str, Optional[str]]:
         "500": "Exception",
     }
     return response_types
-
 
 
 def load_data(file_input: Union[str, TextIO]) -> Dict:
@@ -62,3 +64,34 @@ def load_data(file_input: Union[str, TextIO]) -> Dict:
     return data
 
 
+def monitoring(client, job_id):
+    while True:
+        status_api = StatusApi(api_client=client)
+        status = status_api.get_status(job_id=job_id)
+
+        if status:
+            print(f"Job status: {status.status}")
+
+            # Check if the job is completed (either successful or failed)
+            if status.status in [StatusCode.SUCCESSFUL, StatusCode.FAILED]:
+                break
+        else:
+            print(f"Failed to get job status. Status code: {status.status}")
+            break
+
+        # Wait for a few seconds before checking again
+        time.sleep(10)
+
+    if status.status == StatusCode.SUCCESSFUL:
+        # print(status)
+        print("\nJob completed successfully. Retrieving results...")
+        result_api = ResultApi(client)
+        result = result_api.get_result(job_id=job_id)
+        print(result)
+        stac_feature_collection = result.get(
+            "stac_catalog"
+        ).actual_instance.value.oneof_schema_2_validator
+        print("STAC item collection:", stac_feature_collection)
+    else:
+        print("\nJob did not complete successfully.")
+        print(status.text)

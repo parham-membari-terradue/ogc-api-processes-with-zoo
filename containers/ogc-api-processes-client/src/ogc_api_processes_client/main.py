@@ -10,14 +10,14 @@ from pystac.item_collection import ItemCollection
 from ogc_api_client.api_client import ApiClient, Configuration
 from ogc_api_client.api_client_wrapper import ApiClientWrapper
 from typing import Dict, Optional
-from ogc_api_client.models.status_info import StatusInfo, StatusCode
-from ogc_api_client.api.status_api import StatusApi
-from ogc_api_client.api.result_api import ResultApi
+from ogc_api_client.models.status_info import StatusInfo
+
 
 from .utils import (
     get_headers,
     load_data,
     get_response_types_map,
+    monitoring,
 )
 
 
@@ -60,8 +60,7 @@ from .utils import (
 )
 @click.pass_context
 def main(ctx, **kwargs):
-    #######################################
-    #######################################
+
     logger.info("Start interacting with the Zoo OGC API Processes endpoint...")
     cwd = os.getcwd()
     os.chdir(os.getenv("TMPDIR", "/tmp"))
@@ -73,11 +72,13 @@ def main(ctx, **kwargs):
     process_id = kwargs.get("process_id")
     execute_request = kwargs.get("execute_request")
     output = kwargs.get("output")
+
     ######################################
     ######################################
+
     logger.debug("Reading execute request data...")
     data = load_data(execute_request)
-    #file_content = execute_request.read()
+    # file_content = execute_request.read()
     pprint(f"Data loaded: {data}")
     # Configure the OGC API client
 
@@ -87,6 +88,8 @@ def main(ctx, **kwargs):
     )
     client = ApiClient(configuration=configuration)
     headers = get_headers()
+
+    # Submit the job to the OGC API Processes endpoint
     response_data = client.rest_client.request(
         "POST",
         f"{ogc_api_endpoint}/processes/{process_id}/execution",
@@ -95,29 +98,32 @@ def main(ctx, **kwargs):
     )
     response_data.read()
 
-    
+    content = client.response_deserialize(
+        response_data=response_data,
+        response_types_map=get_response_types_map(),
+    ).data
 
-    # # Submit the processing request
+    if isinstance(content, StatusInfo):
+        # Parse the response to get the job ID
+        job_id = content.job_id
+        logger.info(f"Job submitted successfully. Job ID: {job_id}")
+        status_location = next(
+            (link.href for link in content.links if link.rel == "monitor"), None
+        )
+        if not status_location:
+            status_location = f"{ogc_api_endpoint}/jobs/{job_id}"
 
-    # content = client.execute_simple(
-    #     process_id=process_id, execute=data, _headers=headers
-    # )
+        logger.info(f"Monitor job status at: {status_location}")
+    else:
+        logger.error(f"Failed to submit job. Status code: {response_data.status}")
+        logger.error("Response:", content.text)
+        raise ValueError(f"Failed to submit job. Status code: {response_data.status}")
 
-    # if isinstance(content, StatusInfo):
-    #     # Parse the response to get the job ID
-    #     job_id = content.job_id
-    #     print(f"Job submitted successfully. Job ID: {job_id}")
-    #     status_location = next(
-    #         (link.href for link in content.links if link.rel == "monitor"), None
-    #     )
-    #     if not status_location:
-    #         status_location = f"{ogc_api_endpoint}/jobs/{job_id}"
-
-    #     print(f"Monitor job status at: {status_location}")
-    # else:
-    #     print(f"Failed to submit job. Status code: {response_data.status}")
-    #     print("Response:", content.text)
-    #     raise ValueError(f"Failed to submit job. Status code: {response_data.status}")
+    # Monitor the Job Status
+    logger.info(
+        "--------------\n--------------\n--------------\nMonitoring job status..."
+    )
+    monitoring(client, job_id)
 
     logger.success("Done.")
 
