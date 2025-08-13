@@ -1,0 +1,8 @@
+process_id: "pattern-4"
+inputs:
+  items: null
+  aoi: "-118.985,38.432,-118.183,38.938"
+  bands:
+  - "green"
+  - "nir08"
+  epsg: "EPSG:4326"

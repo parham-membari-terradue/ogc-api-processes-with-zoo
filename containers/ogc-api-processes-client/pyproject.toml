@@ -1,0 +1,106 @@
+[build-system]
+requires = ["hatchling", "setuptools", "wheel"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ogc-api-processes-client"
+dynamic = ["version"]
+description = '''This project aim to interacts with the Zoo OGC API Processes endpoint.'''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "pmembari", email = "parham.membari@terradue.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = []
+
+[tool.hatch.version]
+path = "src/ogc_api_processes_client/__about__.py"
+
+
+[project.scripts]
+ogc-api-processes-client = "ogc_api_processes_client.main:main"
+
+[project.urls]
+Documentation = "https://github.com/pmembari/ogc-api-processes-client#readme"
+Issues = "https://github.com/pmembari/ogc-api-processes-client/issues"
+Source = "https://github.com/pmembari/ogc-api-processes-client"
+
+[tool.coverage.paths]
+ogc_api_processes_client = ["src/ogc_api_processes_client", "*/ogc-api-processes-client/src/ogc_api_processes_client"]
+tests = ["tests", "*/ogc-api-processes-client/tests"]
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.coverage.run]
+source_pkgs = ["ogc_api_processes_client", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/ogc_api_processes_client/__about__.py",
+]
+
+[tool.hatch.build]
+packages = ["src/ogc_api_processes_client"]
+
+
+
+[tool.hatch.envs.default]
+path = "envs/ogc"
+dependencies = [
+  "click==8.2.0",
+  "pystac==1.13.0",
+  "pystac-client==0.8.6",
+  "pyyaml==6.0.2",
+  "tqdm==4.67.1",
+  "loguru==0.7.3",
+  "ogc-api-client @ git+https://github.com/EOEPCA/ogc-api-client@develop#subdirectory=src"
+]
+
+[tool.hatch.envs.prod]
+path = "/code/envs/ogc"
+dependencies = [
+  "click==8.2.0",
+  "pystac==1.13.0",
+  "pystac-client==0.8.6",
+  "pyyaml==6.0.2",
+  "tqdm==4.67.1",
+  "loguru==0.7.3",
+  "git+https://github.com/EOEPCA/ogc-api-client@develop#subdirectory=src"
+]
+
+
+
+
+[tool.hatch.envs.prod.scripts]
+snapping = "python -m ogc_api_processes_client.main"
+
+[[tool.hatch.envs.test.matrix]]
+python = [
+          "3.8",
+          "3.9",
+          "3.10",
+          ]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+
+
+
