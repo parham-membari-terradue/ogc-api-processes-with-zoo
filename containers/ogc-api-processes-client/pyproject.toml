@@ -82,7 +82,7 @@ dependencies = [
   "pyyaml==6.0.2",
   "tqdm==4.67.1",
   "loguru==0.7.3",
-  "git+https://github.com/EOEPCA/ogc-api-client@develop#subdirectory=src"
+  "ogc-api-client @ git+https://github.com/EOEPCA/ogc-api-client@develop#subdirectory=src"
 ]
 
 
