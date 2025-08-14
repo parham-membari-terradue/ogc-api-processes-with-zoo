@@ -18,6 +18,7 @@ def get_headers():
         "Prefer": "respond-async;return=representation",
         "Content-Type": "application/json",
     }
+
     return headers
 
 
@@ -60,44 +61,40 @@ def load_data(file_input: Union[str, TextIO]) -> Dict:
         sys.exit(1)
 
     # Optional: extract "inputs" if exists
-    
+
     return data
 
 
-def monitoring(ogc_api_endpoint, job_id):
-    job_url = f"{ogc_api_endpoint}/jobs/{job_id}"
-
-    headers = {"accept": "application/json"}
-
+def monitoring(client, job_id):
+    print(f"\nMonitoring job status (job ID: {job_id})...")
+    attempts = 1
     while True:
-        status_response = requests.get(job_url, headers=headers)
-        if status_response.status_code == 200:
-            job_status = status_response.json().get("status")
-            print(f"Job status: {job_status}")
-            
+        status = client.get_status(job_id=job_id)
+
+        if status:
+            logger.debug(f"{attempts}. Job status: {status.status}")
+
             # Check if the job is completed (either successful or failed)
-            if job_status in ["successful", "failed"]:
+            if status.status in [StatusCode.SUCCESSFUL, StatusCode.FAILED]:
                 break
         else:
-            print(f"Failed to get job status. Status code: {status_response.status_code}")
+            print(f"Failed to get job status.")
             break
-        
+        attempts += 1
         # Wait for a few seconds before checking again
         time.sleep(10)
 
-    # Step 4: Retrieve the Job Results if Successful
-    if job_status == "successful":
+    if status and status.status == StatusCode.SUCCESSFUL:
+        # print(status)
         print("\nJob completed successfully. Retrieving results...")
-        results_url = f"{ogc_api_endpoint}/jobs/{job_id}/results"
-        results_response = requests.get(results_url, headers=headers)
-        
-        if results_response.status_code == 200:
-            results = results_response.json()
-            stac_catalog_uri = results.get("stac_catalog", {}).get("value")
-            print("STAC Catalog URI:", stac_catalog_uri)
-            return stac_catalog_uri
-        else:
-            print(f"Failed to retrieve job results. Status code: {results_response.status_code}")
+        result = client.get_result(job_id=job_id)
+        print(result)
+        stac_feature_collection = result.get(
+            "stac_catalog"
+        ).actual_instance.value.oneof_schema_2_validator
+        print("STAC item collection:", stac_feature_collection)
+        return stac_feature_collection
     else:
         print("\nJob did not complete successfully.")
+
     
