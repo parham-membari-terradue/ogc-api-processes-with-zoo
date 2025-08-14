@@ -5,6 +5,7 @@ import ogc_api_client
 import time
 import json
 import yaml
+import requests
 from typing import Dict, Union, TextIO, Optional
 from ogc_api_client.api.status_api import StatusApi
 from ogc_api_client.api.result_api import ResultApi
@@ -59,39 +60,44 @@ def load_data(file_input: Union[str, TextIO]) -> Dict:
         sys.exit(1)
 
     # Optional: extract "inputs" if exists
-    if isinstance(data, dict) and "inputs" in data:
-        return data["inputs"]
+    
     return data
 
 
-def monitoring(client, job_id):
+def monitoring(ogc_api_endpoint, job_id):
+    job_url = f"{ogc_api_endpoint}/jobs/{job_id}"
+
+    headers = {"accept": "application/json"}
+
     while True:
-        status_api = StatusApi(api_client=client)
-        status = status_api.get_status(job_id=job_id)
-
-        if status:
-            print(f"Job status: {status.status}")
-
+        status_response = requests.get(job_url, headers=headers)
+        if status_response.status_code == 200:
+            job_status = status_response.json().get("status")
+            print(f"Job status: {job_status}")
+            
             # Check if the job is completed (either successful or failed)
-            if status.status in [StatusCode.SUCCESSFUL, StatusCode.FAILED]:
+            if job_status in ["successful", "failed"]:
                 break
         else:
-            print(f"Failed to get job status. Status code: {status.status}")
+            print(f"Failed to get job status. Status code: {status_response.status_code}")
             break
-
+        
         # Wait for a few seconds before checking again
         time.sleep(10)
 
-    if status.status == StatusCode.SUCCESSFUL:
-        # print(status)
+    # Step 4: Retrieve the Job Results if Successful
+    if job_status == "successful":
         print("\nJob completed successfully. Retrieving results...")
-        result_api = ResultApi(client)
-        result = result_api.get_result(job_id=job_id)
-        print(result)
-        stac_feature_collection = result.get(
-            "stac_catalog"
-        ).actual_instance.value.oneof_schema_2_validator
-        print("STAC item collection:", stac_feature_collection)
+        results_url = f"{ogc_api_endpoint}/jobs/{job_id}/results"
+        results_response = requests.get(results_url, headers=headers)
+        
+        if results_response.status_code == 200:
+            results = results_response.json()
+            stac_catalog_uri = results.get("stac_catalog", {}).get("value")
+            print("STAC Catalog URI:", stac_catalog_uri)
+            return stac_catalog_uri
+        else:
+            print(f"Failed to retrieve job results. Status code: {results_response.status_code}")
     else:
         print("\nJob did not complete successfully.")
-        print(status.text)
+    

@@ -5,12 +5,14 @@ from loguru import logger
 import ogc_api_client
 import time
 import json
+import requests
 from pprint import pprint
 from pystac.item_collection import ItemCollection
 from ogc_api_client.api_client import ApiClient, Configuration
 from ogc_api_client.api_client_wrapper import ApiClientWrapper
 from typing import Dict, Optional
 from ogc_api_client.models.status_info import StatusInfo
+
 
 
 from .utils import (
@@ -79,7 +81,7 @@ def main(ctx, **kwargs):
     logger.debug("Reading execute request data...")
     data = load_data(execute_request)
     # file_content = execute_request.read()
-    pprint(f"Data loaded: {data}")
+    print(f"Data loaded: {data}")
     # Configure the OGC API client
 
     logger.info(f"Using OGC API endpoint: {ogc_api_endpoint}")
@@ -90,41 +92,31 @@ def main(ctx, **kwargs):
     headers = get_headers()
 
     # Submit the job to the OGC API Processes endpoint
-    response_data = client.rest_client.request(
-        "POST",
-        f"{ogc_api_endpoint}/processes/{process_id}/execution",
-        headers=headers,
-        body=data,
-    )
-    response_data.read()
+    response = requests.post(f"{ogc_api_endpoint}/processes/{process_id}/execution", headers=headers, json=data)
 
-    content = client.response_deserialize(
-        response_data=response_data,
-        response_types_map=get_response_types_map(),
-    ).data
-
-    if isinstance(content, StatusInfo):
+    # Check if the request was successful
+    if response.status_code == 201:
         # Parse the response to get the job ID
-        job_id = content.job_id
-        logger.info(f"Job submitted successfully. Job ID: {job_id}")
-        status_location = next(
-            (link.href for link in content.links if link.rel == "monitor"), None
-        )
-        if not status_location:
-            status_location = f"{ogc_api_endpoint}/jobs/{job_id}"
-
-        logger.info(f"Monitor job status at: {status_location}")
+        job_info = response.json()
+        job_id = job_info.get("jobID")
+        print(f"Job submitted successfully. Job ID: {job_id}")
+        print(f"Monitor job status at: {ogc_api_endpoint}/jobs/{job_id}")
     else:
-        logger.error(f"Failed to submit job. Status code: {response_data.status}")
-        logger.error("Response:", content.text)
-        raise ValueError(f"Failed to submit job. Status code: {response_data.status}")
+        print(f"Failed to submit job. Status code: {response.status_code}")
+        print("Response:", response.text)
+        raise ValueError(f"Failed to submit job. Status code: {response.status_code}")
+
 
     # Monitor the Job Status
     logger.info(
         "--------------\n--------------\n--------------\nMonitoring job status..."
     )
-    monitoring(client, job_id)
+    stac_catalog_uri = monitoring(ogc_api_endpoint, job_id)
+    feature_collection = ItemCollection.from_dict(stac_catalog_uri).items
+    for item in feature_collection:
 
+        pprint(item.get_assets())
+        pprint(json.dumps(item.get_assets()["data"].to_dict(), sort_keys=True, indent=4))
     logger.success("Done.")
 
 
