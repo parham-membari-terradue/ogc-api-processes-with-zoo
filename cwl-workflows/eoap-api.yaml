@@ -30,11 +30,11 @@ search_request:
 
 processes_api_endpoint:
   url:
-    value: http://localhost:8080/acme/ogc-api
+    value: http://zoo-project-dru-service/acme/ogc-api/
   headers: []
 
 execute_request:
-  process_id: "pattern-4"
+  process_id: "water-bodies"
   inputs:
     items: null
     aoi: "-118.985,38.432,-118.183,38.938"
