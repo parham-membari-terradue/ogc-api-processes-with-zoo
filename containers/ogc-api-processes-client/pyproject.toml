@@ -64,24 +64,24 @@ packages = ["src/ogc_api_processes_client"]
 [tool.hatch.envs.default]
 path = "envs/ogc"
 dependencies = [
-  "click==8.2.0",
-  "pystac==1.13.0",
-  "pystac-client==0.8.6",
-  "pyyaml==6.0.2",
-  "tqdm==4.67.1",
-  "loguru==0.7.3",
+  "click",
+  "pystac",
+  "pystac-client",
+  "pyyaml",
+  "tqdm",
+  "loguru",
   "ogc-api-client @ git+https://github.com/EOEPCA/ogc-api-client@develop#subdirectory=src"
 ]
 
 [tool.hatch.envs.prod]
 path = "/code/envs/ogc"
 dependencies = [
-  "click==8.2.0",
-  "pystac==1.13.0",
-  "pystac-client==0.8.6",
-  "pyyaml==6.0.2",
-  "tqdm==4.67.1",
-  "loguru==0.7.3",
+  "click",
+  "pystac",
+  "pystac-client",
+  "pyyaml",
+  "tqdm",
+  "loguru",
   "ogc-api-client @ git+https://github.com/EOEPCA/ogc-api-client@develop#subdirectory=src"
 ]
 

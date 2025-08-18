@@ -108,7 +108,23 @@ def main(ctx, **kwargs):
         print(f"Failed to submit job. Status code: {response_data.status}")
         print("Response:", content.text)
         raise ValueError(f"Failed to submit job. Status code: {response_data.status}")
-    
+    # Submit the job to the OGC API Processes endpoint
+    # response = requests.post(f"{ogc_api_endpoint}/processes/{process_id}/execution", headers=headers, json=data)
+
+    # # Check if the request was successful
+    # if response.status_code == 201:
+    #     # Parse the response to get the job ID
+    #     job_info = response.json()
+    #     job_id = job_info.get("jobID")
+    #     print(f"Job submitted successfully. Job ID: {job_id}")
+    #     print(f"Monitor job status at: {ogc_api_endpoint}/jobs/{job_id}")
+    # else:
+    #     print(f"Failed to submit job. Status code: {response.status_code}")
+    #     print("Response:", response.text)
+    #     raise ValueError(f"Failed to submit job. Status code: {response.status_code}")
+
+
+    # Monitor the Job Status
     logger.info(
         "--------------\n--------------\n--------------\nMonitoring job status..."
     )
