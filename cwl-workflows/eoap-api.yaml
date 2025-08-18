@@ -12,10 +12,10 @@ search_request:
     end:
       value: "2023-10-15T18:59:59"
   bbox: 
-  - -118.985
-  - 38.432
-  - -118.183
-  - 38.938
+  - -121.399
+  - 39.834
+  - -120.74
+  - 40.472
   filter-lang: cql2-json
   filter:
     {
@@ -37,7 +37,7 @@ execute_request:
   process_id: "water-bodies"
   inputs:
     items: null
-    aoi: "-118.985,38.432,-118.183,38.938"
+    aoi: "-121.399,39.834,-120.74,40.472"
     bands:
     - "green"
     - "nir08"

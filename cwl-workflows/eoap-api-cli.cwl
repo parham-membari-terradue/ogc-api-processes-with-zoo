@@ -14,7 +14,8 @@ $graph:
         https://raw.githubusercontent.com/eoap/schemas/main/experimental/api-endpoint.yaml
     - $import: https://raw.githubusercontent.com/eoap/schemas/main/experimental/discovery.yaml
     - $import: https://raw.githubusercontent.com/eoap/schemas/main/experimental/process.yaml
-
+  - class: NetworkAccess
+    networkAccess: true
   inputs:
   - id: stac_api_endpoint
     type: |-
@@ -91,6 +92,8 @@ $graph:
     - $import: |-
         https://raw.githubusercontent.com/eoap/schemas/main/experimental/api-endpoint.yaml
     - $import: https://raw.githubusercontent.com/eoap/schemas/main/experimental/process.yaml
+  - class: NetworkAccess
+    networkAccess: true
   - class: InitialWorkDirRequirement
     listing:
     - entryname: input_execute_request.json
