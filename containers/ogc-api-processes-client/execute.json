@@ -1,14 +1,14 @@
 {
     "inputs": {
         "stac_items": [
-            "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_10TFK_20210713_0_L2A",
-            "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2A_10TFK_20220524_0_L2A"
+            "https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2/items/LC08_L2SP_044032_20231208_02_T1",
+            "https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2/items/LC08_L2SP_043033_20231201_02_T1"
         ],
         "aoi": "-121.399,39.834,-120.74,40.472",
         "epsg": "EPSG:4326",
         "bands": [
             "green",
-            "nir"
+            "nir08"
         ]
     }
 }
