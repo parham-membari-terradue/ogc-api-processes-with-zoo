@@ -6,6 +6,7 @@ import ogc_api_client
 import time
 import json
 import requests
+import pystac
 from pprint import pprint
 from pystac.item_collection import ItemCollection
 from ogc_api_client.api_client import ApiClient, Configuration
@@ -58,7 +59,6 @@ from .utils import (
     help="A list of references to sentinel-2 product",
     type=click.Path(),
     required=True,
-    multiple=True,
 )
 @click.pass_context
 def main(ctx, **kwargs):
@@ -129,11 +129,17 @@ def main(ctx, **kwargs):
         "--------------\n--------------\n--------------\nMonitoring job status..."
     )
     stac_feature_collection = monitoring(client, job_id)
+    # Save feature collection
+    ItemCollection.from_dict(stac_feature_collection).save_object(os.path.join(cwd,output))
+    # Inspect assets
     feature_collection = ItemCollection.from_dict(stac_feature_collection).items
     for item in feature_collection:
 
         pprint(item.get_assets())
         pprint(json.dumps(item.get_assets()["data"].to_dict(), sort_keys=True, indent=4))
+    
+    
+    
     logger.success("Done.")
 
 
