@@ -8,21 +8,22 @@ search_request:
   - landsat-c2-l2
   datetime_interval:
     start:
-      value: "2023-10-15T18:00:00"
+      value: "2023-10-14T18:00:00"
     end:
-      value: "2023-10-15T18:59:59"
+      value: "2023-10-21T18:59:59"
   bbox: 
   - -121.399
   - 39.834
   - -120.74
   - 40.472
+  
   filter-lang: cql2-json
   filter:
     {
         "op": "and",
         "args":
           [
-            { "op": "<=", "args": [{ "property": "eo:cloud_cover" }, 60] },
+            { "op": "<=", "args": [{ "property": "eo:cloud_cover" }, 70] },
             { "op": ">=", "args": [{ "property": "eo:cloud_cover" }, 0] },
             { "op": "eq" , "args": [{ "property": "proj:epsg"}, 32610]}
           ],
