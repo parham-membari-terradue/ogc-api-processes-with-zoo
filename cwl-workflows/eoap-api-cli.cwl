@@ -109,10 +109,10 @@ $graph:
         set -euo pipefail
 
 
-        jq '[.features[].links[] | select(.rel=="self") | .href]' "$(inputs.search_results.path)" > items.json
+        jq '[.features[].links[] | select(.rel=="self") | .href]' "$(inputs.search_results.path)" > stac_items.json
 
-        jq --argjson items "`cat items.json`" \
-          'del(.process_id) | .inputs.items = $items' \
+        jq --argjson stac_items "`cat stac_items.json`" \
+          'del(.process_id) | .inputs.stac_items = $stac_items' \
           input_execute_request.json > execute_request.json
 
         cat execute_request.json | jq .

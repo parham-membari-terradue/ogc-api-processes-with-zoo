@@ -24,6 +24,7 @@ search_request:
           [
             { "op": "<=", "args": [{ "property": "eo:cloud_cover" }, 60] },
             { "op": ">=", "args": [{ "property": "eo:cloud_cover" }, 0] },
+            { "op": "eq" , "args": [{ "property": "proj:epsg"}, 32610]}
           ],
       }
 
