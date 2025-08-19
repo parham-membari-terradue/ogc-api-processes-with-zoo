@@ -4,7 +4,6 @@ on:
     branches:
       - main
     paths:
-      # Only rebuild workflow when relevant files change
       - containers/**
       - .github/workflows/build.yaml
       - cwl-workflows/*.cwl
@@ -20,16 +19,13 @@ jobs:
           python-version: 3.x
       - run: pip install cwltool
       - run: |
-            cwl_list="$(ls cwl-workflows/*.cwl)"
-            echo "$cwl_list"
+          cwl_list="$(ls cwl-workflows/*.cwl)"
+          echo "$cwl_list"
       - run: |
-          for var in $cwl_list
-          do 
-              echo "**********  Validating $var  **********"
-              cwltool --validate $var
-              echo "**********  Validation of $var is successful  **********"
-              echo "******************************"
-              echo "******************************"
+          for var in $cwl_list; do 
+            echo "**********  Validating $var  **********"
+            cwltool --validate $var
+            echo "**********  Validation of $var is successful  **********"
           done
 
   version:
@@ -39,12 +35,11 @@ jobs:
       app-version: ${{ steps.set-version.outputs.version }}
     steps:
       - uses: actions/checkout@v2
-      - run: echo "APP_VERSION=$(cat codemeta.json | jq -r .version )" >> $GITHUB_ENV
+      - run: echo "APP_VERSION=$(jq -r .version codemeta.json)" >> $GITHUB_ENV
       - run: echo app version is $APP_VERSION
       - id: set-version
         run: echo "::set-output name=version::$APP_VERSION"
   
-
   container-build:
     needs: version
     runs-on: ubuntu-latest
@@ -54,17 +49,17 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build & push images
         run: |
-            OWNER=${{ github.repository_owner }}
-            REPO=${{ github.event.repository.name }}
-            VERSION=${{ needs.version.outputs.app-version }}
+          OWNER=${{ github.repository_owner }}
+          REPO=${{ github.event.repository.name }}
+          VERSION=${{ needs.version.outputs.app-version }}
 
-            if [ -z "$VERSION" ]; then
+          if [ -z "$VERSION" ]; then
             echo "ERROR: VERSION is empty! Check the version job."
             exit 1
-            fi
+          fi
 
-            echo "Scanning for Dockerfiles..."
-            for docker_file_path in $(find containers -name Dockerfile); do
+          echo "Scanning for Dockerfiles..."
+          for docker_file_path in $(find containers -name Dockerfile); do
             context_dir=$(dirname "$docker_file_path")
             step_name=$(basename "$context_dir")
             IMAGE_NAME=ghcr.io/$OWNER/$REPO/$step_name
@@ -74,8 +69,7 @@ jobs:
             docker tag $IMAGE_NAME:$VERSION $IMAGE_NAME:latest
             docker push $IMAGE_NAME:$VERSION
             docker push $IMAGE_NAME:latest
-            done
-
+          done
 
   create-release:
     needs:
@@ -83,11 +77,12 @@ jobs:
       - version
     runs-on: ubuntu-latest
     outputs:
-      upload_url: ${{ steps.set-upload-url.outputs.upload_url }}
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      tag_name: ${{ steps.create_release.outputs.tag_name }}
     steps:
       - name: Create GitHub release
-        uses: actions/create-release@v1
         id: create_release
+        uses: actions/create-release@v1
         with:
           draft: false
           prerelease: false
@@ -95,17 +90,12 @@ jobs:
           tag_name: ${{ needs.version.outputs.app-version }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
-      - id: set-upload-url
-        run: echo "::set-output name=upload_url::${{ steps.create_release.outputs.upload_url }}"
 
   publish-artifacts:
     needs:
       - create-release
       - version
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        step: [ogc-api-processes-client]
     steps:
       - uses: actions/checkout@v3
       - name: Log in to GitHub Container Registry
@@ -136,16 +126,17 @@ jobs:
 
       - name: Update CWL metadata from codemeta.json
         run: |
-          VERSION=$(cat codemeta.json | jq -r .version )
-          for cwl in $(ls cwl-workflows/*.cwl)
-            do 
-            r=$( cat codemeta.json | jq -r ".codeRepository" ) yq -i eval '."s:codeRepository" = {"URL" : env(r)}' $cwl
-            v=$VERSION yq -i eval '."s:softwareVersion" = env(v)' $cwl
-            n=$(cat codemeta.json | jq -r '(.author[0].givenName + " " + .author[0].familyName)') \
-            e=$(cat codemeta.json | jq -r '.author[0].email') \
-            a=$(cat codemeta.json | jq -r '.author[0].affiliation["name"]') \
+          VERSION=$(jq -r .version codemeta.json)
+          for cwl in $(ls cwl-workflows/*.cwl); do 
+            r=$(jq -r ".codeRepository" codemeta.json) \
+            yq -i eval '."s:codeRepository" = {"URL" : env(r)}' $cwl
+            v=$VERSION \
+            yq -i eval '."s:softwareVersion" = env(v)' $cwl
+            n=$(jq -r '(.author[0].givenName + " " + .author[0].familyName)' codemeta.json) \
+            e=$(jq -r '.author[0].email' codemeta.json) \
+            a=$(jq -r '.author[0].affiliation["name"]' codemeta.json) \
             yq eval -i  '."s:author" += [{"class": "s:Person", "s.name": env(n), "s.email": env(e), "s.affiliation": env(a)}]' $cwl
-            done
+          done
 
       - name: Prepare downloads folder
         run: |
@@ -154,22 +145,14 @@ jobs:
           for cwl_file in cwl-workflows/*.cwl; do
             base=$(basename $cwl_file .cwl)  # remove .cwl extension
             cp $cwl_file downloads/${base}.${{ needs.version.outputs.app-version }}.cwl
-            ls downloads/
           done
-
-      - name: Upload artifacts to GitHub Actions
-        uses: actions/upload-artifact@v4
-        with:
-          name: application-package-${{ matrix.step }}
-          path: downloads
-          overwrite: true
+          ls downloads/
 
       - name: Upload CWL artifacts to GitHub release
-        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }}
-          asset_path: downloads/${{ matrix.step }}.${{ needs.version.outputs.app-version }}.cwl
-          asset_name: ${{ matrix.step }}.${{ needs.version.outputs.app-version }}.cwl
-          asset_content_type: text/yaml
+        run: |
+          for f in downloads/*.cwl; do
+            echo "Uploading $f ..."
+            gh release upload ${{ needs.create-release.outputs.tag_name }} "$f" --clobber
+          done
