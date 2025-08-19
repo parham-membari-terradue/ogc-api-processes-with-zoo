@@ -26,7 +26,7 @@
     ],
     "softwareRequirements": [
         "container runtime",
-        "cwl runner",
+        "cwl runner"
     ],
     "author": [
         {
