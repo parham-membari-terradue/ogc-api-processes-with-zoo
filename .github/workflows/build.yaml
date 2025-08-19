@@ -6,7 +6,7 @@ on:
     paths:
       # Only rebuild workflow when relevant files change
       - containers/**
-      - .github/build.yaml
+      - .github/workflows/build.yaml
       - cwl-workflows/*.cwl
       - codemeta.json
 
