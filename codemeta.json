@@ -19,7 +19,7 @@
         "name": "Terradue"
     },
     "keywords": [
-        "OGC", "API", "REST API", "ZOO", "NDWI", "Landsat-9", "Sentinel-2", "Water Bodies", 
+        "OGC", "API", "REST API", "ZOO", "NDWI", "Landsat-9", "Sentinel-2", "Water Bodies" 
     ],
     "programmingLanguage": [
         "Python", "CWL"
