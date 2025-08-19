@@ -152,8 +152,9 @@ jobs:
           rm -rf downloads
           mkdir downloads
           for cwl_file in cwl-workflows/*.cwl; do
-            base=$(basename "$cwl_file")
-            cp "$cwl_file" "downloads/${base}.${{ needs.version.outputs.app-version }}.cwl"
+            base=$(basename $cwl_file)
+            cp $cwl_file downloads/${base}.${{ needs.version.outputs.app-version }}.cwl
+            ls downloads/
           done
 
       - name: Upload artifacts to GitHub Actions
