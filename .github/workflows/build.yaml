@@ -153,7 +153,7 @@ jobs:
           mkdir downloads
           for cwl_file in cwl-workflows/*.cwl; do
             base=$(basename $cwl_file .cwl)  # remove .cwl extension
-            cp $cwl_file downloads/${base}.0.0.1.cwl
+            cp $cwl_file downloads/${base}.${{ needs.version.outputs.app-version }}.cwl
             ls downloads/
           done
 
