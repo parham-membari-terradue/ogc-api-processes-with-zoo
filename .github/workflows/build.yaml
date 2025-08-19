@@ -23,7 +23,7 @@ jobs:
             cwl_list="$(ls cwl-workflows/*.cwl)"
             echo "$cwl_list"
       - run: |
-          for var in "$cwl_list"
+          for var in $cwl_list
           do 
               echo "**********  Validating $var  **********"
               cwltool --validate $var
