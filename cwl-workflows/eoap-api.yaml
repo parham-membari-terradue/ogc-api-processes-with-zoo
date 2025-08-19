@@ -38,7 +38,6 @@ processes_api_endpoint:
 execute_request:
   process_id: "water-bodies"
   inputs:
-    items: null
     aoi: "-121.399,39.834,-120.74,40.472"
     bands:
     - "green"
