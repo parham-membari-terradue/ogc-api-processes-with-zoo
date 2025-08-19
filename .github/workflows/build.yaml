@@ -136,17 +136,16 @@ jobs:
 
       - name: Update CWL metadata from codemeta.json
         run: |
-          VERSION=${{ needs.version.outputs.app-version }}
-          for cwl_file in cwl-workflows/*.cwl; do
-            CODE_REPO=$(jq -r ".codeRepository" codemeta.json)
-            AUTHOR_NAME=$(jq -r '(.author[0].givenName + " " + .author[0].familyName)' codemeta.json)
-            AUTHOR_EMAIL=$(jq -r '.author[0].email' codemeta.json)
-            AUTHOR_AFF=$(jq -r '.author[0].affiliation["name"]' codemeta.json)
-
-            yq -i eval '."s:codeRepository" = {"URL": env(CODE_REPO)}' "$cwl_file"
-            yq -i eval '."s:softwareVersion" = env(VERSION)' "$cwl_file"
-            yq -i eval '."s:author" += [{"class":"s:Person","s.name":env(AUTHOR_NAME),"s.email":env(AUTHOR_EMAIL),"s.affiliation":env(AUTHOR_AFF)}]' "$cwl_file"
-          done
+          VERSION=$(cat codemeta.json | jq -r .version )
+          for cwl in $(ls cwl-workflows/*.cwl)
+            do
+            r=$( cat codemeta.json | jq -r ".codeRepository" ) yq -i eval '."s:codeRepository" = {"URL" : env(r)}' $cwl
+            v=$VERSION yq -i eval '."s:softwareVersion" = env(v)' $cwl
+            n=$(cat codemeta.json | jq -r '(.author[0].givenName + " " + .author[0].familyName)') \
+            e=$(cat codemeta.json | jq -r '.author[0].email') \
+            a=$(cat codemeta.json | jq -r '.author[0].affiliation["name"]') \
+            yq eval -i  '."s:author" += [{"class": "s:Person", "s.name": env(n), "s.email": env(e), "s.affiliation": env(a)}]' $cwl
+            done
 
       - name: Prepare downloads folder
         run: |
