@@ -19,12 +19,15 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install cwltool
-      - run: cwl_list=$(ls cwl-workflows/*.cwl)
+      - run: |
+            cwl_list="$(ls cwl-workflows/*.cwl)"
+            echo $cwl_list
+            echo "$cwl_list"
       - run: |
           for var in $cwl_list
           do 
               echo "**********  Validating $var  **********"
-              cwltool --validate --no-warnings $var
+              cwltool --validate $var
               echo "**********  Validation of $var is successful  **********"
               echo "******************************"
               echo "******************************"
