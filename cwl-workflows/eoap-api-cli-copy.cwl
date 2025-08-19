@@ -136,7 +136,7 @@ $graph:
       - class: DockerRequirement
         dockerPull: bbb
       - class: SchemaDefRequirement
-        types: 
+        types:
           - $import: https://raw.githubusercontent.com/eoap/schemas/main/string_format.yaml
           - $import: https://raw.githubusercontent.com/eoap/schemas/main/geojson.yaml
           - $import: |-
@@ -215,3 +215,4 @@ $graph:
       - --output
       - feature-collection.json
 cwlVersion: v1.2
+
