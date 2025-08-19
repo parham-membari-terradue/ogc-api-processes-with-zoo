@@ -134,7 +134,7 @@ $graph:
     requirements:
       - class: InlineJavascriptRequirement
       - class: DockerRequirement
-        dockerPull: localhost/ogc
+        dockerPull: ghcr.io/parham-membari-terradue/ogc-api-processes-with-zoo/ogc-api-processes-client@sha256:154e0d3da530dc7604c8fc8c7d71e18c6f4ffb761c5efb00acb0841bbf4984b2
       - class: SchemaDefRequirement
         types:
           - $import: https://raw.githubusercontent.com/eoap/schemas/main/string_format.yaml
@@ -171,7 +171,4 @@ $graph:
       - $(inputs.execute_request.path)
       - --output
       - feature-collection.json
-    hints:
-      DockerRequirement:
-        dockerPull: aaabbb
 cwlVersion: v1.2

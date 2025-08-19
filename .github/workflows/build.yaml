@@ -121,10 +121,16 @@ jobs:
             step_name=$(basename "$context_dir")
             IMAGE_NAME=ghcr.io/$OWNER/$REPO/$step_name
             tag="$IMAGE_NAME:$VERSION"
+            echo $tag
+            docker pull ${tag}
             shatag=$(docker inspect "$tag" | yq -r '.[0]["RepoDigests"][0]')
-
             for cwl_file in cwl-workflows/*.cwl; do
-              yq -i eval '(.$graph[] | select(.id == env(step_name))).hints.DockerRequirement.dockerPull = env(shatag)' "$cwl_file"
+              yq -i eval "(
+                .\$graph[] 
+                | select(.id == \"$step_name\") 
+                | .requirements[] 
+                | select(.class == \"DockerRequirement\")
+                ).dockerPull = \"$shatag\"" "$cwl_file"
             done
           done
 
