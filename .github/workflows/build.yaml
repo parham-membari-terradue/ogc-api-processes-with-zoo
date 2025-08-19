@@ -6,9 +6,9 @@ on:
     paths:
       # Only rebuild workflow when relevant files change
       - containers/**
-      - .github/**
-      - docs/**
+      - .github/build.yaml
       - cwl-workflows/*.cwl
+      - codemeta.json
 
 jobs:
   validate:
@@ -41,6 +41,7 @@ jobs:
       - run: echo app version is $APP_VERSION
       - id: set-version
         run: echo "::set-output name=version::$APP_VERSION"
+  
 
   container-build:
     needs: version

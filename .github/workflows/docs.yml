@@ -10,7 +10,7 @@ on:
       - 'README.md'
       - 'docs/**'
       - 'mkdocs.yml'
-      - .github/**
+      - .github/docs.yaml
 
 jobs:
   deploy:
