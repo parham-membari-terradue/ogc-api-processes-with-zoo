@@ -138,7 +138,7 @@ jobs:
         run: |
           VERSION=$(cat codemeta.json | jq -r .version )
           for cwl in $(ls cwl-workflows/*.cwl)
-            do
+            do 
             r=$( cat codemeta.json | jq -r ".codeRepository" ) yq -i eval '."s:codeRepository" = {"URL" : env(r)}' $cwl
             v=$VERSION yq -i eval '."s:softwareVersion" = env(v)' $cwl
             n=$(cat codemeta.json | jq -r '(.author[0].givenName + " " + .author[0].familyName)') \
