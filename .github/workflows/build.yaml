@@ -51,23 +51,28 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build & push images
         run: |
-          OWNER=${{ github.repository_owner }}
-          REPO=${{ github.event.repository.name }}
-          VERSION=${{ needs.version.outputs.app-version }}
+            OWNER=${{ github.repository_owner }}
+            REPO=${{ github.event.repository.name }}
+            VERSION=${{ needs.version.outputs.app-version }}
 
-          echo "Scanning for Dockerfiles..."
-          for docker_file_path in $(find containers -name Dockerfile)
-          do
-              context_dir=$(dirname "$docker_file_path")
-              step_name=$(basename "$context_dir")
-              IMAGE_NAME=ghcr.io/$OWNER/$REPO/$step_name
+            if [ -z "$VERSION" ]; then
+            echo "ERROR: VERSION is empty! Check the version job."
+            exit 1
+            fi
 
-              echo "Building $IMAGE_NAME:$VERSION from $docker_file_path"
-              docker build -t $IMAGE_NAME:$VERSION -f "$docker_file_path" "$context_dir"
-              docker tag $IMAGE_NAME:$VERSION $IMAGE_NAME:latest
-              docker push $IMAGE_NAME:$VERSION
-              docker push $IMAGE_NAME:latest
-          done
+            echo "Scanning for Dockerfiles..."
+            for docker_file_path in $(find containers -name Dockerfile); do
+            context_dir=$(dirname "$docker_file_path")
+            step_name=$(basename "$context_dir")
+            IMAGE_NAME=ghcr.io/$OWNER/$REPO/$step_name
+
+            echo "Building $IMAGE_NAME:$VERSION from $docker_file_path"
+            docker build -t $IMAGE_NAME:$VERSION -f "$docker_file_path" "$context_dir"
+            docker tag $IMAGE_NAME:$VERSION $IMAGE_NAME:latest
+            docker push $IMAGE_NAME:$VERSION
+            docker push $IMAGE_NAME:latest
+            done
+
 
   create-release:
     needs:
