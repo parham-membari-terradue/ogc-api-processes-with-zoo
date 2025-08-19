@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
-      tag_name: ${{ steps.create_release.outputs.tag_name }}
+      
     steps:
       - name: Create GitHub release
         id: create_release
@@ -154,5 +154,5 @@ jobs:
         run: |
           for f in downloads/*.cwl; do
             echo "Uploading $f ..."
-            gh release upload ${{ needs.create-release.outputs.tag_name }} "$f" --clobber
+            gh release upload ${{ needs.version.outputs.app-version }} "$f" --clobber
           done
