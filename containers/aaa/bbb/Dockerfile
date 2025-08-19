@@ -1,1 +1,0 @@
-FROM rockylinux:9.3-minimal AS build
