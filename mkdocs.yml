@@ -66,6 +66,19 @@ nav:
     - List available processes: list-processes.md
     - Describe the process: describe-process.md
     - Execute and monitor the process: execute-monitor-process.md 
+  - Package the EO application CLI:
+    - Creating the containers: 
+      - Scope: containers/scope.md
+      - Build and test the containers:
+        - OGC API Process Client: containers/ogc_api_processes_client.md
+    - Create CWL CommandLineTools:
+      - STAC Item Discovery CommandLineTool: cwl-cli/stac-item-discovery.md
+      - Prepare Execute Request CommandLineTool: cwl-cli/prepare-execute.md
+      - OGC API Process Client CommandLineTool: cwl-cli/ogc-api-processes-client.md
+    - Create the CWL Workflows:
+      - Scope: cwl-workflow/scope.md
+      - EO application API Workflow: cwl-workflow/eoap-api.md
+
   - Reference:
     - OGC API Processes: reference/ogc-api-processes.md
     - OGC API Processes OpenAPI: reference/ogc-api-processes-openapi.md
