@@ -2,8 +2,8 @@
 
 $graph:
 - class: Workflow
+  id: eoap-api
   label: EOAP API Workflow
-
   requirements:
   - class: InlineJavascriptRequirement
   - class: SchemaDefRequirement
@@ -73,7 +73,7 @@ $graph:
       out: 
       - process_output
 
-  id: eoap-api
+  
 
 - class: CommandLineTool
   id: prepare-execute-request
