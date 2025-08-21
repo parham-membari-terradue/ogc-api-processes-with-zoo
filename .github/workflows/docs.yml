@@ -6,22 +6,25 @@ on:
       - main
       - master
     paths:
-      # Only rebuild website when docs have changed
       - 'README.md'
       - 'docs/**'
       - 'mkdocs.yml'
-      - .github/workflows/docs.yml
+      - '.github/workflows/docs.yml'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout master
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Set up Python 3.x
-        uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: 3.x
-      - run: pip install mkdocs-material mkdocs-mermaid2-plugin mkdocs-swagger-ui-tag
-      - run: mkdocs gh-deploy --force
+
+      - name: Install MkDocs and plugins
+        run: pip install mkdocs-material mkdocs-mermaid2-plugin mkdocs-swagger-ui-tag
+
+      - name: Deploy MkDocs to GitHub Pages
+        run: mkdocs gh-deploy --force
