@@ -1,6 +1,6 @@
 ### Goal 
 
-Create a container and run the `ogc-api-processes-client` step in the container image. This container will interact with the a deployrd process (e.g. water-bodies) on the OGC API endpint, submit a job with the recived inputs, monitor the job for any upcoming event(e.g running, successful, failed), and finally create STAC ItemCollection with assets pointing to the results. 
+Create a container and run the `ogc-api-processes-client` step in the container image. This container will interact with the a deployrd process (e.g. water-bodies) on the OGC API endpint, submit a job with the recived inputs, monitor the job for any upcoming event(e.g **running**, **successful**, **failed**), and finally create STAC ItemCollection with assets pointing to the results. 
 
 ### Lab
 

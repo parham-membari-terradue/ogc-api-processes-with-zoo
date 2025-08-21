@@ -1,6 +1,6 @@
 # Execute the process and monitor the execution
 
-To submit an execution request of a deployed process and monitor it, the OGC API Processes API uses the resource highlighted in bold in the table below:
+To submit an execution request of a deployed process and monitor it, the OGC API Processes API uses the resource highlighted in the table below:
 
 | **Resource**                   | **Path**                                     | **Purpose**                                                                     | **Part**   |
 |--------------------------------|----------------------------------------------|---------------------------------------------------------------------------------|------------|
@@ -9,875 +9,326 @@ To submit an execution request of a deployed process and monitor it, the OGC API
 | API Definition                 | `/api`                                       | Metadata about the API itself.                                                  | Part 1     |
 | Process list                   | `/processes`                                 | Lists available processes with identifiers and links to descriptions.           | Part 1     |
 | Process description            | `/processes/{processID}`                     | Retrieves detailed information about a specific process.                        | Part 1     |
-| **Process execution**          | **`/processes/{processID}/execution`**(POST) | **Executes a process, creating a job.**                                         | **Part 1** |
+| **Process execution**          | **`/processes/{processID}/execution`(POST)** | **Executes a process, creating a job.**                                         | **Part 1** |
 | Deploy Process                 | `/processes` (POST)                          | Deploys a new process on the server.                                            | Part 2     |
 | Replace Process                | `/processes/{processID}` (PUT)               | Replaces an existing process with a new version.                                | Part 2     |
 | Undeploy Process               | `/processes/{processID}` (DELETE)            | Removes an existing process from the server.                                    | Part 2     |
-| Application Package (OGC AppPkg) | `/processes/{processId}/package`           | Support accessing the OGC Application Package.                                  | Part 2     |
+| EO Application Package         | `/processes/{processID}/package`             | Get the EOAP associated with a deployed process.                                | Part 2     |
 | **Job status info**            | **`/jobs/{jobID}`**                          | **Retrieves the current status of a job.**                                      | **Part 1** |
 | **Job results**                | **`/jobs/{jobID}/results`**                  | **Retrieves the results of a job.**                                             | **Part 1** |
 | Job list                       | `/jobs`                                      | Retrieves a list of submitted jobs.                                             | Part 1     |
 | Job deletion                   | `/jobs/{jobID}` (DELETE)                     | Cancels and deletes a job.                                                      | Part 1     |
 
-## Execution
 
-Using the endpoint **`/processes/{processID}/execution`**, the serve will execute the *{processID}* process. It leads to the creation of a `job`. 
+```python
+import os
+from pprint import pprint
+import requests
+import time
+import json
+from pystac.item_collection import ItemCollection
+from urllib.parse import urljoin, urlparse
+from ogc_api_client.api_client import Configuration
+from ogc_api_client.api_client_wrapper import ApiClientWrapper
+from ogc_api_client.models.status_info import StatusInfo, StatusCode
+from typing import Dict, Optional
+from fs_s3fs import S3FS
+from loguru import logger
+import rasterio
 
-The `job` is the entity that identifies the process execution.
 
-After the execution request is sent to the server, the server creates an unique identifier, `jobID`, for the job called. 
+namespace = "acme"
 
-The server returns a status code of `201` along with a `Location` header that contains the URL to the job status. 
+ogc_api_endpoint = f"http://zoo-project-dru-service/{namespace}/ogc-api"
+```
 
-The information received in the response body matches the process summary that can be obtained by using the process list endpoint (`/processes/{processID}`).
+Define the input data for the execution:
 
-=== "curl"
 
-    ```bash
-    curl -X 'POST' \
-        'http://localhost:8080/acme/ogc-api/processes/water-bodies/execution' \
-        -H 'accept: application/json' \
-        -H 'Prefer: respond-async;return=representation' \
-        -H 'Content-Type: application/json' \
-        -d '{
-        "inputs": {
-            "stac_items": [
-            "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_10TFK_20210713_0_L2A",
-            "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2A_10TFK_20220524_0_L2A"
-            ],
-            "aoi": "-121.399,39.834,-120.74,40.472",
-            "epsg": "EPSG:4326",
-            "bands": [
+```python
+data = {
+    "inputs": {
+        "stac_items": [
+            "https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2/items/LC08_L2SP_044032_20231208_02_T1",
+            "https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2/items/LC08_L2SP_043033_20231201_02_T1"
+        ],
+        "aoi": "-121.399,39.834,-120.74,40.472",
+        "epsg": "EPSG:4326",
+        "bands": [
             "green",
-            "nir"
-            ]
-        }
-        }'
-    ```
-
-=== "Python"
-
-    ```python
-    data = {
-        "inputs": {
-            "stac_items": [
-                "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2B_10TFK_20210713_0_L2A",
-                "https://earth-search.aws.element84.com/v0/collections/sentinel-s2-l2a-cogs/items/S2A_10TFK_20220524_0_L2A"
-            ],
-            "aoi": "-121.399,39.834,-120.74,40.472",
-            "epsg": "EPSG:4326",
-            "bands": [
-                "green",
-                "nir"
-            ]
-        }
-    }
-
-    headers = {
-        "accept": "*/*",
-        "Prefer": "respond-async;return=representation",
-        "Content-Type": "application/json"
-    }
-
-    process_id = "water-bodies" 
-
-    # Submit the processing request
-    response = requests.post(f"{ogc_api_endpoint}/processes/{process_id}/execution", headers=headers, json=data)
-    ```
-
-### Response body and headers
-
-=== "Response body"
-
-    Below an example of the response body
-
-    ```json
-    {
-    "jobID": "bfafdb8e-902c-11ef-a29c-8e55bd0a3308",
-    "type": "process",
-    "processID": "water-bodies",
-    "created": "2024-10-22T04:18:54.378Z",
-    "started": "2024-10-22T04:18:54.378Z",
-    "updated": "2024-10-22T04:18:54.378Z",
-    "status": "running",
-    "message": "ZOO-Kernel accepted to run your service!",
-    "links": [
-        {
-        "title": "Status location",
-        "rel": "monitor",
-        "type": "application/json",
-        "href": "http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308"
-        }
-    ]
-    }
-    ```
-
-=== "Response headers"
-
-    Below an example of the response headers
-
-    ```
-    connection: Keep-Alive 
-    content-type: application/json;charset=UTF-8 
-    date: Tue,22 Oct 2024 04:18:54 GMT 
-    keep-alive: timeout=5,max=100 
-    location: http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308 
-    preference-applied: respond-async;return=representation 
-    server: Apache/2.4.41 (Ubuntu) 
-    transfer-encoding: chunked 
-    x-also-also-also-powered-by: dru.securityOut 
-    x-also-also-powered-by: dru.securityIn 
-    x-also-powered-by: jwt.securityIn 
-    x-powered-by: ZOO-Project-DRU 
-    ```
-
-## Monitor the execution
-
-With the help of the unique job identifier `{jobID}`, the execution process can be monitored. 
-
-The endpoint `/jobs/{jobID}` keeps track of the job `{jobID}` progress.
-
-This endpoint provides access to information about the job. As defined in the schema, the information should contain at least a `type` (`process`), a `jobId`, and a `status`.
-
-This `status` is one of the following values: `accepted`, `running`, `successful`, `failed`, `dismissed`.
-
-The job progress is monitored using the `progress` field, current step using `message`, and check service runtime using `created`, `started`, `updated`, and potentially `finished`.
- 
-Optionally, the JSON object returned can contain links. 
-
-Upon running the process, the server returns the current status as a single link. At the end of execution, another link should be available and include a URL to the results, identified by the relation 'http://www.opengis.net/def/rel/ogc/1.0/results'.
-
-In the ZOO-Project-DRU implementation, links to the log files of every step of the Application Package CWL workflow execution were added.
-
-
-=== "curl"
-
-    ```bash
-    curl -X 'GET' \
-        'http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308' \
-        -H 'accept: application/json'
-    ```
-
-=== "Python"
-
-    ```python
-    job_url = "http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308"
-    
-    headers = {"accept": "application/json"}
-
-    status_response = requests.get(job_url, headers=headers)
-    
-    ```
-
-### Response body
-
-Below an example of the response body.
-
-=== "Status running"
-
-    ```json
-    {
-        "progress": 23,
-        "jobID": "bfafdb8e-902c-11ef-a29c-8e55bd0a3308",
-        "type": "process",
-        "processID": "water-bodies",
-        "created": "2024-10-22T04:18:54.378Z",
-        "started": "2024-10-22T04:18:54.378Z",
-        "updated": "2024-10-22T04:19:41.546Z",
-        "status": "running",
-        "message": "execution submitted",
-        "links": [
-            {
-            "title": "Status location",
-            "rel": "monitor",
-            "type": "application/json",
-            "href": "http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308"
-            }
+            "nir08"
         ]
     }
-    ```
+}
 
-=== "Status successful"
+```
 
-    ```json
-    {
-        "jobID": "bfafdb8e-902c-11ef-a29c-8e55bd0a3308",
-        "type": "process",
-        "processID": "water-bodies",
-        "created": "2024-10-22T04:18:54.378Z",
-        "started": "2024-10-22T04:18:54.378Z",
-        "finished": "2024-10-22T04:22:25.175Z",
-        "updated": "2024-10-22T04:22:25.018Z",
-        "status": "successful",
-        "message": "ZOO-Kernel successfully run your service!",
-        "links": [
-            {
-            "title": "Status location",
-            "rel": "monitor",
-            "type": "application/json",
-            "href": "http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308"
-            },
-            {
-            "title": "Result location",
-            "rel": "http://www.opengis.net/def/rel/ogc/1.0/results",
-            "type": "application/json",
-            "href": "http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/results"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_crop_2.log",
-            "title": "Tool log node_crop_2.log",
-            "rel": "related",
-            "type": "text/plain"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_crop.log",
-            "title": "Tool log node_crop.log",
-            "rel": "related",
-            "type": "text/plain"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_crop_3.log",
-            "title": "Tool log node_crop_3.log",
-            "rel": "related",
-            "type": "text/plain"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_normalized_difference.log",
-            "title": "Tool log node_normalized_difference.log",
-            "rel": "related",
-            "type": "text/plain"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_crop_4.log",
-            "title": "Tool log node_crop_4.log",
-            "rel": "related",
-            "type": "text/plain"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_otsu.log",
-            "title": "Tool log node_otsu.log",
-            "rel": "related",
-            "type": "text/plain"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_normalized_difference_2.log",
-            "title": "Tool log node_normalized_difference_2.log",
-            "rel": "related",
-            "type": "text/plain"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_otsu_2.log",
-            "title": "Tool log node_otsu_2.log",
-            "rel": "related",
-            "type": "text/plain"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_stac.log",
-            "title": "Tool log node_stac.log",
-            "rel": "related",
-            "type": "text/plain"
-            },
-            {
-            "href": "http://localhost:8080/acme/temp/water-bodies-bfafdb8e-902c-11ef-a29c-8e55bd0a3308/node_stage_out.log",
-            "title": "Tool log node_stage_out.log",
-            "rel": "related",
-            "type": "text/plain"
-            }
-        ]
-        }
-    ```
+In the cell below, the user will configure the API client settings and initialize a client object using [ApiClientWrapper](https://github.com/EOEPCA/ogc-api-client/blob/d7159a3f70e5f283ccb7d585702ec40d5a49c006/src/ogc_api_client/api_client_wrapper.py#L29C7-L29C23). A request header will also be specified.
 
-## Get the execution results 
 
-Once the execution process is complete, the job `{jobID}` results are accessed using the endpoint `/jobs/{jobId}/results`. 
 
-=== "curl"
+```python
+configuration = Configuration(
+    host=ogc_api_endpoint,
+)
+client = ApiClientWrapper(configuration=configuration)
 
-    ```bash
-    curl -X 'GET' \
-    'http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/results' \
-    -H 'accept: application/json'
-    ```
-
-=== "Python"
-
-    ```python
-    results_url = "http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/results"
-    
-    headers = {"accept": "application/json"}
-
-    response = requests.get(results_url, headers=headers)
-    ```
-
-### Response body 
-
-```json
-{
-  "stac_catalog": {
-    "value": {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "stac_version": "1.0.0",
-          "id": "S2B_10TFK_20210713_0_L2A",
-          "properties": {
-            "proj:epsg": 32610,
-            "proj:geometry": {
-              "type": "Polygon",
-              "coordinates": [
-                [
-                  [
-                    636990,
-                    4410550
-                  ],
-                  [
-                    691590,
-                    4410550
-                  ],
-                  [
-                    691590,
-                    4482600
-                  ],
-                  [
-                    636990,
-                    4482600
-                  ],
-                  [
-                    636990,
-                    4410550
-                  ]
-                ]
-              ]
-            },
-            "proj:bbox": [
-              636990,
-              4410550,
-              691590,
-              4482600
-            ],
-            "proj:shape": [
-              7205,
-              5460
-            ],
-            "proj:transform": [
-              10,
-              0,
-              636990,
-              0,
-              -10,
-              4482600,
-              0,
-              0,
-              1
-            ],
-            "proj:projjson": {
-              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
-              "type": "ProjectedCRS",
-              "name": "WGS 84 / UTM zone 10N",
-              "base_crs": {
-                "name": "WGS 84",
-                "datum": {
-                  "type": "GeodeticReferenceFrame",
-                  "name": "World Geodetic System 1984",
-                  "ellipsoid": {
-                    "name": "WGS 84",
-                    "semi_major_axis": 6378137,
-                    "inverse_flattening": 298.257223563
-                  }
-                },
-                "coordinate_system": {
-                  "subtype": "ellipsoidal",
-                  "axis": [
-                    {
-                      "name": "Geodetic latitude",
-                      "abbreviation": "Lat",
-                      "direction": "north",
-                      "unit": "degree"
-                    },
-                    {
-                      "name": "Geodetic longitude",
-                      "abbreviation": "Lon",
-                      "direction": "east",
-                      "unit": "degree"
-                    }
-                  ]
-                },
-                "id": {
-                  "authority": "EPSG",
-                  "code": 4326
-                }
-              },
-              "conversion": {
-                "name": "UTM zone 10N",
-                "method": {
-                  "name": "Transverse Mercator",
-                  "id": {
-                    "authority": "EPSG",
-                    "code": 9807
-                  }
-                },
-                "parameters": [
-                  {
-                    "name": "Latitude of natural origin",
-                    "value": 0,
-                    "unit": "degree",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8801
-                    }
-                  },
-                  {
-                    "name": "Longitude of natural origin",
-                    "value": -123,
-                    "unit": "degree",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8802
-                    }
-                  },
-                  {
-                    "name": "Scale factor at natural origin",
-                    "value": 0.9996,
-                    "unit": "unity",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8805
-                    }
-                  },
-                  {
-                    "name": "False easting",
-                    "value": 500000,
-                    "unit": "metre",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8806
-                    }
-                  },
-                  {
-                    "name": "False northing",
-                    "value": 0,
-                    "unit": "metre",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8807
-                    }
-                  }
-                ]
-              },
-              "coordinate_system": {
-                "subtype": "Cartesian",
-                "axis": [
-                  {
-                    "name": "Easting",
-                    "abbreviation": "",
-                    "direction": "east",
-                    "unit": "metre"
-                  },
-                  {
-                    "name": "Northing",
-                    "abbreviation": "",
-                    "direction": "north",
-                    "unit": "metre"
-                  }
-                ]
-              },
-              "id": {
-                "authority": "EPSG",
-                "code": 32610
-              }
-            },
-            "proj:wkt2": "PROJCS[\"WGS 84 / UTM zone 10N\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-123],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"32610\"]]",
-            "datetime": "2021-07-13T19:03:24Z"
-          },
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-              [
-                [
-                  -121.39905410179915,
-                  39.833916743259095
-                ],
-                [
-                  -120.76135965075635,
-                  39.82336095080461
-                ],
-                [
-                  -120.73995321724426,
-                  40.471999341669175
-                ],
-                [
-                  -121.38373773482932,
-                  40.482798837728375
-                ],
-                [
-                  -121.39905410179915,
-                  39.833916743259095
-                ]
-              ]
-            ]
-          },
-          "links": [
-            {
-              "rel": "collection",
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/collection.json",
-              "type": "application/json",
-              "title": "Processing results"
-            },
-            {
-              "rel": "root",
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/catalog.json",
-              "type": "application/json"
-            },
-            {
-              "rel": "self",
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/S2B_10TFK_20210713_0_L2A/S2B_10TFK_20210713_0_L2A.json",
-              "type": "application/json"
-            },
-            {
-              "rel": "parent",
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/collection.json",
-              "type": "application/json",
-              "title": "Processing results"
-            }
-          ],
-          "assets": {
-            "data": {
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/S2B_10TFK_20210713_0_L2A/otsu.tif",
-              "type": "image/tiff; application=geotiff",
-              "storage:platform": "eoap",
-              "storage:requester_pays": false,
-              "storage:tier": "Standard",
-              "storage:region": "us-east-1",
-              "storage:endpoint": "http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566",
-              "roles": [
-                "data",
-                "visual"
-              ]
-            }
-          },
-          "bbox": [
-            -121.39905410179915,
-            39.82336095080461,
-            -120.73995321724426,
-            40.482798837728375
-          ],
-          "stac_extensions": [
-            "https://stac-extensions.github.io/projection/v1.1.0/schema.json"
-          ],
-          "collection": "bfafdb8e-902c-11ef-a29c-8e55bd0a3308"
-        },
-        {
-          "type": "Feature",
-          "stac_version": "1.0.0",
-          "id": "S2A_10TFK_20220524_0_L2A",
-          "properties": {
-            "proj:epsg": 32610,
-            "proj:geometry": {
-              "type": "Polygon",
-              "coordinates": [
-                [
-                  [
-                    636990,
-                    4410550
-                  ],
-                  [
-                    691590,
-                    4410550
-                  ],
-                  [
-                    691590,
-                    4482600
-                  ],
-                  [
-                    636990,
-                    4482600
-                  ],
-                  [
-                    636990,
-                    4410550
-                  ]
-                ]
-              ]
-            },
-            "proj:bbox": [
-              636990,
-              4410550,
-              691590,
-              4482600
-            ],
-            "proj:shape": [
-              7205,
-              5460
-            ],
-            "proj:transform": [
-              10,
-              0,
-              636990,
-              0,
-              -10,
-              4482600,
-              0,
-              0,
-              1
-            ],
-            "proj:projjson": {
-              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
-              "type": "ProjectedCRS",
-              "name": "WGS 84 / UTM zone 10N",
-              "base_crs": {
-                "name": "WGS 84",
-                "datum": {
-                  "type": "GeodeticReferenceFrame",
-                  "name": "World Geodetic System 1984",
-                  "ellipsoid": {
-                    "name": "WGS 84",
-                    "semi_major_axis": 6378137,
-                    "inverse_flattening": 298.257223563
-                  }
-                },
-                "coordinate_system": {
-                  "subtype": "ellipsoidal",
-                  "axis": [
-                    {
-                      "name": "Geodetic latitude",
-                      "abbreviation": "Lat",
-                      "direction": "north",
-                      "unit": "degree"
-                    },
-                    {
-                      "name": "Geodetic longitude",
-                      "abbreviation": "Lon",
-                      "direction": "east",
-                      "unit": "degree"
-                    }
-                  ]
-                },
-                "id": {
-                  "authority": "EPSG",
-                  "code": 4326
-                }
-              },
-              "conversion": {
-                "name": "UTM zone 10N",
-                "method": {
-                  "name": "Transverse Mercator",
-                  "id": {
-                    "authority": "EPSG",
-                    "code": 9807
-                  }
-                },
-                "parameters": [
-                  {
-                    "name": "Latitude of natural origin",
-                    "value": 0,
-                    "unit": "degree",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8801
-                    }
-                  },
-                  {
-                    "name": "Longitude of natural origin",
-                    "value": -123,
-                    "unit": "degree",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8802
-                    }
-                  },
-                  {
-                    "name": "Scale factor at natural origin",
-                    "value": 0.9996,
-                    "unit": "unity",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8805
-                    }
-                  },
-                  {
-                    "name": "False easting",
-                    "value": 500000,
-                    "unit": "metre",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8806
-                    }
-                  },
-                  {
-                    "name": "False northing",
-                    "value": 0,
-                    "unit": "metre",
-                    "id": {
-                      "authority": "EPSG",
-                      "code": 8807
-                    }
-                  }
-                ]
-              },
-              "coordinate_system": {
-                "subtype": "Cartesian",
-                "axis": [
-                  {
-                    "name": "Easting",
-                    "abbreviation": "",
-                    "direction": "east",
-                    "unit": "metre"
-                  },
-                  {
-                    "name": "Northing",
-                    "abbreviation": "",
-                    "direction": "north",
-                    "unit": "metre"
-                  }
-                ]
-              },
-              "id": {
-                "authority": "EPSG",
-                "code": 32610
-              }
-            },
-            "proj:wkt2": "PROJCS[\"WGS 84 / UTM zone 10N\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-123],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"32610\"]]",
-            "datetime": "2022-05-24T19:03:29Z"
-          },
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-              [
-                [
-                  -121.39905410179915,
-                  39.833916743259095
-                ],
-                [
-                  -120.76135965075635,
-                  39.82336095080461
-                ],
-                [
-                  -120.73995321724426,
-                  40.471999341669175
-                ],
-                [
-                  -121.38373773482932,
-                  40.482798837728375
-                ],
-                [
-                  -121.39905410179915,
-                  39.833916743259095
-                ]
-              ]
-            ]
-          },
-          "links": [
-            {
-              "rel": "collection",
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/collection.json",
-              "type": "application/json",
-              "title": "Processing results"
-            },
-            {
-              "rel": "root",
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/catalog.json",
-              "type": "application/json"
-            },
-            {
-              "rel": "self",
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/S2A_10TFK_20220524_0_L2A/S2A_10TFK_20220524_0_L2A.json",
-              "type": "application/json"
-            },
-            {
-              "rel": "parent",
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/collection.json",
-              "type": "application/json",
-              "title": "Processing results"
-            }
-          ],
-          "assets": {
-            "data": {
-              "href": "s3://results/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/bfafdb8e-902c-11ef-a29c-8e55bd0a3308/S2A_10TFK_20220524_0_L2A/otsu.tif",
-              "type": "image/tiff; application=geotiff",
-              "storage:platform": "eoap",
-              "storage:requester_pays": false,
-              "storage:tier": "Standard",
-              "storage:region": "us-east-1",
-              "storage:endpoint": "http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566",
-              "roles": [
-                "data",
-                "visual"
-              ]
-            }
-          },
-          "bbox": [
-            -121.39905410179915,
-            39.82336095080461,
-            -120.73995321724426,
-            40.482798837728375
-          ],
-          "stac_extensions": [
-            "https://stac-extensions.github.io/projection/v1.1.0/schema.json"
-          ],
-          "collection": "bfafdb8e-902c-11ef-a29c-8e55bd0a3308"
-        }
-      ],
-      "id": "bfafdb8e-902c-11ef-a29c-8e55bd0a3308"
-    }
-  }
+headers = {
+    "accept": "*/*",
+    "Prefer": "respond-async;return=representation",
+    "Content-Type": "application/json"
 }
 ```
 
+Submit a water-bodies detection job to the OGC API endpoint and retrieve the job ID for monitoring
 
-## Delete a job
 
-The endpoint `/jobs/{jobId}` can be used to terminate the job.
+```python
+process_id = "water-bodies"  # Replace with your process ID if different
 
-=== "curl"
+# Submit the processing request
+content = client.execute_simple(process_id=process_id, execute=data, _headers=headers)
+pprint(content)
+if isinstance(content, StatusInfo):
+    # Parse the response to get the job ID
+    job_id = content.job_id
+    print(f"Job submitted successfully. Job ID: {job_id}")
+    status_location = next((link.href for link in content.links if link.rel == 'monitor'), None)
+    if not status_location:
+        status_location = f"{ogc_api_endpoint}/jobs/{job_id}"
+                           
+    print(f"Monitor job status at: {status_location}")
+else:
+    print(f"Failed to submit job. Status code: {content.status}")
+    print("Response:", content.text)
+    raise ValueError(f"Failed to submit job. Status code: {content.status}")
+```
 
-    ```bash
-    curl -X 'DELETE' \
-        'http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308' \
-        -H 'accept: application/json'
-    ```
+    Job submitted successfully. Job ID: 68046976-7dcb-11f0-90ac-2a20aea25780
+    Monitor job status at: http://zoo-project-dru-service/acme/ogc-api/jobs/68046976-7dcb-11f0-90ac-2a20aea25780
 
-=== "Python"
 
-    ```python
-    import requests
+Monitor the Job Status
 
-    url = 'http://localhost:8080/acme/ogc-api/jobs/bfafdb8e-902c-11ef-a29c-8e55bd0a3308'
-    headers = {'accept': 'application/json'}
 
-    response = requests.delete(url, headers=headers)
+```python
+print(f"\nMonitoring job status (job ID: {job_id})...")
 
-    # Check the response status code
-    if response.status_code == 204:
-        print("Job deleted successfully.")
+while True:
+    status = client.get_status(job_id=job_id)
+
+    if status:
+        print(f"Job status: {status.status}")
+        
+        # Check if the job is completed (either successful or failed)
+        if status.status in [StatusCode.SUCCESSFUL, StatusCode.FAILED]:
+            break
     else:
-        print(f"Failed to delete job. Status code: {response.status_code}, Response: {response.text}")
-    ```
+        print(f"Failed to get job status.")
+        break
+    
+    # Wait for a few seconds before checking again
+    time.sleep(10)
 
-### Response body
-
-```json
-{
-  "jobID": "bfafdb8e-902c-11ef-a29c-8e55bd0a3308",
-  "status": "dismissed",
-  "message": "ZOO-Kernel successfully dismissed your service!",
-  "links": [
-    {
-      "title": "The job list for the current process",
-      "rel": "parent",
-      "type": "application/json",
-      "href": "http://localhost:8080/acme/ogc-api/jobs"
-    }
-  ],
-  "type": "process",
-  "processID": "water-bodies",
-  "created": "2024-10-22T04:18:54.378Z",
-  "started": "2024-10-22T04:18:54.378Z",
-  "finished": "2024-10-22T04:22:25.175Z",
-  "updated": "2024-10-22T04:22:25.018Z"
-}
+if status and status.status == StatusCode.SUCCESSFUL:
+    # print(status)
+    print("\nJob completed successfully. Retrieving results...")
+    result = client.get_result(job_id=job_id)
+    print(result)
+    stac_feature_collection = result.get("stac_catalog").actual_instance.value.oneof_schema_2_validator
+    print("STAC item collection:", stac_feature_collection)
+else:
+    print("\nJob did not complete successfully.")
 ```
 
-## Practice lab
+    
+    Monitoring job status...
+    Job status: running
+    Job status: running
+    Job status: running
+    Job status: running
+    Job status: running
+    Job status: running
+    Job status: running
+    Job status: running
+    Job status: running
+    Job status: successful
+    
+    Job completed successfully. Retrieving results...
+    STAC Catalog URI: {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'stac_version': '1.0.0', 'id': 'LC08_L2SP_044032_20231208_02_T1', 'properties': {'proj:epsg': 32610, 'proj:geometry': {'type': 'Polygon', 'coordinates': [[[636975.0, 4410555.0], [691605.0, 4410555.0], [691605.0, 4482615.0], [636975.0, 4482615.0], [636975.0, 4410555.0]]]}, 'proj:bbox': [636975.0, 4410555.0, 691605.0, 4482615.0], 'proj:shape': [2402, 1821], 'proj:transform': [30.0, 0.0, 636975.0, 0.0, -30.0, 4482615.0, 0.0, 0.0, 1.0], 'datetime': '2023-12-08T18:45:23.598169Z'}, 'geometry': {'type': 'Polygon', 'coordinates': [[[-121.39922829056682, 39.83396419450036], [-120.76118304700903, 39.82340258564599], [-120.73977187420928, 40.47213091315636], [-121.38391140352763, 40.482936393990066], [-121.39922829056682, 39.83396419450036]]]}, 'links': [{'rel': 'collection', 'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/collection.json', 'type': 'application/json', 'title': 'Processing results'}, {'rel': 'root', 'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/catalog.json', 'type': 'application/json'}, {'rel': 'self', 'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/LC08_L2SP_044032_20231208_02_T1.json', 'type': 'application/json'}, {'rel': 'parent', 'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/collection.json', 'type': 'application/json', 'title': 'Processing results'}], 'assets': {'data': {'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/otsu.tif', 'type': 'image/tiff; application=geotiff', 'raster:bands': [{'data_type': 'uint8', 'scale': 1.0, 'offset': 0.0, 'sampling': 'area', 'nodata': 0.0, 'statistics': {'mean': 1.0, 'minimum': 1, 'maximum': 1, 'stddev': 0.0, 'valid_percent': 60.46467784749034}, 'histogram': {'count': 11, 'min': 0.5, 'max': 1.5, 'buckets': [0, 0, 0, 0, 0, 481086, 0, 0, 0, 0]}}], 'storage:platform': 'eoap', 'storage:requester_pays': False, 'storage:tier': 'Standard', 'storage:region': 'us-east-1', 'storage:endpoint': 'http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566', 'roles': ['data', 'visual']}}, 'bbox': [-121.39922829056682, 39.82340258564599, -120.73977187420928, 40.482936393990066], 'stac_extensions': ['https://stac-extensions.github.io/projection/v1.1.0/schema.json', 'https://stac-extensions.github.io/raster/v1.1.0/schema.json'], 'collection': '68046976-7dcb-11f0-90ac-2a20aea25780'}, {'type': 'Feature', 'stac_version': '1.0.0', 'id': 'LC08_L2SP_043033_20231201_02_T1', 'properties': {'proj:epsg': 32610, 'proj:geometry': {'type': 'Polygon', 'coordinates': [[[636975.0, 4410555.0], [691605.0, 4410555.0], [691605.0, 4425015.0], [636975.0, 4425015.0], [636975.0, 4410555.0]]]}, 'proj:bbox': [636975.0, 4410555.0, 691605.0, 4425015.0], 'proj:shape': [482, 1821], 'proj:transform': [30.0, 0.0, 636975.0, 0.0, -30.0, 4425015.0, 0.0, 0.0, 1.0], 'datetime': '2023-12-01T18:39:41.392050Z'}, 'geometry': {'type': 'Polygon', 'coordinates': [[[-121.39922829056682, 39.83396419450036], [-120.76118304700903, 39.82340258564599], [-120.75694206934209, 39.95358698004168], [-121.3961944444915, 39.96419715990018], [-121.39922829056682, 39.83396419450036]]]}, 'links': [{'rel': 'collection', 'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/collection.json', 'type': 'application/json', 'title': 'Processing results'}, {'rel': 'root', 'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/catalog.json', 'type': 'application/json'}, {'rel': 'self', 'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_043033_20231201_02_T1/LC08_L2SP_043033_20231201_02_T1.json', 'type': 'application/json'}, {'rel': 'parent', 'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/collection.json', 'type': 'application/json', 'title': 'Processing results'}], 'assets': {'data': {'href': 's3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_043033_20231201_02_T1/otsu.tif', 'type': 'image/tiff; application=geotiff', 'raster:bands': [{'data_type': 'uint8', 'scale': 1.0, 'offset': 0.0, 'sampling': 'area', 'nodata': 0.0, 'statistics': {'mean': 1.0, 'minimum': 1, 'maximum': 1, 'stddev': 0.0, 'valid_percent': 12.31976677389706}, 'histogram': {'count': 11, 'min': 0.5, 'max': 1.5, 'buckets': [0, 0, 0, 0, 0, 34314, 0, 0, 0, 0]}}], 'storage:platform': 'eoap', 'storage:requester_pays': False, 'storage:tier': 'Standard', 'storage:region': 'us-east-1', 'storage:endpoint': 'http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566', 'roles': ['data', 'visual']}}, 'bbox': [-121.39922829056682, 39.82340258564599, -120.75694206934209, 39.96419715990018], 'stac_extensions': ['https://stac-extensions.github.io/projection/v1.1.0/schema.json', 'https://stac-extensions.github.io/raster/v1.1.0/schema.json'], 'collection': '68046976-7dcb-11f0-90ac-2a20aea25780'}], 'id': '68046976-7dcb-11f0-90ac-2a20aea25780'}
 
-Run the notebook **04 - Execute the process and monitor its job execution.ipynb**.
+
+Creating ItemCollection 
+
+
+```python
+stac_items = ItemCollection.from_dict(stac_feature_collection).items
+```
+
+## Exploit the results
+
+
+```python
+
+for item in stac_items:
+
+    print(item.get_assets()["data"].href)
+    print(json.dumps(item.get_assets()["data"].to_dict(), sort_keys=True, indent=4))
+```
+
+    s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/otsu.tif
+    {
+        "href": "s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/otsu.tif",
+        "raster:bands": [
+            {
+                "data_type": "uint8",
+                "histogram": {
+                    "buckets": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        481086,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "count": 11,
+                    "max": 1.5,
+                    "min": 0.5
+                },
+                "nodata": 0.0,
+                "offset": 0.0,
+                "sampling": "area",
+                "scale": 1.0,
+                "statistics": {
+                    "maximum": 1,
+                    "mean": 1.0,
+                    "minimum": 1,
+                    "stddev": 0.0,
+                    "valid_percent": 60.46467784749034
+                }
+            }
+        ],
+        "roles": [
+            "data",
+            "visual"
+        ],
+        "storage:endpoint": "http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566",
+        "storage:platform": "eoap",
+        "storage:region": "us-east-1",
+        "storage:requester_pays": false,
+        "storage:tier": "Standard",
+        "type": "image/tiff; application=geotiff"
+    }
+    s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_043033_20231201_02_T1/otsu.tif
+    {
+        "href": "s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_043033_20231201_02_T1/otsu.tif",
+        "raster:bands": [
+            {
+                "data_type": "uint8",
+                "histogram": {
+                    "buckets": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        34314,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "count": 11,
+                    "max": 1.5,
+                    "min": 0.5
+                },
+                "nodata": 0.0,
+                "offset": 0.0,
+                "sampling": "area",
+                "scale": 1.0,
+                "statistics": {
+                    "maximum": 1,
+                    "mean": 1.0,
+                    "minimum": 1,
+                    "stddev": 0.0,
+                    "valid_percent": 12.31976677389706
+                }
+            }
+        ],
+        "roles": [
+            "data",
+            "visual"
+        ],
+        "storage:endpoint": "http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566",
+        "storage:platform": "eoap",
+        "storage:region": "us-east-1",
+        "storage:requester_pays": false,
+        "storage:tier": "Standard",
+        "type": "image/tiff; application=geotiff"
+    }
+
+
+In the cell below, the user opens a GeoTIFF file produced by the `water-bodies` job using `rasterio`
+
+
+```python
+region_name = os.environ.get("AWS_DEFAULT_REGION")
+endpoint_url = os.environ.get("AWS_ENDPOINT_URL", "http://eoap-zoo-project-localstack:4566")
+aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID")
+aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
+region_name, endpoint_url, aws_access_key_id, aws_secret_access_key
+
+# Extract image name using os.path.basename
+full_path = item.get_assets()["data"].href
+parsed_url = urlparse(full_path)
+
+# Extract the bucket name from the "netloc" part
+bucket_name = parsed_url.netloc
+
+# Extract the full path (excluding 's3://bucket_name')
+full_path = parsed_url.path.lstrip("/")
+
+# Extract image name using os.path.basename
+image_name = os.path.basename(full_path)
+# Extract directory path using os.path.dirname
+dir_path = os.path.dirname(full_path)
+fs_opener = S3FS(
+        bucket_name="results",
+        dir_path=dir_path,
+        aws_access_key_id=aws_access_key_id,
+        aws_secret_access_key=aws_secret_access_key,
+        endpoint_url=endpoint_url,
+        region=region_name,
+    )
+
+if fs_opener.region:
+    pass
+else:
+    logger.error(
+        "File system opener is not configurated properly to open file from s3 bucket"
+    )
+
+with rasterio.open(image_name, opener=fs_opener.open) as src:
+    profile = src.profile
+    print(profile)
+```
+
+    68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/otsu.tif
+    {'driver': 'GTiff', 'dtype': 'uint8', 'nodata': 0.0, 'width': 1821, 'height': 2402, 'count': 1, 'crs': CRS.from_wkt('PROJCS["WGS 84 / UTM zone 10N",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-123],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32610"]]'), 'transform': Affine(30.0, 0.0, 636975.0,
+           0.0, -30.0, 4482615.0), 'blockxsize': 512, 'blockysize': 512, 'tiled': True, 'compress': 'lzw', 'interleave': 'band'}
+
+
+Inspecting the job result using cli
+
+
+```python
+!aws s3 ls s3://results/{job_id}/{job_id}/{os.path.basename(data["inputs"]["stac_items"][0])}/
+```
+
+    2025-08-20 13:42:57       3447 LC08_L2SP_044032_20231208_02_T1.json
+    2025-08-20 13:42:57     406547 otsu.tif
+
