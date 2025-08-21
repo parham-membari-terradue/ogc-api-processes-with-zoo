@@ -15,12 +15,12 @@ This `ogc-api-processes-client` has its own recipe to build the container image.
 containers/ogc-api-processes-client/Dockerfile
 --8<--
 ```
-
+ 
 Build the container image with:
 
 ```bash linenums="1" title="terminal"
 --8<--
-./build_container_ogc_api_processes_client.sh
+build_container_ogc_api_processes_client.sh
 --8<--
 ```
 
