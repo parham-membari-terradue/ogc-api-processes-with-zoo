@@ -72,6 +72,7 @@ nav:
       - Build and test the containers:
         - OGC API Process Client: containers/ogc_api_processes_client.md
     - Create CWL CommandLineTools:
+      - Scope: cwl-cli/scope.md
       - STAC Item Discovery CommandLineTool: cwl-cli/stac-item-discovery.md
       - Prepare Execute Request CommandLineTool: cwl-cli/prepare-execute.md
       - OGC API Process Client CommandLineTool: cwl-cli/ogc-api-processes-client.md
