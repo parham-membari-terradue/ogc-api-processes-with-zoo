@@ -34,10 +34,10 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.superfences:
-      custom_fences:
+      custom_fences: 
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_div_format
+          format: pymdownx.superfences.fence_div_format
   - pymdownx.tabbed:
       alternate_style: true
   - attr_list
