@@ -82,6 +82,7 @@ nav:
     - Create the CWL Workflows:
       - Scope: cwl-workflow/scope.md
       - EO application API Workflow: cwl-workflow/eoap-api.md
+    - Run OGC API Process Application Package: cwl-workflow/run-workflow.md
   - Reference:
     - OGC API Processes: reference/ogc-api-processes.md
     - OGC API Processes OpenAPI: reference/ogc-api-processes-openapi.md
