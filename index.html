@@ -1,0 +1,1622 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="installation/">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>OGC API Processes with ZOO-Project</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="styles/css/app.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ogc-api-processes-with-zoo-project" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="OGC API Processes with ZOO-Project" class="md-header__button md-logo" aria-label="OGC API Processes with ZOO-Project" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M256.2 48C371 48.1 464 141.2 464 256c0 22.1-3.4 43.4-9.8 63.4-2 .4-4.1.6-6.2.6h-2.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V208c0-8.8 7.2-16 16-16s16-7.2 16-16-7.2-16-16-16h-24c-13.3 0-24 10.7-24 24s-10.7 24-24 24h-56c-8.8 0-16 7.2-16 16s-7.2 16-16 16h-25.4c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l70.1-70.1c2.1-2.1 3.3-5 3.3-8 0-6.2-5.1-11.3-11.3-11.3h-14.1c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l23.1-23.1c.8-.8 1.6-1.5 2.5-2.2zm182.2 308.1c-32.8 59.6-93.9 101.4-165.2 107.2-.7-2.3-1.1-4.8-1.1-7.3 0-13.3-10.7-24-24-24h-26.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V304c0-17.7 14.3-32 32-32h98.7c8.5 0 16.6 3.4 22.6 9.4l29.3 29.3c6 6 14.1 9.4 22.6 9.4h5.5c8.5 0 16.6 3.4 22.6 9.4l16 16c4.2 4.2 10 6.6 16 6.6 4.8 0 9.3 1.5 13 4.1zM256 512l26.2-1.3c-8.6.9-17.3 1.3-26.2 1.3m26.2-1.3C411.3 497.6 512 388.6 512 256 512 114.6 397.4 0 256 0S0 114.6 0 256c0 127.5 93.2 233.3 215.3 252.8 13.2 2.1 26.8 3.2 40.7 3.2zm-94.9-387.4-32 32c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l32-32c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OGC API Processes with ZOO-Project
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introduction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="OGC API Processes with ZOO-Project" class="md-nav__button md-logo" aria-label="OGC API Processes with ZOO-Project" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M256.2 48C371 48.1 464 141.2 464 256c0 22.1-3.4 43.4-9.8 63.4-2 .4-4.1.6-6.2.6h-2.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V208c0-8.8 7.2-16 16-16s16-7.2 16-16-7.2-16-16-16h-24c-13.3 0-24 10.7-24 24s-10.7 24-24 24h-56c-8.8 0-16 7.2-16 16s-7.2 16-16 16h-25.4c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l70.1-70.1c2.1-2.1 3.3-5 3.3-8 0-6.2-5.1-11.3-11.3-11.3h-14.1c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l23.1-23.1c.8-.8 1.6-1.5 2.5-2.2zm182.2 308.1c-32.8 59.6-93.9 101.4-165.2 107.2-.7-2.3-1.1-4.8-1.1-7.3 0-13.3-10.7-24-24-24h-26.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V304c0-17.7 14.3-32 32-32h98.7c8.5 0 16.6 3.4 22.6 9.4l29.3 29.3c6 6 14.1 9.4 22.6 9.4h5.5c8.5 0 16.6 3.4 22.6 9.4l16 16c4.2 4.2 10 6.6 16 6.6 4.8 0 9.3 1.5 13 4.1zM256 512l26.2-1.3c-8.6.9-17.3 1.3-26.2 1.3m26.2-1.3C411.3 497.6 512 388.6 512 256 512 114.6 397.4 0 256 0S0 114.6 0 256c0 127.5 93.2 233.3 215.3 252.8 13.2 2.1 26.8 3.2 40.7 3.2zm-94.9-387.4-32 32c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l32-32c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6"/></svg>
+
+    </a>
+    OGC API Processes with ZOO-Project
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background-on-zoo-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background on ZOO-Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-on-ogc-api-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background on OGC API - Processes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Background on OGC API - Processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction-to-ogc-api-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to OGC API - Processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases-for-ogc-api-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases for OGC API - Processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-ogc-api-processes-part-1-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of "OGC API - Processes - Part 1 - Core"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-ogc-api-processes-part-2-deploy-replace-undeploy-dru" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of "OGC API - Processes - Part 2: Deploy, Replace, Undeploy (DRU)"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ogc-api-process-resources-combining-part-1-and-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      OGC API - Process resources combining Part 1 and Part 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relation-to-other-ogc-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relation to Other OGC Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-module-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Module overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Module overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorials
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-functionalities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Functionalities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="execution-scenario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Execution Scenario
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Introducing the application
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Introducing the application
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="app/water-bodies-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Water bodies detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deploy and run the EO application
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Deploy and run the EO application
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deploy-application/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deploy the application
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="list-processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List available processes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="describe-process/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Describe the process
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="execute-monitor-process/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Execute and monitor the process
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Package the EO application CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Package the EO application CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Creating the containers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Creating the containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="containers/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1_2" id="__nav_6_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Build and test the containers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Build and test the containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="containers/ogc_api_processes_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Process Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Create CWL CommandLineTools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Create CWL CommandLineTools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cwl-cli/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cwl-cli/prepare-execute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prepare Execute Request CommandLineTool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cwl-cli/ogc-api-processes-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Process Client CommandLineTool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Create the CWL Workflows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Create the CWL Workflows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cwl-workflow/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cwl-workflow/eoap-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EO application API Workflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cwl-workflow/run-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running an OGC API Process with ZOO-Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/ogc-api-processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Processes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/ogc-api-processes-openapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Processes OpenAPI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/zoo-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ZOO-Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background-on-zoo-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background on ZOO-Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-on-ogc-api-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background on OGC API - Processes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Background on OGC API - Processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction-to-ogc-api-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to OGC API - Processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases-for-ogc-api-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases for OGC API - Processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-ogc-api-processes-part-1-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of "OGC API - Processes - Part 1 - Core"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-ogc-api-processes-part-2-deploy-replace-undeploy-dru" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of "OGC API - Processes - Part 2: Deploy, Replace, Undeploy (DRU)"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ogc-api-process-resources-combining-part-1-and-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      OGC API - Process resources combining Part 1 and Part 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relation-to-other-ogc-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relation to Other OGC Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-module-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Module overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Module overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorials
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-functionalities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Functionalities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ogc-api-processes-with-zoo-project">OGC API Processes with ZOO-Project</h1>
+<h2 id="background-on-zoo-project">Background on ZOO-Project</h2>
+<p>The ZOO-Project is an open-source processing platform introduced in 2009, licensed under the MIT/X11 license. It facilitates integration and communication between existing software components using standards defined by the Open Geospatial Consortium (OGC).</p>
+<p>The platform aims to ensure that processing tasks follow the FAIR principles: Findable, Accessible, Interoperable, and Reproducible.</p>
+<p>The ZOO-Project supports the "<strong>OGC API - Processes</strong>" - Part 1 (Core) and Part 2 (Deploy, Replace, Undeploy) Standards.</p>
+<h2 id="background-on-ogc-api-processes">Background on <strong>OGC API - Processes</strong></h2>
+<h3 id="introduction-to-ogc-api-processes">Introduction to <strong>OGC API - Processes</strong></h3>
+<p>The <strong>OGC API - Processes</strong> standard supports the wrapping of computational tasks into executable processes that can be offered by a server through a Web API and be invoked by a client application. It specifies a processing interface for communicating over a RESTful protocol using JavaScript Object Notation (JSON) encodings. The standard builds on concepts from the OGC Web Processing Service (WPS) 2.0 Interface Standard but provides a more modern approach, allowing for interaction with web resources using the OpenAPI specification. Importantly, it does not require implementation of a WPS interface.</p>
+<h3 id="use-cases-for-ogc-api-processes">Use Cases for <strong>OGC API - Processes</strong></h3>
+<p>Government agencies, private organizations, and academic institutions use the <strong>OGC API - Processes</strong> standard to provide access to geospatial algorithms for processing data, including data from sensors. This distributed approach to processing allows for more capacity to handle large datasets and perform complex computations. The standard facilitates integration into existing software packages and supports scalable workflows for processing geospatial data.</p>
+<h3 id="overview-of-ogc-api-processes-part-1-core">Overview of "<strong>OGC API - Processes - Part 1 - Core</strong>"</h3>
+<p>The <strong>OGC API - Processes</strong> - Part 1: Core enables the execution of computational tasks such as raster algebra, geometry buffering, routing, constructive area geometry, and imagery analysis. It supports execution in two modes: synchronous, where the client waits for the execution to complete, and asynchronous, where the server processes the task in the background and the client periodically checks the status.</p>
+<p>The table below outlines the main resources defined by the <strong>OGC API - Processes</strong> - Part 1: Core standard:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Resource</strong></th>
+<th><strong>Path</strong></th>
+<th><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Landing page</strong></td>
+<td><code>/</code></td>
+<td>Top-level resource serving as an entry point.</td>
+</tr>
+<tr>
+<td><strong>Conformance declaration</strong></td>
+<td><code>/conformance</code></td>
+<td>Information about the functionality supported by the server.</td>
+</tr>
+<tr>
+<td><strong>API Definition</strong></td>
+<td><code>/api</code></td>
+<td>Metadata about the API itself.</td>
+</tr>
+<tr>
+<td><strong>Process list</strong></td>
+<td><code>/processes</code></td>
+<td>Lists available processes with identifiers and links to descriptions.</td>
+</tr>
+<tr>
+<td><strong>Process description</strong></td>
+<td><code>/processes/{processID}</code></td>
+<td>Retrieves a process description.</td>
+</tr>
+<tr>
+<td><strong>Process execution</strong></td>
+<td><code>/processes/{processID}/execution</code> (POST)</td>
+<td>Creates and executes a job.</td>
+</tr>
+<tr>
+<td><strong>Job status info</strong></td>
+<td><code>/jobs/{jobID}</code></td>
+<td>Retrieves information about the status of a job.</td>
+</tr>
+<tr>
+<td><strong>Job results</strong></td>
+<td><code>/jobs/{jobID}/results</code></td>
+<td>Retrieves the result(s) of a job.</td>
+</tr>
+<tr>
+<td><strong>Job list</strong></td>
+<td><code>/jobs</code></td>
+<td>Retrieves the list of jobs.</td>
+</tr>
+<tr>
+<td><strong>Job Deletion</strong></td>
+<td><code>/jobs/{jobID}</code> (DELETE)</td>
+<td>Cancels and deletes a job.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="overview-of-ogc-api-processes-part-2-deploy-replace-undeploy-dru">Overview of "<strong>OGC API - Processes - Part 2: Deploy, Replace, Undeploy (DRU)</strong>"</h3>
+<p>The <strong>OGC API - Processes</strong> - Part 2 specification extends the Core standard by defining additional capabilities for managing processes. It allows users to deploy, replace, and undeploy computational processes dynamically. This specification is useful for scenarios where processes need to be updated or removed, providing more flexibility and control over the server's computational tasks.</p>
+<p>Here are the new resources introduced in Part 2:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Resource</strong></th>
+<th><strong>Path</strong></th>
+<th><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deploy Process</strong></td>
+<td><code>/processes</code> (POST)</td>
+<td>Deploys a new process on the server.</td>
+</tr>
+<tr>
+<td><strong>Replace Process</strong></td>
+<td><code>/processes/{processID}</code> (PUT)</td>
+<td>Replaces an existing process with a new version.</td>
+</tr>
+<tr>
+<td><strong>Undeploy Process</strong></td>
+<td><code>/processes/{processID}</code> (DELETE)</td>
+<td>Removes an existing process from the server.</td>
+</tr>
+<tr>
+<td><strong>Application Package (OGC AppPkg)</strong></td>
+<td><code>/processes/{processId}/package</code></td>
+<td>Support accessing the OGC Application Package.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ogc-api-process-resources-combining-part-1-and-part-2">OGC API - Process resources combining Part 1 and Part 2</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Resource</strong></th>
+<th><strong>Path</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Part</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Landing page</strong></td>
+<td><code>/</code></td>
+<td>Top-level resource serving as an entry point.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Conformance declaration</strong></td>
+<td><code>/conformance</code></td>
+<td>Information about the functionality supported by the server.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>API Definition</strong></td>
+<td><code>/api</code></td>
+<td>Metadata about the API itself.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Process list</strong></td>
+<td><code>/processes</code></td>
+<td>Lists available processes with identifiers and links to descriptions.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Process description</strong></td>
+<td><code>/processes/{processID}</code></td>
+<td>Retrieves detailed information about a specific process.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Process execution</strong></td>
+<td><code>/processes/{processID}/execution</code> (POST)</td>
+<td>Executes a process, creating a job.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Deploy Process</strong></td>
+<td><code>/processes</code> (POST)</td>
+<td>Deploys a new process on the server.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td><strong>Replace Process</strong></td>
+<td><code>/processes/{processID}</code> (PUT)</td>
+<td>Replaces an existing process with a new version.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td><strong>Undeploy Process</strong></td>
+<td><code>/processes/{processID}</code> (DELETE)</td>
+<td>Removes an existing process from the server.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td><strong>Application Package (OGC AppPkg)</strong></td>
+<td><code>/processes/{processId}/package</code></td>
+<td>Support accessing the OGC Application Package.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td><strong>Job status info</strong></td>
+<td><code>/jobs/{jobID}</code></td>
+<td>Retrieves the current status of a job.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Job results</strong></td>
+<td><code>/jobs/{jobID}/results</code></td>
+<td>Retrieves the results of a job.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Job list</strong></td>
+<td><code>/jobs</code></td>
+<td>Retrieves a list of submitted jobs.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Job deletion</strong></td>
+<td><code>/jobs/{jobID}</code> (DELETE)</td>
+<td>Cancels and deletes a job.</td>
+<td>Part 1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="relation-to-other-ogc-standards">Relation to Other OGC Standards</h3>
+<p>The <strong>OGC API - Processes</strong> standard modernizes and extends the capabilities offered by the OGC WPS. While the WPS standard provided a standardized interface for accessing computational services, the <strong>OGC API - Processes</strong> standard adopts a resource-oriented approach leveraging the OpenAPI specification. This results in better integration with modern web technologies and programming practices, addressing all the use cases supported by WPS and enabling more flexible and robust processing capabilities.</p>
+<h2 id="learning-module-overview">Learning Module overview</h2>
+<h3 id="tutorials">Tutorials</h3>
+<p>This series of tutorials provides a step-by-step guide to using the <strong>OGC API - Processes</strong> standard, covering the core functionalities from listing available processes to accessing the results of executed jobs. Each tutorial is designed to help you understand and implement the standard's capabilities in a practical way. The tutorials are provided with the following Jupyter Notebooks:</p>
+<ol>
+<li><em>Deploy an application package.ipynb</em></li>
+<li><em>List the deployed processes.ipynb</em></li>
+<li><em>Describe the process.ipynb</em></li>
+<li><em>Execute the process and monitor its job execution.ipynb</em></li>
+</ol>
+<h3 id="key-functionalities">Key Functionalities</h3>
+<p>Following these tutorials, the user will be able to cover all these key functionalities: </p>
+<ul>
+<li><strong>List Available Processes</strong>: Learn how to retrieve the list of processes offered by the server. This step provides an overview of the available computational tasks, including process identifiers, titles, and descriptions.</li>
+<li><strong>Deployment</strong>: Discover how to deploy a new process, such as a custom application package using Common Workflow Language (CWL). This tutorial explains the encoding options for deployment requests and how to handle deployment responses.</li>
+<li><strong>Process Description</strong>: Understand how to obtain detailed descriptions of individual processes, including their inputs, outputs, and supported execution modes. This step provides insight into how to configure and execute specific tasks.</li>
+<li><strong>Execution</strong>: Learn how to execute a process using the <code>/processes/{processID}/execution</code> endpoint. The tutorial covers submitting the execution request, passing inputs, and handling different execution modes.</li>
+<li><strong>Monitor Execution</strong>: Discover how to track the progress of a submitted job. This tutorial explains how to monitor job status, retrieve progress updates, and check for completion.</li>
+<li><strong>Access Results</strong>: Learn how to retrieve the results of a completed job. The tutorial covers accessing outputs like STAC catalogs or other data formats, allowing you to analyze the processed data.</li>
+<li><strong>Job Management</strong>: Understand how to manage jobs, including listing all jobs, cancelling running jobs, and deleting completed or failed jobs. This tutorial explains how to maintain the server's job history and resource usage.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg">License CC BY-SA 4.0</a>, by <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

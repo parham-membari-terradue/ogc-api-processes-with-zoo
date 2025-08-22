@@ -1,0 +1,1563 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../describe-process/">
+      
+      
+        <link rel="next" href="../containers/scope/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Execute and monitor the process - OGC API Processes with ZOO-Project</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../styles/css/app.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#execute-the-process-and-monitor-the-execution" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OGC API Processes with ZOO-Project" class="md-header__button md-logo" aria-label="OGC API Processes with ZOO-Project" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M256.2 48C371 48.1 464 141.2 464 256c0 22.1-3.4 43.4-9.8 63.4-2 .4-4.1.6-6.2.6h-2.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V208c0-8.8 7.2-16 16-16s16-7.2 16-16-7.2-16-16-16h-24c-13.3 0-24 10.7-24 24s-10.7 24-24 24h-56c-8.8 0-16 7.2-16 16s-7.2 16-16 16h-25.4c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l70.1-70.1c2.1-2.1 3.3-5 3.3-8 0-6.2-5.1-11.3-11.3-11.3h-14.1c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l23.1-23.1c.8-.8 1.6-1.5 2.5-2.2zm182.2 308.1c-32.8 59.6-93.9 101.4-165.2 107.2-.7-2.3-1.1-4.8-1.1-7.3 0-13.3-10.7-24-24-24h-26.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V304c0-17.7 14.3-32 32-32h98.7c8.5 0 16.6 3.4 22.6 9.4l29.3 29.3c6 6 14.1 9.4 22.6 9.4h5.5c8.5 0 16.6 3.4 22.6 9.4l16 16c4.2 4.2 10 6.6 16 6.6 4.8 0 9.3 1.5 13 4.1zM256 512l26.2-1.3c-8.6.9-17.3 1.3-26.2 1.3m26.2-1.3C411.3 497.6 512 388.6 512 256 512 114.6 397.4 0 256 0S0 114.6 0 256c0 127.5 93.2 233.3 215.3 252.8 13.2 2.1 26.8 3.2 40.7 3.2zm-94.9-387.4-32 32c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l32-32c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OGC API Processes with ZOO-Project
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Execute and monitor the process
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OGC API Processes with ZOO-Project" class="md-nav__button md-logo" aria-label="OGC API Processes with ZOO-Project" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M256.2 48C371 48.1 464 141.2 464 256c0 22.1-3.4 43.4-9.8 63.4-2 .4-4.1.6-6.2.6h-2.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V208c0-8.8 7.2-16 16-16s16-7.2 16-16-7.2-16-16-16h-24c-13.3 0-24 10.7-24 24s-10.7 24-24 24h-56c-8.8 0-16 7.2-16 16s-7.2 16-16 16h-25.4c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l70.1-70.1c2.1-2.1 3.3-5 3.3-8 0-6.2-5.1-11.3-11.3-11.3h-14.1c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l23.1-23.1c.8-.8 1.6-1.5 2.5-2.2zm182.2 308.1c-32.8 59.6-93.9 101.4-165.2 107.2-.7-2.3-1.1-4.8-1.1-7.3 0-13.3-10.7-24-24-24h-26.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V304c0-17.7 14.3-32 32-32h98.7c8.5 0 16.6 3.4 22.6 9.4l29.3 29.3c6 6 14.1 9.4 22.6 9.4h5.5c8.5 0 16.6 3.4 22.6 9.4l16 16c4.2 4.2 10 6.6 16 6.6 4.8 0 9.3 1.5 13 4.1zM256 512l26.2-1.3c-8.6.9-17.3 1.3-26.2 1.3m26.2-1.3C411.3 497.6 512 388.6 512 256 512 114.6 397.4 0 256 0S0 114.6 0 256c0 127.5 93.2 233.3 215.3 252.8 13.2 2.1 26.8 3.2 40.7 3.2zm-94.9-387.4-32 32c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l32-32c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6"/></svg>
+
+    </a>
+    OGC API Processes with ZOO-Project
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../execution-scenario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Execution Scenario
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Introducing the application
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Introducing the application
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../app/water-bodies-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Water bodies detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deploy and run the EO application
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Deploy and run the EO application
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-application/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deploy the application
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../list-processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List available processes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../describe-process/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Describe the process
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Execute and monitor the process
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Execute and monitor the process
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#exploit-the-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exploit the results
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Package the EO application CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Package the EO application CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Creating the containers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Creating the containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../containers/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1_2" id="__nav_6_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Build and test the containers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Build and test the containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../containers/ogc_api_processes_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Process Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Create CWL CommandLineTools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Create CWL CommandLineTools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-cli/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-cli/prepare-execute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prepare Execute Request CommandLineTool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-cli/ogc-api-processes-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Process Client CommandLineTool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Create the CWL Workflows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Create the CWL Workflows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-workflow/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-workflow/eoap-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EO application API Workflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-workflow/run-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running an OGC API Process with ZOO-Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/ogc-api-processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Processes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/ogc-api-processes-openapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Processes OpenAPI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/zoo-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ZOO-Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#exploit-the-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exploit the results
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="execute-the-process-and-monitor-the-execution">Execute the process and monitor the execution</h1>
+<p>To submit an execution request of a deployed process and monitor it, the OGC API Processes API uses the resource highlighted in the table below:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Resource</strong></th>
+<th><strong>Path</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Part</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Landing page</td>
+<td><code>/</code></td>
+<td>Top-level resource serving as an entry point.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Conformance declaration</td>
+<td><code>/conformance</code></td>
+<td>Information about the functionality supported by the server.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>API Definition</td>
+<td><code>/api</code></td>
+<td>Metadata about the API itself.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Process list</td>
+<td><code>/processes</code></td>
+<td>Lists available processes with identifiers and links to descriptions.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Process description</td>
+<td><code>/processes/{processID}</code></td>
+<td>Retrieves detailed information about a specific process.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Process execution</strong></td>
+<td><strong><code>/processes/{processID}/execution</code>(POST)</strong></td>
+<td><strong>Executes a process, creating a job.</strong></td>
+<td><strong>Part 1</strong></td>
+</tr>
+<tr>
+<td>Deploy Process</td>
+<td><code>/processes</code> (POST)</td>
+<td>Deploys a new process on the server.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td>Replace Process</td>
+<td><code>/processes/{processID}</code> (PUT)</td>
+<td>Replaces an existing process with a new version.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td>Undeploy Process</td>
+<td><code>/processes/{processID}</code> (DELETE)</td>
+<td>Removes an existing process from the server.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td>EO Application Package</td>
+<td><code>/processes/{processID}/package</code></td>
+<td>Get the EOAP associated with a deployed process.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td><strong>Job status info</strong></td>
+<td><strong><code>/jobs/{jobID}</code></strong></td>
+<td><strong>Retrieves the current status of a job.</strong></td>
+<td><strong>Part 1</strong></td>
+</tr>
+<tr>
+<td><strong>Job results</strong></td>
+<td><strong><code>/jobs/{jobID}/results</code></strong></td>
+<td><strong>Retrieves the results of a job.</strong></td>
+<td><strong>Part 1</strong></td>
+</tr>
+<tr>
+<td>Job list</td>
+<td><code>/jobs</code></td>
+<td>Retrieves a list of submitted jobs.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Job deletion</td>
+<td><code>/jobs/{jobID}</code> (DELETE)</td>
+<td>Cancels and deletes a job.</td>
+<td>Part 1</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="__span-0-2"><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
+</span><span id="__span-0-3"><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-0-4"><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+</span><span id="__span-0-5"><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+</span><span id="__span-0-6"><span class="kn">from</span><span class="w"> </span><span class="nn">pystac.item_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">ItemCollection</span>
+</span><span id="__span-0-7"><span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urljoin</span><span class="p">,</span> <span class="n">urlparse</span>
+</span><span id="__span-0-8"><span class="kn">from</span><span class="w"> </span><span class="nn">ogc_api_client.api_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Configuration</span>
+</span><span id="__span-0-9"><span class="kn">from</span><span class="w"> </span><span class="nn">ogc_api_client.api_client_wrapper</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApiClientWrapper</span>
+</span><span id="__span-0-10"><span class="kn">from</span><span class="w"> </span><span class="nn">ogc_api_client.models.status_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">StatusInfo</span><span class="p">,</span> <span class="n">StatusCode</span>
+</span><span id="__span-0-11"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+</span><span id="__span-0-12"><span class="kn">from</span><span class="w"> </span><span class="nn">fs_s3fs</span><span class="w"> </span><span class="kn">import</span> <span class="n">S3FS</span>
+</span><span id="__span-0-13"><span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+</span><span id="__span-0-14"><span class="kn">import</span><span class="w"> </span><span class="nn">rasterio</span>
+</span><span id="__span-0-15">
+</span><span id="__span-0-16">
+</span><span id="__span-0-17"><span class="n">namespace</span> <span class="o">=</span> <span class="s2">&quot;acme&quot;</span>
+</span><span id="__span-0-18">
+</span><span id="__span-0-19"><span class="n">ogc_api_endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;http://zoo-project-dru-service/</span><span class="si">{</span><span class="n">namespace</span><span class="si">}</span><span class="s2">/ogc-api&quot;</span>
+</span></code></pre></div>
+<p>Define the input data for the execution:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-1-1"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-1-2">    <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-1-3">        <span class="s2">&quot;stac_items&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span id="__span-1-4">            <span class="s2">&quot;https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2/items/LC08_L2SP_044032_20231208_02_T1&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5">            <span class="s2">&quot;https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2/items/LC08_L2SP_043033_20231201_02_T1&quot;</span>
+</span><span id="__span-1-6">        <span class="p">],</span>
+</span><span id="__span-1-7">        <span class="s2">&quot;aoi&quot;</span><span class="p">:</span> <span class="s2">&quot;-121.399,39.834,-120.74,40.472&quot;</span><span class="p">,</span>
+</span><span id="__span-1-8">        <span class="s2">&quot;epsg&quot;</span><span class="p">:</span> <span class="s2">&quot;EPSG:4326&quot;</span><span class="p">,</span>
+</span><span id="__span-1-9">        <span class="s2">&quot;bands&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span id="__span-1-10">            <span class="s2">&quot;green&quot;</span><span class="p">,</span>
+</span><span id="__span-1-11">            <span class="s2">&quot;nir08&quot;</span>
+</span><span id="__span-1-12">        <span class="p">]</span>
+</span><span id="__span-1-13">    <span class="p">}</span>
+</span><span id="__span-1-14"><span class="p">}</span>
+</span></code></pre></div>
+<p>In the cell below, the user will configure the API client settings and initialize a client object using <a href="https://github.com/EOEPCA/ogc-api-client/blob/d7159a3f70e5f283ccb7d585702ec40d5a49c006/src/ogc_api_client/api_client_wrapper.py#L29C7-L29C23">ApiClientWrapper</a>. A request header will also be specified.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><span class="n">configuration</span> <span class="o">=</span> <span class="n">Configuration</span><span class="p">(</span>
+</span><span id="__span-2-2">    <span class="n">host</span><span class="o">=</span><span class="n">ogc_api_endpoint</span><span class="p">,</span>
+</span><span id="__span-2-3"><span class="p">)</span>
+</span><span id="__span-2-4"><span class="n">client</span> <span class="o">=</span> <span class="n">ApiClientWrapper</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">configuration</span><span class="p">)</span>
+</span><span id="__span-2-5">
+</span><span id="__span-2-6"><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-2-7">    <span class="s2">&quot;accept&quot;</span><span class="p">:</span> <span class="s2">&quot;*/*&quot;</span><span class="p">,</span>
+</span><span id="__span-2-8">    <span class="s2">&quot;Prefer&quot;</span><span class="p">:</span> <span class="s2">&quot;respond-async;return=representation&quot;</span><span class="p">,</span>
+</span><span id="__span-2-9">    <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span>
+</span><span id="__span-2-10"><span class="p">}</span>
+</span></code></pre></div>
+<p>Submit a water-bodies detection job to the OGC API endpoint and retrieve the job ID for monitoring</p>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><span class="n">process_id</span> <span class="o">=</span> <span class="s2">&quot;water-bodies&quot;</span>  <span class="c1"># Replace with your process ID if different</span>
+</span><span id="__span-3-2">
+</span><span id="__span-3-3"><span class="c1"># Submit the processing request</span>
+</span><span id="__span-3-4"><span class="n">content</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">execute_simple</span><span class="p">(</span><span class="n">process_id</span><span class="o">=</span><span class="n">process_id</span><span class="p">,</span> <span class="n">execute</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">_headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</span><span id="__span-3-5"><span class="n">pprint</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span><span id="__span-3-6"><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">StatusInfo</span><span class="p">):</span>
+</span><span id="__span-3-7">    <span class="c1"># Parse the response to get the job ID</span>
+</span><span id="__span-3-8">    <span class="n">job_id</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">job_id</span>
+</span><span id="__span-3-9">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Job submitted successfully. Job ID: </span><span class="si">{</span><span class="n">job_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-10">    <span class="n">status_location</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">link</span><span class="o">.</span><span class="n">href</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">links</span> <span class="k">if</span> <span class="n">link</span><span class="o">.</span><span class="n">rel</span> <span class="o">==</span> <span class="s1">&#39;monitor&#39;</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-3-11">    <span class="k">if</span> <span class="ow">not</span> <span class="n">status_location</span><span class="p">:</span>
+</span><span id="__span-3-12">        <span class="n">status_location</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ogc_api_endpoint</span><span class="si">}</span><span class="s2">/jobs/</span><span class="si">{</span><span class="n">job_id</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-3-13">
+</span><span id="__span-3-14">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monitor job status at: </span><span class="si">{</span><span class="n">status_location</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-15"><span class="k">else</span><span class="p">:</span>
+</span><span id="__span-3-16">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to submit job. Status code: </span><span class="si">{</span><span class="n">content</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-17">    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Response:&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span><span id="__span-3-18">    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to submit job. Status code: </span><span class="si">{</span><span class="n">content</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>Job submitted successfully. Job ID: 68046976-7dcb-11f0-90ac-2a20aea25780
+Monitor job status at: http://zoo-project-dru-service/acme/ogc-api/jobs/68046976-7dcb-11f0-90ac-2a20aea25780
+</code></pre></div>
+<p>Monitor the Job Status</p>
+<div class="highlight"><pre><span></span><code><span id="__span-4-1"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Monitoring job status (job ID: </span><span class="si">{</span><span class="n">job_id</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+</span><span id="__span-4-2">
+</span><span id="__span-4-3"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-4-4">    <span class="n">status</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span><span class="n">job_id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+</span><span id="__span-4-5">
+</span><span id="__span-4-6">    <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+</span><span id="__span-4-7">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Job status: </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-4-8">
+</span><span id="__span-4-9">        <span class="c1"># Check if the job is completed (either successful or failed)</span>
+</span><span id="__span-4-10">        <span class="k">if</span> <span class="n">status</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">SUCCESSFUL</span><span class="p">,</span> <span class="n">StatusCode</span><span class="o">.</span><span class="n">FAILED</span><span class="p">]:</span>
+</span><span id="__span-4-11">            <span class="k">break</span>
+</span><span id="__span-4-12">    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-4-13">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to get job status.&quot;</span><span class="p">)</span>
+</span><span id="__span-4-14">        <span class="k">break</span>
+</span><span id="__span-4-15">
+</span><span id="__span-4-16">    <span class="c1"># Wait for a few seconds before checking again</span>
+</span><span id="__span-4-17">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-4-18">
+</span><span id="__span-4-19"><span class="k">if</span> <span class="n">status</span> <span class="ow">and</span> <span class="n">status</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">StatusCode</span><span class="o">.</span><span class="n">SUCCESSFUL</span><span class="p">:</span>
+</span><span id="__span-4-20">    <span class="c1"># print(status)</span>
+</span><span id="__span-4-21">    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Job completed successfully. Retrieving results...&quot;</span><span class="p">)</span>
+</span><span id="__span-4-22">    <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_result</span><span class="p">(</span><span class="n">job_id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)</span>
+</span><span id="__span-4-23">    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span><span id="__span-4-24">    <span class="n">stac_feature_collection</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;stac_catalog&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">actual_instance</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">oneof_schema_2_validator</span>
+</span><span id="__span-4-25">    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;STAC item collection:&quot;</span><span class="p">,</span> <span class="n">stac_feature_collection</span><span class="p">)</span>
+</span><span id="__span-4-26"><span class="k">else</span><span class="p">:</span>
+</span><span id="__span-4-27">    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Job did not complete successfully.&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>Monitoring job status...
+Job status: running
+Job status: running
+Job status: running
+Job status: running
+Job status: running
+Job status: running
+Job status: running
+Job status: running
+Job status: running
+Job status: successful
+
+Job completed successfully. Retrieving results...
+STAC Catalog URI: {&#39;type&#39;: &#39;FeatureCollection&#39;, &#39;features&#39;: [{&#39;type&#39;: &#39;Feature&#39;, &#39;stac_version&#39;: &#39;1.0.0&#39;, &#39;id&#39;: &#39;LC08_L2SP_044032_20231208_02_T1&#39;, &#39;properties&#39;: {&#39;proj:epsg&#39;: 32610, &#39;proj:geometry&#39;: {&#39;type&#39;: &#39;Polygon&#39;, &#39;coordinates&#39;: [[[636975.0, 4410555.0], [691605.0, 4410555.0], [691605.0, 4482615.0], [636975.0, 4482615.0], [636975.0, 4410555.0]]]}, &#39;proj:bbox&#39;: [636975.0, 4410555.0, 691605.0, 4482615.0], &#39;proj:shape&#39;: [2402, 1821], &#39;proj:transform&#39;: [30.0, 0.0, 636975.0, 0.0, -30.0, 4482615.0, 0.0, 0.0, 1.0], &#39;datetime&#39;: &#39;2023-12-08T18:45:23.598169Z&#39;}, &#39;geometry&#39;: {&#39;type&#39;: &#39;Polygon&#39;, &#39;coordinates&#39;: [[[-121.39922829056682, 39.83396419450036], [-120.76118304700903, 39.82340258564599], [-120.73977187420928, 40.47213091315636], [-121.38391140352763, 40.482936393990066], [-121.39922829056682, 39.83396419450036]]]}, &#39;links&#39;: [{&#39;rel&#39;: &#39;collection&#39;, &#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/collection.json&#39;, &#39;type&#39;: &#39;application/json&#39;, &#39;title&#39;: &#39;Processing results&#39;}, {&#39;rel&#39;: &#39;root&#39;, &#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/catalog.json&#39;, &#39;type&#39;: &#39;application/json&#39;}, {&#39;rel&#39;: &#39;self&#39;, &#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/LC08_L2SP_044032_20231208_02_T1.json&#39;, &#39;type&#39;: &#39;application/json&#39;}, {&#39;rel&#39;: &#39;parent&#39;, &#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/collection.json&#39;, &#39;type&#39;: &#39;application/json&#39;, &#39;title&#39;: &#39;Processing results&#39;}], &#39;assets&#39;: {&#39;data&#39;: {&#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/otsu.tif&#39;, &#39;type&#39;: &#39;image/tiff; application=geotiff&#39;, &#39;raster:bands&#39;: [{&#39;data_type&#39;: &#39;uint8&#39;, &#39;scale&#39;: 1.0, &#39;offset&#39;: 0.0, &#39;sampling&#39;: &#39;area&#39;, &#39;nodata&#39;: 0.0, &#39;statistics&#39;: {&#39;mean&#39;: 1.0, &#39;minimum&#39;: 1, &#39;maximum&#39;: 1, &#39;stddev&#39;: 0.0, &#39;valid_percent&#39;: 60.46467784749034}, &#39;histogram&#39;: {&#39;count&#39;: 11, &#39;min&#39;: 0.5, &#39;max&#39;: 1.5, &#39;buckets&#39;: [0, 0, 0, 0, 0, 481086, 0, 0, 0, 0]}}], &#39;storage:platform&#39;: &#39;eoap&#39;, &#39;storage:requester_pays&#39;: False, &#39;storage:tier&#39;: &#39;Standard&#39;, &#39;storage:region&#39;: &#39;us-east-1&#39;, &#39;storage:endpoint&#39;: &#39;http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566&#39;, &#39;roles&#39;: [&#39;data&#39;, &#39;visual&#39;]}}, &#39;bbox&#39;: [-121.39922829056682, 39.82340258564599, -120.73977187420928, 40.482936393990066], &#39;stac_extensions&#39;: [&#39;https://stac-extensions.github.io/projection/v1.1.0/schema.json&#39;, &#39;https://stac-extensions.github.io/raster/v1.1.0/schema.json&#39;], &#39;collection&#39;: &#39;68046976-7dcb-11f0-90ac-2a20aea25780&#39;}, {&#39;type&#39;: &#39;Feature&#39;, &#39;stac_version&#39;: &#39;1.0.0&#39;, &#39;id&#39;: &#39;LC08_L2SP_043033_20231201_02_T1&#39;, &#39;properties&#39;: {&#39;proj:epsg&#39;: 32610, &#39;proj:geometry&#39;: {&#39;type&#39;: &#39;Polygon&#39;, &#39;coordinates&#39;: [[[636975.0, 4410555.0], [691605.0, 4410555.0], [691605.0, 4425015.0], [636975.0, 4425015.0], [636975.0, 4410555.0]]]}, &#39;proj:bbox&#39;: [636975.0, 4410555.0, 691605.0, 4425015.0], &#39;proj:shape&#39;: [482, 1821], &#39;proj:transform&#39;: [30.0, 0.0, 636975.0, 0.0, -30.0, 4425015.0, 0.0, 0.0, 1.0], &#39;datetime&#39;: &#39;2023-12-01T18:39:41.392050Z&#39;}, &#39;geometry&#39;: {&#39;type&#39;: &#39;Polygon&#39;, &#39;coordinates&#39;: [[[-121.39922829056682, 39.83396419450036], [-120.76118304700903, 39.82340258564599], [-120.75694206934209, 39.95358698004168], [-121.3961944444915, 39.96419715990018], [-121.39922829056682, 39.83396419450036]]]}, &#39;links&#39;: [{&#39;rel&#39;: &#39;collection&#39;, &#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/collection.json&#39;, &#39;type&#39;: &#39;application/json&#39;, &#39;title&#39;: &#39;Processing results&#39;}, {&#39;rel&#39;: &#39;root&#39;, &#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/catalog.json&#39;, &#39;type&#39;: &#39;application/json&#39;}, {&#39;rel&#39;: &#39;self&#39;, &#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_043033_20231201_02_T1/LC08_L2SP_043033_20231201_02_T1.json&#39;, &#39;type&#39;: &#39;application/json&#39;}, {&#39;rel&#39;: &#39;parent&#39;, &#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/collection.json&#39;, &#39;type&#39;: &#39;application/json&#39;, &#39;title&#39;: &#39;Processing results&#39;}], &#39;assets&#39;: {&#39;data&#39;: {&#39;href&#39;: &#39;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_043033_20231201_02_T1/otsu.tif&#39;, &#39;type&#39;: &#39;image/tiff; application=geotiff&#39;, &#39;raster:bands&#39;: [{&#39;data_type&#39;: &#39;uint8&#39;, &#39;scale&#39;: 1.0, &#39;offset&#39;: 0.0, &#39;sampling&#39;: &#39;area&#39;, &#39;nodata&#39;: 0.0, &#39;statistics&#39;: {&#39;mean&#39;: 1.0, &#39;minimum&#39;: 1, &#39;maximum&#39;: 1, &#39;stddev&#39;: 0.0, &#39;valid_percent&#39;: 12.31976677389706}, &#39;histogram&#39;: {&#39;count&#39;: 11, &#39;min&#39;: 0.5, &#39;max&#39;: 1.5, &#39;buckets&#39;: [0, 0, 0, 0, 0, 34314, 0, 0, 0, 0]}}], &#39;storage:platform&#39;: &#39;eoap&#39;, &#39;storage:requester_pays&#39;: False, &#39;storage:tier&#39;: &#39;Standard&#39;, &#39;storage:region&#39;: &#39;us-east-1&#39;, &#39;storage:endpoint&#39;: &#39;http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566&#39;, &#39;roles&#39;: [&#39;data&#39;, &#39;visual&#39;]}}, &#39;bbox&#39;: [-121.39922829056682, 39.82340258564599, -120.75694206934209, 39.96419715990018], &#39;stac_extensions&#39;: [&#39;https://stac-extensions.github.io/projection/v1.1.0/schema.json&#39;, &#39;https://stac-extensions.github.io/raster/v1.1.0/schema.json&#39;], &#39;collection&#39;: &#39;68046976-7dcb-11f0-90ac-2a20aea25780&#39;}], &#39;id&#39;: &#39;68046976-7dcb-11f0-90ac-2a20aea25780&#39;}
+</code></pre></div>
+<p>Creating ItemCollection </p>
+<div class="highlight"><pre><span></span><code><span id="__span-5-1"><span class="n">stac_items</span> <span class="o">=</span> <span class="n">ItemCollection</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">stac_feature_collection</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
+</span></code></pre></div>
+<h2 id="exploit-the-results">Exploit the results</h2>
+<div class="highlight"><pre><span></span><code><span id="__span-6-1"><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">stac_items</span><span class="p">:</span>
+</span><span id="__span-6-2">
+</span><span id="__span-6-3">    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get_assets</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">href</span><span class="p">)</span>
+</span><span id="__span-6-4">    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get_assets</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/otsu.tif
+{
+    &quot;href&quot;: &quot;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/otsu.tif&quot;,
+    &quot;raster:bands&quot;: [
+        {
+            &quot;data_type&quot;: &quot;uint8&quot;,
+            &quot;histogram&quot;: {
+                &quot;buckets&quot;: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    481086,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                &quot;count&quot;: 11,
+                &quot;max&quot;: 1.5,
+                &quot;min&quot;: 0.5
+            },
+            &quot;nodata&quot;: 0.0,
+            &quot;offset&quot;: 0.0,
+            &quot;sampling&quot;: &quot;area&quot;,
+            &quot;scale&quot;: 1.0,
+            &quot;statistics&quot;: {
+                &quot;maximum&quot;: 1,
+                &quot;mean&quot;: 1.0,
+                &quot;minimum&quot;: 1,
+                &quot;stddev&quot;: 0.0,
+                &quot;valid_percent&quot;: 60.46467784749034
+            }
+        }
+    ],
+    &quot;roles&quot;: [
+        &quot;data&quot;,
+        &quot;visual&quot;
+    ],
+    &quot;storage:endpoint&quot;: &quot;http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566&quot;,
+    &quot;storage:platform&quot;: &quot;eoap&quot;,
+    &quot;storage:region&quot;: &quot;us-east-1&quot;,
+    &quot;storage:requester_pays&quot;: false,
+    &quot;storage:tier&quot;: &quot;Standard&quot;,
+    &quot;type&quot;: &quot;image/tiff; application=geotiff&quot;
+}
+s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_043033_20231201_02_T1/otsu.tif
+{
+    &quot;href&quot;: &quot;s3://results/68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_043033_20231201_02_T1/otsu.tif&quot;,
+    &quot;raster:bands&quot;: [
+        {
+            &quot;data_type&quot;: &quot;uint8&quot;,
+            &quot;histogram&quot;: {
+                &quot;buckets&quot;: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    34314,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                &quot;count&quot;: 11,
+                &quot;max&quot;: 1.5,
+                &quot;min&quot;: 0.5
+            },
+            &quot;nodata&quot;: 0.0,
+            &quot;offset&quot;: 0.0,
+            &quot;sampling&quot;: &quot;area&quot;,
+            &quot;scale&quot;: 1.0,
+            &quot;statistics&quot;: {
+                &quot;maximum&quot;: 1,
+                &quot;mean&quot;: 1.0,
+                &quot;minimum&quot;: 1,
+                &quot;stddev&quot;: 0.0,
+                &quot;valid_percent&quot;: 12.31976677389706
+            }
+        }
+    ],
+    &quot;roles&quot;: [
+        &quot;data&quot;,
+        &quot;visual&quot;
+    ],
+    &quot;storage:endpoint&quot;: &quot;http://eoap-zoo-project-localstack.eoap-zoo-project.svc.cluster.local:4566&quot;,
+    &quot;storage:platform&quot;: &quot;eoap&quot;,
+    &quot;storage:region&quot;: &quot;us-east-1&quot;,
+    &quot;storage:requester_pays&quot;: false,
+    &quot;storage:tier&quot;: &quot;Standard&quot;,
+    &quot;type&quot;: &quot;image/tiff; application=geotiff&quot;
+}
+</code></pre></div>
+<p>In the cell below, the user opens a GeoTIFF file produced by the <code>water-bodies</code> job using <code>rasterio</code></p>
+<div class="highlight"><pre><span></span><code><span id="__span-7-1"><span class="n">region_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AWS_DEFAULT_REGION&quot;</span><span class="p">)</span>
+</span><span id="__span-7-2"><span class="n">endpoint_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AWS_ENDPOINT_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;http://eoap-zoo-project-localstack:4566&quot;</span><span class="p">)</span>
+</span><span id="__span-7-3"><span class="n">aws_access_key_id</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AWS_ACCESS_KEY_ID&quot;</span><span class="p">)</span>
+</span><span id="__span-7-4"><span class="n">aws_secret_access_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AWS_SECRET_ACCESS_KEY&quot;</span><span class="p">)</span>
+</span><span id="__span-7-5"><span class="n">region_name</span><span class="p">,</span> <span class="n">endpoint_url</span><span class="p">,</span> <span class="n">aws_access_key_id</span><span class="p">,</span> <span class="n">aws_secret_access_key</span>
+</span><span id="__span-7-6">
+</span><span id="__span-7-7"><span class="c1"># Extract image name using os.path.basename</span>
+</span><span id="__span-7-8"><span class="n">full_path</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get_assets</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">href</span>
+</span><span id="__span-7-9"><span class="n">parsed_url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">full_path</span><span class="p">)</span>
+</span><span id="__span-7-10">
+</span><span id="__span-7-11"><span class="c1"># Extract the bucket name from the &quot;netloc&quot; part</span>
+</span><span id="__span-7-12"><span class="n">bucket_name</span> <span class="o">=</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">netloc</span>
+</span><span id="__span-7-13">
+</span><span id="__span-7-14"><span class="c1"># Extract the full path (excluding &#39;s3://bucket_name&#39;)</span>
+</span><span id="__span-7-15"><span class="n">full_path</span> <span class="o">=</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+</span><span id="__span-7-16">
+</span><span id="__span-7-17"><span class="c1"># Extract image name using os.path.basename</span>
+</span><span id="__span-7-18"><span class="n">image_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">full_path</span><span class="p">)</span>
+</span><span id="__span-7-19"><span class="c1"># Extract directory path using os.path.dirname</span>
+</span><span id="__span-7-20"><span class="n">dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">full_path</span><span class="p">)</span>
+</span><span id="__span-7-21"><span class="n">fs_opener</span> <span class="o">=</span> <span class="n">S3FS</span><span class="p">(</span>
+</span><span id="__span-7-22">        <span class="n">bucket_name</span><span class="o">=</span><span class="s2">&quot;results&quot;</span><span class="p">,</span>
+</span><span id="__span-7-23">        <span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span>
+</span><span id="__span-7-24">        <span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">aws_access_key_id</span><span class="p">,</span>
+</span><span id="__span-7-25">        <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="n">aws_secret_access_key</span><span class="p">,</span>
+</span><span id="__span-7-26">        <span class="n">endpoint_url</span><span class="o">=</span><span class="n">endpoint_url</span><span class="p">,</span>
+</span><span id="__span-7-27">        <span class="n">region</span><span class="o">=</span><span class="n">region_name</span><span class="p">,</span>
+</span><span id="__span-7-28">    <span class="p">)</span>
+</span><span id="__span-7-29">
+</span><span id="__span-7-30"><span class="k">if</span> <span class="n">fs_opener</span><span class="o">.</span><span class="n">region</span><span class="p">:</span>
+</span><span id="__span-7-31">    <span class="k">pass</span>
+</span><span id="__span-7-32"><span class="k">else</span><span class="p">:</span>
+</span><span id="__span-7-33">    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+</span><span id="__span-7-34">        <span class="s2">&quot;File system opener is not configurated properly to open file from s3 bucket&quot;</span>
+</span><span id="__span-7-35">    <span class="p">)</span>
+</span><span id="__span-7-36">
+</span><span id="__span-7-37"><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_name</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="n">fs_opener</span><span class="o">.</span><span class="n">open</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+</span><span id="__span-7-38">    <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+</span><span id="__span-7-39">    <span class="nb">print</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>68046976-7dcb-11f0-90ac-2a20aea25780/68046976-7dcb-11f0-90ac-2a20aea25780/LC08_L2SP_044032_20231208_02_T1/otsu.tif
+{&#39;driver&#39;: &#39;GTiff&#39;, &#39;dtype&#39;: &#39;uint8&#39;, &#39;nodata&#39;: 0.0, &#39;width&#39;: 1821, &#39;height&#39;: 2402, &#39;count&#39;: 1, &#39;crs&#39;: CRS.from_wkt(&#39;PROJCS[&quot;WGS 84 / UTM zone 10N&quot;,GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;WGS_1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],PRIMEM[&quot;Greenwich&quot;,0,AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]],PROJECTION[&quot;Transverse_Mercator&quot;],PARAMETER[&quot;latitude_of_origin&quot;,0],PARAMETER[&quot;central_meridian&quot;,-123],PARAMETER[&quot;scale_factor&quot;,0.9996],PARAMETER[&quot;false_easting&quot;,500000],PARAMETER[&quot;false_northing&quot;,0],UNIT[&quot;metre&quot;,1,AUTHORITY[&quot;EPSG&quot;,&quot;9001&quot;]],AXIS[&quot;Easting&quot;,EAST],AXIS[&quot;Northing&quot;,NORTH],AUTHORITY[&quot;EPSG&quot;,&quot;32610&quot;]]&#39;), &#39;transform&#39;: Affine(30.0, 0.0, 636975.0,
+       0.0, -30.0, 4482615.0), &#39;blockxsize&#39;: 512, &#39;blockysize&#39;: 512, &#39;tiled&#39;: True, &#39;compress&#39;: &#39;lzw&#39;, &#39;interleave&#39;: &#39;band&#39;}
+</code></pre></div>
+<p>Inspecting the job result using cli</p>
+<div class="highlight"><pre><span></span><code><span id="__span-8-1"><span class="err">!</span><span class="n">aws</span> <span class="n">s3</span> <span class="n">ls</span> <span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">results</span><span class="o">/</span><span class="p">{</span><span class="n">job_id</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">job_id</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;inputs&quot;</span><span class="p">][</span><span class="s2">&quot;stac_items&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])}</span><span class="o">/</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>2025-08-20 13:42:57       3447 LC08_L2SP_044032_20231208_02_T1.json
+2025-08-20 13:42:57     406547 otsu.tif
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg">License CC BY-SA 4.0</a>, by <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

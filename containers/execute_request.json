@@ -1,0 +1,14 @@
+{
+    "inputs": {
+        "stac_items": [
+            "https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2/items/LC08_L2SP_044032_20231208_02_T1",
+            "https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2/items/LC08_L2SP_043033_20231201_02_T1"
+        ],
+        "aoi": "-121.399,39.834,-120.74,40.472",
+        "epsg": "EPSG:4326",
+        "bands": [
+            "green",
+            "nir08"
+        ]
+    }
+}

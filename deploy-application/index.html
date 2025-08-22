@@ -1,0 +1,1698 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../app/water-bodies-detection/">
+      
+      
+        <link rel="next" href="../list-processes/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Deploy the application - OGC API Processes with ZOO-Project</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../styles/css/app.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deploy-the-application-package" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OGC API Processes with ZOO-Project" class="md-header__button md-logo" aria-label="OGC API Processes with ZOO-Project" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M256.2 48C371 48.1 464 141.2 464 256c0 22.1-3.4 43.4-9.8 63.4-2 .4-4.1.6-6.2.6h-2.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V208c0-8.8 7.2-16 16-16s16-7.2 16-16-7.2-16-16-16h-24c-13.3 0-24 10.7-24 24s-10.7 24-24 24h-56c-8.8 0-16 7.2-16 16s-7.2 16-16 16h-25.4c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l70.1-70.1c2.1-2.1 3.3-5 3.3-8 0-6.2-5.1-11.3-11.3-11.3h-14.1c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l23.1-23.1c.8-.8 1.6-1.5 2.5-2.2zm182.2 308.1c-32.8 59.6-93.9 101.4-165.2 107.2-.7-2.3-1.1-4.8-1.1-7.3 0-13.3-10.7-24-24-24h-26.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V304c0-17.7 14.3-32 32-32h98.7c8.5 0 16.6 3.4 22.6 9.4l29.3 29.3c6 6 14.1 9.4 22.6 9.4h5.5c8.5 0 16.6 3.4 22.6 9.4l16 16c4.2 4.2 10 6.6 16 6.6 4.8 0 9.3 1.5 13 4.1zM256 512l26.2-1.3c-8.6.9-17.3 1.3-26.2 1.3m26.2-1.3C411.3 497.6 512 388.6 512 256 512 114.6 397.4 0 256 0S0 114.6 0 256c0 127.5 93.2 233.3 215.3 252.8 13.2 2.1 26.8 3.2 40.7 3.2zm-94.9-387.4-32 32c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l32-32c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OGC API Processes with ZOO-Project
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deploy the application
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OGC API Processes with ZOO-Project" class="md-nav__button md-logo" aria-label="OGC API Processes with ZOO-Project" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M256.2 48C371 48.1 464 141.2 464 256c0 22.1-3.4 43.4-9.8 63.4-2 .4-4.1.6-6.2.6h-2.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V208c0-8.8 7.2-16 16-16s16-7.2 16-16-7.2-16-16-16h-24c-13.3 0-24 10.7-24 24s-10.7 24-24 24h-56c-8.8 0-16 7.2-16 16s-7.2 16-16 16h-25.4c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l70.1-70.1c2.1-2.1 3.3-5 3.3-8 0-6.2-5.1-11.3-11.3-11.3h-14.1c-12.5 0-22.6-10.1-22.6-22.6 0-6 2.4-11.8 6.6-16l23.1-23.1c.8-.8 1.6-1.5 2.5-2.2zm182.2 308.1c-32.8 59.6-93.9 101.4-165.2 107.2-.7-2.3-1.1-4.8-1.1-7.3 0-13.3-10.7-24-24-24h-26.7c-8.5 0-16.6-3.4-22.6-9.4l-29.3-29.3c-6-6-9.4-14.1-9.4-22.6V304c0-17.7 14.3-32 32-32h98.7c8.5 0 16.6 3.4 22.6 9.4l29.3 29.3c6 6 14.1 9.4 22.6 9.4h5.5c8.5 0 16.6 3.4 22.6 9.4l16 16c4.2 4.2 10 6.6 16 6.6 4.8 0 9.3 1.5 13 4.1zM256 512l26.2-1.3c-8.6.9-17.3 1.3-26.2 1.3m26.2-1.3C411.3 497.6 512 388.6 512 256 512 114.6 397.4 0 256 0S0 114.6 0 256c0 127.5 93.2 233.3 215.3 252.8 13.2 2.1 26.8 3.2 40.7 3.2zm-94.9-387.4-32 32c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l32-32c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6"/></svg>
+
+    </a>
+    OGC API Processes with ZOO-Project
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../execution-scenario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Execution Scenario
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Introducing the application
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Introducing the application
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../app/water-bodies-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Water bodies detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deploy and run the EO application
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Deploy and run the EO application
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Deploy the application
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deploy the application
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-deploy-the-water_bodies-application-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on - Deploy the water_bodies Application Package
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ogc-application-package-encoding-applicationogcapppkgjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      OGC Application Package Encoding (application/ogcapppkg+json)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cwl-encoding-applicationcwlyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      CWL Encoding (application/cwl+yaml)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../list-processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List available processes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../describe-process/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Describe the process
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../execute-monitor-process/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Execute and monitor the process
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Package the EO application CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Package the EO application CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Creating the containers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Creating the containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../containers/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1_2" id="__nav_6_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Build and test the containers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Build and test the containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../containers/ogc_api_processes_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Process Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Create CWL CommandLineTools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Create CWL CommandLineTools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-cli/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-cli/prepare-execute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prepare Execute Request CommandLineTool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-cli/ogc-api-processes-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Process Client CommandLineTool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Create the CWL Workflows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Create the CWL Workflows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-workflow/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-workflow/eoap-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EO application API Workflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl-workflow/run-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running an OGC API Process with ZOO-Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/ogc-api-processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Processes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/ogc-api-processes-openapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OGC API Processes OpenAPI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/zoo-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ZOO-Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-deploy-the-water_bodies-application-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on - Deploy the water_bodies Application Package
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ogc-application-package-encoding-applicationogcapppkgjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      OGC Application Package Encoding (application/ogcapppkg+json)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cwl-encoding-applicationcwlyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      CWL Encoding (application/cwl+yaml)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="deploy-the-application-package">Deploy the Application Package</h1>
+<p>Deploying an Application Package using the OGC API Processes API uses the API resource highlighted in the table below:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Resource</strong></th>
+<th><strong>Path</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Part</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Landing page</td>
+<td><code>/</code></td>
+<td>Top-level resource serving as an entry point.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Conformance declaration</td>
+<td><code>/conformance</code></td>
+<td>Information about the functionality supported by the server.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>API Definition</td>
+<td><code>/api</code></td>
+<td>Metadata about the API itself.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Process list</td>
+<td><code>/processes</code></td>
+<td>Lists available processes with identifiers and links to descriptions.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Process description</td>
+<td><code>/processes/{processID}</code></td>
+<td>Retrieves detailed information about a specific process.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Process execution</td>
+<td><code>/processes/{processID}/execution</code> (POST)</td>
+<td>Executes a process, creating a job.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td><strong>Deploy Process</strong></td>
+<td><strong><code>/processes</code> (POST)</strong></td>
+<td><strong>Deploys a new process on the server.</strong></td>
+<td><strong>Part 2</strong></td>
+</tr>
+<tr>
+<td>Replace Process</td>
+<td><code>/processes/{processID}</code> (PUT)</td>
+<td>Replaces an existing process with a new version.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td>Undeploy Process</td>
+<td><code>/processes/{processID}</code> (DELETE)</td>
+<td>Removes an existing process from the server.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td>EO Application Package</td>
+<td><code>/processes/{processID}/package</code></td>
+<td>Get the EOAP associated with a deployed process.</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td>Job status info</td>
+<td><code>/jobs/{jobID}</code></td>
+<td>Retrieves the current status of a job.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Job results</td>
+<td><code>/jobs/{jobID}/results</code></td>
+<td>Retrieves the results of a job.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Job list</td>
+<td><code>/jobs</code></td>
+<td>Retrieves a list of submitted jobs.</td>
+<td>Part 1</td>
+</tr>
+<tr>
+<td>Job deletion</td>
+<td><code>/jobs/{jobID}</code> (DELETE)</td>
+<td>Cancels and deletes a job.</td>
+<td>Part 1</td>
+</tr>
+</tbody>
+</table>
+<p>This resource permits the deployment of the an Application Package and provide two options for the <code>Content-Type</code>.</p>
+<h2 id="hands-on-deploy-the-water_bodies-application-package">Hands-on - Deploy the water_bodies Application Package</h2>
+<p><strong>Encoding Options</strong></p>
+<p>The deployment can use two encodings that are based on the same CWL conformance class. Both methods utilize the same water_bodies.cwl file, but the way the file is provided differs:
+- OGC Application Package Encoding (application/ogcapppkg+json): This method allows you to reference the CWL file by providing its location, rather than including the file's content in the request.
+- CWL Encoding (application/cwl+yaml): This method requires the CWL file content to be included directly in the request body.</p>
+<p><strong>Request Configuration</strong></p>
+<p>When selecting a content type, the request body text area updates to contain a relevant payload template for that encoding.
+Warning: If the payload is manually edited, switching to a different encoding may not refresh the text area. In this case, the Reset button can be used to restore the appropriate template.</p>
+<p><strong>Server Response</strong></p>
+<p>After executing the deployment request, the server responds with a process summary similar to the one obtained from the previous process listing endpoint.
+The server’s response includes a Location header containing the URL to access the detailed process description.</p>
+<p><strong>Next Steps</strong> </p>
+<p>You can either:
+- Return to the list of available processes to verify the newly deployed process.
+- Proceed to the next step to review the process description in detail</p>
+<h2 id="setup">Setup</h2>
+<p>Lists available processes in the <code>acme</code> namespace.</p>
+<blockquote>
+<p><strong><em>NOTE:</em></strong>: if the <code>acme</code> namespace does not exist, ZOO Project will create it.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-0-2"><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+</span><span id="__span-0-3"><span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+</span><span id="__span-0-4"><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+</span><span id="__span-0-5"><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="__span-0-6"><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</span><span id="__span-0-7"><span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+</span><span id="__span-0-8"><span class="kn">from</span><span class="w"> </span><span class="nn">pystac.item_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">ItemCollection</span>
+</span><span id="__span-0-9"><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
+</span><span id="__span-0-10"><span class="n">namespace</span> <span class="o">=</span> <span class="s2">&quot;acme&quot;</span>
+</span><span id="__span-0-11">
+</span><span id="__span-0-12"><span class="n">ogc_api_endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;http://zoo-project-dru-service/</span><span class="si">{</span><span class="n">namespace</span><span class="si">}</span><span class="s2">/ogc-api&quot;</span>
+</span><span id="__span-0-13">
+</span><span id="__span-0-14"><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ogc_api_endpoint</span><span class="si">}</span><span class="s2">/processes&quot;</span><span class="p">)</span>
+</span><span id="__span-0-15">
+</span><span id="__span-0-16"><span class="n">r</span><span class="o">.</span><span class="n">status_code</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>200
+</code></pre></div>
+<p>If the application package was deployed previously, delete it.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-1-1"><span class="k">def</span><span class="w"> </span><span class="nf">undeploy</span><span class="p">(</span><span class="n">process_id</span><span class="p">):</span>
+</span><span id="__span-1-2">
+</span><span id="__span-1-3">    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ogc_api_endpoint</span><span class="si">}</span><span class="s2">/processes/</span><span class="si">{</span><span class="n">process_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-1-4">
+</span><span id="__span-1-5">    <span class="k">return</span> <span class="n">r</span>
+</span><span id="__span-1-6">
+</span><span id="__span-1-7"><span class="n">app_package_entry_point</span> <span class="o">=</span> <span class="s2">&quot;water-bodies&quot;</span>
+</span><span id="__span-1-8">
+</span><span id="__span-1-9"><span class="n">r</span> <span class="o">=</span> <span class="n">undeploy</span><span class="p">(</span><span class="n">app_package_entry_point</span><span class="p">)</span>
+</span><span id="__span-1-10">
+</span><span id="__span-1-11"><span class="n">r</span><span class="o">.</span><span class="n">status_code</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>404
+</code></pre></div>
+<h2 id="ogc-application-package-encoding-applicationogcapppkgjson">OGC Application Package Encoding (application/ogcapppkg+json)</h2>
+<p>OGC Application Package Encoding (application/ogcapppkg+json): This method allows you to reference the CWL file by providing its location, rather than including the file's content in the request.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><span class="n">app_package_entry_point</span> <span class="o">=</span> <span class="s2">&quot;water-bodies&quot;</span>
+</span><span id="__span-2-2"><span class="k">def</span><span class="w"> </span><span class="nf">app_package_deployment</span><span class="p">(</span><span class="n">app_package_entry_point</span><span class="p">,</span> <span class="n">app_package_url</span><span class="p">):</span>  
+</span><span id="__span-2-3">  <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span> 
+</span><span id="__span-2-4">          <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/ogcapppkg+json&quot;</span><span class="p">}</span>
+</span><span id="__span-2-5">  <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span><span id="__span-2-6">
+</span><span id="__span-2-7">      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ogc_api_endpoint</span><span class="si">}</span><span class="s2">/processes/?w=</span><span class="si">{</span><span class="n">app_package_entry_point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-2-8">      <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span><span id="__span-2-9">      <span class="n">json</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-2-10">        <span class="s2">&quot;executionUnit&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-2-11">          <span class="s2">&quot;href&quot;</span><span class="p">:</span> <span class="n">app_package_url</span><span class="p">,</span>
+</span><span id="__span-2-12">          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/cwl&quot;</span>
+</span><span id="__span-2-13">        <span class="p">}</span>
+</span><span id="__span-2-14">      <span class="p">}</span>
+</span><span id="__span-2-15">  <span class="p">)</span>
+</span><span id="__span-2-16">  <span class="k">return</span> <span class="n">response</span>
+</span><span id="__span-2-17">
+</span><span id="__span-2-18"><span class="k">def</span><span class="w"> </span><span class="nf">check_app_package_deployment</span><span class="p">(</span><span class="n">app_package_entry_point</span><span class="p">):</span>
+</span><span id="__span-2-19">    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ogc_api_endpoint</span><span class="si">}</span><span class="s2">/processes/&quot;</span><span class="p">)</span>
+</span><span id="__span-2-20">
+</span><span id="__span-2-21">    <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="__span-2-22">        <span class="c1"># Parse the JSON response</span>
+</span><span id="__span-2-23">        <span class="n">all_processes</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span><span id="__span-2-24">        <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">all_processes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;processes&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+</span><span id="__span-2-25">          <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">app_package_entry_point</span><span class="p">]:</span>
+</span><span id="__span-2-26">              <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Application package </span><span class="si">{</span><span class="n">app_package_entry_point</span><span class="si">}</span><span class="s2"> is already deployed.&quot;</span><span class="p">)</span>
+</span><span id="__span-2-27">              <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-2-28">          <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-2-29">              <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">app_package_entry_point</span><span class="si">}</span><span class="s2"> still not deployed.&quot;</span><span class="p">)</span>
+</span><span id="__span-2-30">              <span class="k">return</span> <span class="kc">False</span>
+</span><span id="__span-2-31">    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-2-32">        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to retrieve processes. Status code: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-2-33">        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-2-34">
+</span><span id="__span-2-35"><span class="k">def</span><span class="w"> </span><span class="nf">get_latest_application_package_version</span><span class="p">(</span><span class="n">repository_owner</span><span class="p">,</span> <span class="n">repo_name</span><span class="p">):</span>
+</span><span id="__span-2-36">
+</span><span id="__span-2-37">    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://api.github.com/repos/</span><span class="si">{</span><span class="n">repository_owner</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">repo_name</span><span class="si">}</span><span class="s2">/releases/latest&quot;</span>
+</span><span id="__span-2-38">    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span id="__span-2-39">    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>  <span class="c1"># raise error if request failed</span>
+</span><span id="__span-2-40">
+</span><span id="__span-2-41">    <span class="n">latest_tag</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tag_name&quot;</span><span class="p">)</span>
+</span><span id="__span-2-42">    <span class="k">return</span> <span class="n">latest_tag</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><span class="n">app_package_entry_point</span> <span class="o">=</span> <span class="s2">&quot;water-bodies&quot;</span>
+</span><span id="__span-3-2"><span class="n">is_package_deployed</span> <span class="o">=</span> <span class="n">check_app_package_deployment</span><span class="p">(</span><span class="n">app_package_entry_point</span><span class="p">)</span>
+</span><span id="__span-3-3"><span class="n">repo_name</span> <span class="o">=</span> <span class="s2">&quot;mastering-app-package&quot;</span>
+</span><span id="__span-3-4"><span class="n">repository_owner</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;REPOSITORY_OWNER&quot;</span><span class="p">,</span> <span class="s2">&quot;eoap&quot;</span><span class="p">)</span>
+</span><span id="__span-3-5"><span class="n">latest_application_package_version</span> <span class="o">=</span> <span class="n">get_latest_application_package_version</span><span class="p">(</span><span class="n">repository_owner</span><span class="p">,</span> <span class="n">repo_name</span><span class="p">)</span>
+</span><span id="__span-3-6"><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Latest version is:  </span><span class="si">{</span><span class="n">latest_application_package_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-7"><span class="n">app_package_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://github.com/</span><span class="si">{</span><span class="n">repository_owner</span><span class="si">}</span><span class="s2">/mastering-app-package/releases/download/</span><span class="si">{</span><span class="n">latest_application_package_version</span><span class="si">}</span><span class="s2">/app-water-bodies-cloud-native.</span><span class="si">{</span><span class="n">latest_application_package_version</span><span class="si">}</span><span class="s2">.cwl&quot;</span>
+</span><span id="__span-3-8"><span class="k">if</span> <span class="ow">not</span> <span class="n">is_package_deployed</span><span class="p">:</span>
+</span><span id="__span-3-9">
+</span><span id="__span-3-10">    <span class="n">response</span><span class="o">=</span> <span class="n">app_package_deployment</span><span class="p">(</span><span class="n">app_package_entry_point</span><span class="p">,</span> <span class="n">app_package_url</span><span class="p">)</span>
+</span><span id="__span-3-11">    <span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>[32m2025-08-20 13:40:19.690[0m | [33m[1mWARNING [0m | [36m__main__[0m:[36mcheck_app_package_deployment[0m:[36m29[0m - [33m[1mwater-bodies still not deployed.[0m
+[32m2025-08-20 13:40:19.985[0m | [1mINFO    [0m | [36m__main__[0m:[36m&lt;module&gt;[0m:[36m6[0m - [1mLatest version is:  1.1.1[0m
+
+
+{&#39;description&#39;: &#39;Water bodies detection based on NDWI and otsu threshold &#39;
+                &#39;applied to Sentinel-2 COG STAC items&#39;,
+ &#39;id&#39;: &#39;water-bodies&#39;,
+ &#39;jobControlOptions&#39;: [&#39;async-execute&#39;, &#39;dismiss&#39;],
+ &#39;links&#39;: [{&#39;href&#39;: &#39;http://localhost:8080/acme/ogc-api/processes/water-bodies/execution&#39;,
+            &#39;rel&#39;: &#39;http://www.opengis.net/def/rel/ogc/1.0/execute&#39;,
+            &#39;title&#39;: &#39;Execute End Point&#39;,
+            &#39;type&#39;: &#39;application/json&#39;}],
+ &#39;metadata&#39;: [{&#39;role&#39;: &#39;https://schema.org/softwareVersion&#39;, &#39;value&#39;: &#39;1.1.1&#39;},
+              {&#39;role&#39;: &#39;https://schema.org/author&#39;,
+               &#39;value&#39;: {&#39;@context&#39;: &#39;https://schema.org&#39;,
+                         &#39;@type&#39;: &#39;Person&#39;,
+                         &#39;s.affiliation&#39;: &#39;ACME&#39;,
+                         &#39;s.email&#39;: &#39;jane.doe@acme.earth&#39;,
+                         &#39;s.name&#39;: &#39;Jane Doe&#39;}}],
+ &#39;mutable&#39;: True,
+ &#39;outputTransmission&#39;: [&#39;value&#39;, &#39;reference&#39;],
+ &#39;title&#39;: &#39;Water bodies detection based on NDWI and otsu threshold&#39;,
+ &#39;version&#39;: &#39;1.1.1&#39;}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span id="__span-4-1"><span class="nb">dict</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;Date&#39;: &#39;Wed, 20 Aug 2025 13:40:19 GMT&#39;,
+ &#39;Server&#39;: &#39;Apache/2.4.41 (Ubuntu)&#39;,
+ &#39;X-Powered-By&#39;: &#39;ZOO-Project-DRU&#39;,
+ &#39;X-Also-Powered-By&#39;: &#39;jwt.securityIn&#39;,
+ &#39;X-Also-Also-Powered-By&#39;: &#39;dru.securityIn&#39;,
+ &#39;Location&#39;: &#39;http://localhost:8080/acme/ogc-api/processes/water-bodies&#39;,
+ &#39;Keep-Alive&#39;: &#39;timeout=5, max=100&#39;,
+ &#39;Connection&#39;: &#39;Keep-Alive&#39;,
+ &#39;Transfer-Encoding&#39;: &#39;chunked&#39;,
+ &#39;Content-Type&#39;: &#39;application/json;charset=UTF-8&#39;}
+</code></pre></div>
+<h2 id="cwl-encoding-applicationcwlyaml">CWL Encoding (application/cwl+yaml)</h2>
+<p>This method requires the CWL file content to be included directly in the request body.</p>
+<p>If the application package was deployed previously, delete it.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-5-1"><span class="n">app_package_entry_point</span> <span class="o">=</span> <span class="s2">&quot;water-bodies&quot;</span>
+</span><span id="__span-5-2">
+</span><span id="__span-5-3"><span class="n">r</span> <span class="o">=</span> <span class="n">undeploy</span><span class="p">(</span><span class="n">app_package_entry_point</span><span class="p">)</span>
+</span><span id="__span-5-4"><span class="n">r</span><span class="o">.</span><span class="n">status_code</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>204
+</code></pre></div>
+<p>Download the application package from https://github.com/eoap/mastering-app-package/releases/download/1.0.0/app-water-bodies-cloud-native.1.0.0.cwl</p>
+<div class="highlight"><pre><span></span><code><span id="__span-6-1"><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">app_package_url</span><span class="p">)</span>
+</span><span id="__span-6-2">
+</span><span id="__span-6-3"><span class="n">app_package_content</span>  <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</span><span id="__span-6-4">
+</span><span id="__span-6-5"><span class="n">app_package_content</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;cwlVersion&#39;: &#39;v1.0&#39;,
+ &#39;$namespaces&#39;: {&#39;s&#39;: &#39;https://schema.org/&#39;},
+ &#39;s:softwareVersion&#39;: &#39;1.1.1&#39;,
+ &#39;schemas&#39;: [&#39;http://schema.org/version/9.0/schemaorg-current-http.rdf&#39;],
+ &#39;$graph&#39;: [{&#39;class&#39;: &#39;Workflow&#39;,
+   &#39;id&#39;: &#39;water-bodies&#39;,
+   &#39;label&#39;: &#39;Water bodies detection based on NDWI and otsu threshold&#39;,
+   &#39;doc&#39;: &#39;Water bodies detection based on NDWI and otsu threshold applied to Sentinel-2 COG STAC items&#39;,
+   &#39;requirements&#39;: [{&#39;class&#39;: &#39;ScatterFeatureRequirement&#39;},
+    {&#39;class&#39;: &#39;SubworkflowFeatureRequirement&#39;}],
+   &#39;inputs&#39;: {&#39;aoi&#39;: {&#39;label&#39;: &#39;area of interest&#39;,
+     &#39;doc&#39;: &#39;area of interest as a bounding box&#39;,
+     &#39;type&#39;: &#39;string&#39;},
+    &#39;epsg&#39;: {&#39;label&#39;: &#39;EPSG code&#39;,
+     &#39;doc&#39;: &#39;EPSG code&#39;,
+     &#39;type&#39;: &#39;string&#39;,
+     &#39;default&#39;: &#39;EPSG:4326&#39;},
+    &#39;stac_items&#39;: {&#39;label&#39;: &#39;Sentinel-2 STAC items&#39;,
+     &#39;doc&#39;: &#39;list of Sentinel-2 COG STAC items&#39;,
+     &#39;type&#39;: &#39;string[]&#39;},
+    &#39;bands&#39;: {&#39;label&#39;: &#39;bands used for the NDWI&#39;,
+     &#39;doc&#39;: &#39;bands used for the NDWI&#39;,
+     &#39;type&#39;: &#39;string[]&#39;,
+     &#39;default&#39;: [&#39;green&#39;, &#39;nir&#39;]}},
+   &#39;outputs&#39;: [{&#39;id&#39;: &#39;stac_catalog&#39;,
+     &#39;outputSource&#39;: [&#39;node_stac/stac_catalog&#39;],
+     &#39;type&#39;: &#39;Directory&#39;}],
+   &#39;steps&#39;: {&#39;node_water_bodies&#39;: {&#39;run&#39;: &#39;#detect_water_body&#39;,
+     &#39;in&#39;: {&#39;item&#39;: &#39;stac_items&#39;,
+      &#39;aoi&#39;: &#39;aoi&#39;,
+      &#39;epsg&#39;: &#39;epsg&#39;,
+      &#39;bands&#39;: &#39;bands&#39;},
+     &#39;out&#39;: [&#39;detected_water_body&#39;],
+     &#39;scatter&#39;: &#39;item&#39;,
+     &#39;scatterMethod&#39;: &#39;dotproduct&#39;},
+    &#39;node_stac&#39;: {&#39;run&#39;: &#39;#stac&#39;,
+     &#39;in&#39;: {&#39;item&#39;: &#39;stac_items&#39;,
+      &#39;rasters&#39;: {&#39;source&#39;: &#39;node_water_bodies/detected_water_body&#39;}},
+     &#39;out&#39;: [&#39;stac_catalog&#39;]}}},
+  {&#39;class&#39;: &#39;Workflow&#39;,
+   &#39;id&#39;: &#39;detect_water_body&#39;,
+   &#39;label&#39;: &#39;Water body detection based on NDWI and otsu threshold&#39;,
+   &#39;doc&#39;: &#39;Water body detection based on NDWI and otsu threshold&#39;,
+   &#39;requirements&#39;: [{&#39;class&#39;: &#39;ScatterFeatureRequirement&#39;}],
+   &#39;inputs&#39;: {&#39;aoi&#39;: {&#39;doc&#39;: &#39;area of interest as a bounding box&#39;,
+     &#39;type&#39;: &#39;string&#39;},
+    &#39;epsg&#39;: {&#39;doc&#39;: &#39;EPSG code&#39;, &#39;type&#39;: &#39;string&#39;, &#39;default&#39;: &#39;EPSG:4326&#39;},
+    &#39;bands&#39;: {&#39;doc&#39;: &#39;bands used for the NDWI&#39;, &#39;type&#39;: &#39;string[]&#39;},
+    &#39;item&#39;: {&#39;doc&#39;: &#39;STAC item&#39;, &#39;type&#39;: &#39;string&#39;}},
+   &#39;outputs&#39;: [{&#39;id&#39;: &#39;detected_water_body&#39;,
+     &#39;outputSource&#39;: [&#39;node_otsu/binary_mask_item&#39;],
+     &#39;type&#39;: &#39;File&#39;}],
+   &#39;steps&#39;: {&#39;node_crop&#39;: {&#39;run&#39;: &#39;#crop&#39;,
+     &#39;in&#39;: {&#39;item&#39;: &#39;item&#39;, &#39;aoi&#39;: &#39;aoi&#39;, &#39;epsg&#39;: &#39;epsg&#39;, &#39;band&#39;: &#39;bands&#39;},
+     &#39;out&#39;: [&#39;cropped&#39;],
+     &#39;scatter&#39;: &#39;band&#39;,
+     &#39;scatterMethod&#39;: &#39;dotproduct&#39;},
+    &#39;node_normalized_difference&#39;: {&#39;run&#39;: &#39;#norm_diff&#39;,
+     &#39;in&#39;: {&#39;rasters&#39;: {&#39;source&#39;: &#39;node_crop/cropped&#39;}},
+     &#39;out&#39;: [&#39;ndwi&#39;]},
+    &#39;node_otsu&#39;: {&#39;run&#39;: &#39;#otsu&#39;,
+     &#39;in&#39;: {&#39;raster&#39;: {&#39;source&#39;: &#39;node_normalized_difference/ndwi&#39;}},
+     &#39;out&#39;: [&#39;binary_mask_item&#39;]}}},
+  {&#39;class&#39;: &#39;CommandLineTool&#39;,
+   &#39;id&#39;: &#39;crop&#39;,
+   &#39;requirements&#39;: {&#39;InlineJavascriptRequirement&#39;: {},
+    &#39;EnvVarRequirement&#39;: {&#39;envDef&#39;: {&#39;PATH&#39;: &#39;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&#39;,
+      &#39;PYTHONPATH&#39;: &#39;/app&#39;}},
+    &#39;ResourceRequirement&#39;: {&#39;coresMax&#39;: 1, &#39;ramMax&#39;: 512}},
+   &#39;hints&#39;: {&#39;DockerRequirement&#39;: {&#39;dockerPull&#39;: &#39;ghcr.io/parham-membari-terradue/mastering-app-package/crop@sha256:0fc019633a1968a611a07f335ddcc9a478f6971c72757a57e060423fae57473e&#39;}},
+   &#39;baseCommand&#39;: [&#39;python&#39;, &#39;-m&#39;, &#39;app&#39;],
+   &#39;arguments&#39;: [],
+   &#39;inputs&#39;: {&#39;item&#39;: {&#39;type&#39;: &#39;string&#39;,
+     &#39;inputBinding&#39;: {&#39;prefix&#39;: &#39;--input-item&#39;}},
+    &#39;aoi&#39;: {&#39;type&#39;: &#39;string&#39;, &#39;inputBinding&#39;: {&#39;prefix&#39;: &#39;--aoi&#39;}},
+    &#39;epsg&#39;: {&#39;type&#39;: &#39;string&#39;, &#39;inputBinding&#39;: {&#39;prefix&#39;: &#39;--epsg&#39;}},
+    &#39;band&#39;: {&#39;type&#39;: &#39;string&#39;, &#39;inputBinding&#39;: {&#39;prefix&#39;: &#39;--band&#39;}}},
+   &#39;outputs&#39;: {&#39;cropped&#39;: {&#39;outputBinding&#39;: {&#39;glob&#39;: &#39;*.tif&#39;},
+     &#39;type&#39;: &#39;File&#39;}}},
+  {&#39;class&#39;: &#39;CommandLineTool&#39;,
+   &#39;id&#39;: &#39;norm_diff&#39;,
+   &#39;requirements&#39;: {&#39;InlineJavascriptRequirement&#39;: {},
+    &#39;EnvVarRequirement&#39;: {&#39;envDef&#39;: {&#39;PATH&#39;: &#39;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&#39;,
+      &#39;PYTHONPATH&#39;: &#39;/app&#39;}},
+    &#39;ResourceRequirement&#39;: {&#39;coresMax&#39;: 1, &#39;ramMax&#39;: 512}},
+   &#39;hints&#39;: {&#39;DockerRequirement&#39;: {&#39;dockerPull&#39;: &#39;ghcr.io/parham-membari-terradue/mastering-app-package/norm_diff@sha256:e46491095215833722db2c3d3c24feae381c1008981ae3508973b6aa1f5a880a&#39;}},
+   &#39;baseCommand&#39;: [&#39;python&#39;, &#39;-m&#39;, &#39;app&#39;],
+   &#39;arguments&#39;: [],
+   &#39;inputs&#39;: {&#39;rasters&#39;: {&#39;type&#39;: &#39;File[]&#39;, &#39;inputBinding&#39;: {&#39;position&#39;: 1}}},
+   &#39;outputs&#39;: {&#39;ndwi&#39;: {&#39;outputBinding&#39;: {&#39;glob&#39;: &#39;*.tif&#39;}, &#39;type&#39;: &#39;File&#39;}}},
+  {&#39;class&#39;: &#39;CommandLineTool&#39;,
+   &#39;id&#39;: &#39;otsu&#39;,
+   &#39;requirements&#39;: {&#39;InlineJavascriptRequirement&#39;: {},
+    &#39;EnvVarRequirement&#39;: {&#39;envDef&#39;: {&#39;PATH&#39;: &#39;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&#39;,
+      &#39;PYTHONPATH&#39;: &#39;/app&#39;}},
+    &#39;ResourceRequirement&#39;: {&#39;coresMax&#39;: 1, &#39;ramMax&#39;: 512}},
+   &#39;hints&#39;: {&#39;DockerRequirement&#39;: {&#39;dockerPull&#39;: &#39;ghcr.io/parham-membari-terradue/mastering-app-package/otsu@sha256:f026bcac96c9bf1ce486855ea6e8fd27ccc501e82dbc6837021c32d9708d097a&#39;}},
+   &#39;baseCommand&#39;: [&#39;python&#39;, &#39;-m&#39;, &#39;app&#39;],
+   &#39;arguments&#39;: [],
+   &#39;inputs&#39;: {&#39;raster&#39;: {&#39;type&#39;: &#39;File&#39;, &#39;inputBinding&#39;: {&#39;position&#39;: 1}}},
+   &#39;outputs&#39;: {&#39;binary_mask_item&#39;: {&#39;outputBinding&#39;: {&#39;glob&#39;: &#39;*.tif&#39;},
+     &#39;type&#39;: &#39;File&#39;}}},
+  {&#39;class&#39;: &#39;CommandLineTool&#39;,
+   &#39;id&#39;: &#39;stac&#39;,
+   &#39;requirements&#39;: {&#39;InlineJavascriptRequirement&#39;: {},
+    &#39;EnvVarRequirement&#39;: {&#39;envDef&#39;: {&#39;PATH&#39;: &#39;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&#39;,
+      &#39;PYTHONPATH&#39;: &#39;/app&#39;}},
+    &#39;ResourceRequirement&#39;: {&#39;coresMax&#39;: 1, &#39;ramMax&#39;: 512}},
+   &#39;hints&#39;: {&#39;DockerRequirement&#39;: {&#39;dockerPull&#39;: &#39;ghcr.io/parham-membari-terradue/mastering-app-package/stac@sha256:c687a9f18ebb9352a150bb7ac2d687ec9e08e2f4ef2519da342012895dbb693e&#39;}},
+   &#39;baseCommand&#39;: [&#39;python&#39;, &#39;-m&#39;, &#39;app&#39;],
+   &#39;arguments&#39;: [],
+   &#39;inputs&#39;: {&#39;item&#39;: {&#39;type&#39;: {&#39;type&#39;: &#39;array&#39;,
+      &#39;items&#39;: &#39;string&#39;,
+      &#39;inputBinding&#39;: {&#39;prefix&#39;: &#39;--input-item&#39;}}},
+    &#39;rasters&#39;: {&#39;type&#39;: {&#39;type&#39;: &#39;array&#39;,
+      &#39;items&#39;: &#39;File&#39;,
+      &#39;inputBinding&#39;: {&#39;prefix&#39;: &#39;--water-body&#39;}}}},
+   &#39;outputs&#39;: {&#39;stac_catalog&#39;: {&#39;outputBinding&#39;: {&#39;glob&#39;: &#39;.&#39;},
+     &#39;type&#39;: &#39;Directory&#39;}}}],
+ &#39;s:codeRepository&#39;: {&#39;URL&#39;: &#39;https://github.com/parham-membari-terradue/mastering-app-package.git&#39;},
+ &#39;s:author&#39;: [{&#39;class&#39;: &#39;s:Person&#39;,
+   &#39;s.name&#39;: &#39;Jane Doe&#39;,
+   &#39;s.email&#39;: &#39;jane.doe@acme.earth&#39;,
+   &#39;s.affiliation&#39;: &#39;ACME&#39;}]}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span id="__span-7-1"><span class="k">def</span><span class="w"> </span><span class="nf">app_package_deployment_cwl_encoding</span><span class="p">(</span><span class="n">app_package_entry_point</span><span class="p">,</span> <span class="n">app_package_content</span><span class="p">):</span>  
+</span><span id="__span-7-2">
+</span><span id="__span-7-3">    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span> 
+</span><span id="__span-7-4">            <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/cwl+yaml&quot;</span><span class="p">}</span>
+</span><span id="__span-7-5">
+</span><span id="__span-7-6">    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span><span id="__span-7-7">        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ogc_api_endpoint</span><span class="si">}</span><span class="s2">/processes?w=</span><span class="si">{</span><span class="n">app_package_entry_point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-7-8">        <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span><span id="__span-7-9">        <span class="n">json</span><span class="o">=</span><span class="n">app_package_content</span>
+</span><span id="__span-7-10">    <span class="p">)</span>
+</span><span id="__span-7-11">    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+</span><span id="__span-7-12">    <span class="k">return</span> <span class="n">response</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code><span id="__span-8-1"><span class="n">app_package_entry_point</span> <span class="o">=</span> <span class="s2">&quot;water-bodies&quot;</span>
+</span><span id="__span-8-2"><span class="n">is_package_deployed</span> <span class="o">=</span> <span class="n">check_app_package_deployment</span><span class="p">(</span><span class="n">app_package_entry_point</span><span class="p">)</span>
+</span><span id="__span-8-3"><span class="k">if</span> <span class="ow">not</span> <span class="n">is_package_deployed</span><span class="p">:</span>
+</span><span id="__span-8-4">    <span class="n">response</span> <span class="o">=</span> <span class="n">app_package_deployment_cwl_encoding</span><span class="p">(</span><span class="n">app_package_entry_point</span><span class="p">,</span> <span class="n">app_package_content</span><span class="p">)</span>
+</span><span id="__span-8-5">    <span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>[32m2025-08-20 13:40:49.695[0m | [33m[1mWARNING [0m | [36m__main__[0m:[36mcheck_app_package_deployment[0m:[36m29[0m - [33m[1mwater-bodies still not deployed.[0m
+
+
+201
+{&#39;description&#39;: &#39;Water bodies detection based on NDWI and otsu threshold &#39;
+                &#39;applied to Sentinel-2 COG STAC items&#39;,
+ &#39;id&#39;: &#39;water-bodies&#39;,
+ &#39;jobControlOptions&#39;: [&#39;async-execute&#39;, &#39;dismiss&#39;],
+ &#39;links&#39;: [{&#39;href&#39;: &#39;http://localhost:8080/acme/ogc-api/processes/water-bodies/execution&#39;,
+            &#39;rel&#39;: &#39;http://www.opengis.net/def/rel/ogc/1.0/execute&#39;,
+            &#39;title&#39;: &#39;Execute End Point&#39;,
+            &#39;type&#39;: &#39;application/json&#39;}],
+ &#39;metadata&#39;: [{&#39;role&#39;: &#39;https://schema.org/softwareVersion&#39;, &#39;value&#39;: &#39;1.1.1&#39;},
+              {&#39;role&#39;: &#39;https://schema.org/author&#39;,
+               &#39;value&#39;: {&#39;@context&#39;: &#39;https://schema.org&#39;,
+                         &#39;@type&#39;: &#39;Person&#39;,
+                         &#39;s.affiliation&#39;: &#39;ACME&#39;,
+                         &#39;s.email&#39;: &#39;jane.doe@acme.earth&#39;,
+                         &#39;s.name&#39;: &#39;Jane Doe&#39;}}],
+ &#39;mutable&#39;: True,
+ &#39;outputTransmission&#39;: [&#39;value&#39;, &#39;reference&#39;],
+ &#39;title&#39;: &#39;Water bodies detection based on NDWI and otsu threshold&#39;,
+ &#39;version&#39;: &#39;1.1.1&#39;}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span id="__span-9-1"><span class="nb">dict</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;Date&#39;: &#39;Wed, 20 Aug 2025 13:40:49 GMT&#39;,
+ &#39;Server&#39;: &#39;Apache/2.4.41 (Ubuntu)&#39;,
+ &#39;X-Powered-By&#39;: &#39;ZOO-Project-DRU&#39;,
+ &#39;X-Also-Powered-By&#39;: &#39;jwt.securityIn&#39;,
+ &#39;X-Also-Also-Powered-By&#39;: &#39;dru.securityIn&#39;,
+ &#39;Location&#39;: &#39;http://localhost:8080/acme/ogc-api/processes/water-bodies&#39;,
+ &#39;Keep-Alive&#39;: &#39;timeout=5, max=100&#39;,
+ &#39;Connection&#39;: &#39;Keep-Alive&#39;,
+ &#39;Transfer-Encoding&#39;: &#39;chunked&#39;,
+ &#39;Content-Type&#39;: &#39;application/json;charset=UTF-8&#39;}
+</code></pre></div>
+<p><strong>Next Steps</strong> </p>
+<p>You can either:
+- Return to the list of available processes to verify the newly deployed process.
+- Proceed to the next step to review the process description in detail</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg">License CC BY-SA 4.0</a>, by <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
