@@ -20,7 +20,7 @@ Build the container image with:
 
 ```bash linenums="1" title="terminal"
 --8<--
-build_container_ogc_api_processes_client.sh
+docs/containers/build_container_ogc_api_processes_client.sh
 --8<--
 ```
 
@@ -81,7 +81,7 @@ Let's break down what this command does:
 
 ```bash linenums="1" title="execute_request.json"
 --8<--
-./execute_request.json
+docs/containers/execute_request.json
 --8<--
 ```
 

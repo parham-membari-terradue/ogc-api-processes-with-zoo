@@ -8,9 +8,9 @@ Wrap the `prepare-execute-request` step as a Common Workflow Language CommandLin
 
 The CWL document below shows the `prepare-execute-request` step wrapped as a CWL CommandLineTool:
 
-```yaml linenums="1" hl_lines="9-12 49-53" title="cwl-cli/prepare-execute-request-cli.cwl"
+```yaml linenums="1" title="prepare-execute-request-cli.cwl"
 --8<--
-cwl-cli/prepare-execute-request-cli.cwl
+docs/cwl-cli/prepare-execute-request-cli.cwl
 --8<--
 ```
 

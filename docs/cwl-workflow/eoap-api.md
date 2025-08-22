@@ -57,8 +57,8 @@ graph TB
 
 The CWL Workflow is shown below and the lines highlighted chain the steps:
 
-```yaml linenums="1" hl_lines="8-71" title="app-water-body-cloud-native.cwl"
+```yaml linenums="1" title="eoap-api-cli.cwl"
 --8<--
-cwl-workflow/eoap-api-cli.cwl
+cwl-workflows/eoap-api-cli.cwl
 --8<--
 ```

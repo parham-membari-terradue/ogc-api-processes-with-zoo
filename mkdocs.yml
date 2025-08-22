@@ -1,9 +1,10 @@
 site_name: OGC API Processes with ZOO-Project
 
 theme:
-    logo: assets/icon-eoap.png
+    
     name: material
-
+    icon: 
+      logo: fontawesome/solid/earth-europe
     palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -28,6 +29,7 @@ markdown_extensions:
   - abbr
   - admonition
   - footnotes
+  - attr_list
   - pymdownx.caret
   - pymdownx.mark
   - pymdownx.tilde
@@ -45,6 +47,9 @@ markdown_extensions:
       base_path: './'
   - pymdownx.highlight:
       line_spans: __span
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra_css:
   - styles/css/app.css
@@ -73,7 +78,6 @@ nav:
         - OGC API Process Client: containers/ogc_api_processes_client.md
     - Create CWL CommandLineTools:
       - Scope: cwl-cli/scope.md
-      - STAC Item Discovery CommandLineTool: cwl-cli/stac-item-discovery.md
       - Prepare Execute Request CommandLineTool: cwl-cli/prepare-execute.md
       - OGC API Process Client CommandLineTool: cwl-cli/ogc-api-processes-client.md
     - Create the CWL Workflows:

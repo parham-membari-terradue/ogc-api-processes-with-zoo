@@ -8,9 +8,9 @@ Wrap the `ogc-api-processes-client` step as a Common Workflow Language CommandLi
 
 The CWL document below shows the `ogc-api-processes-client` step wrapped as a CWL CommandLineTool:
 
-```yaml linenums="1" hl_lines="9-12 49-53" title="cwl-cli/ogc-api-processes-client-cli.cwl"
+```yaml linenums="1" title="ogc-api-processes-client-cli.cwl"
 --8<--
-cwl-cli/ogc-api-processes-client-cli.cwl
+docs/cwl-cli/ogc-api-processes-client-cli.cwl
 --8<--
 ```
 
